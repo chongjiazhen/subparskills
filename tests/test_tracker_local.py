@@ -129,6 +129,68 @@ class TrackerLocalTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "done status requires evidence"):
                 parse_ticket(path)
 
+    def test_parse_ticket_retains_fenced_evidence_content(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = Path(temp) / "001-ticket.md"
+            evidence = "## Evidence\n\n```console\npytest -q\n```"
+            path.write_text(
+                "# 001: Example\n\n"
+                "Status: done\n"
+                "Claimed by: —\n"
+                "Claimed at: —\n"
+                "Blocked by: None\n\n"
+                f"{evidence}\n",
+                encoding="utf-8",
+            )
+
+            ticket = parse_ticket(path)
+
+        self.assertEqual("```console\npytest -q\n```", ticket.evidence)
+
+    def test_parse_ticket_uses_first_real_evidence_section(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = Path(temp) / "001-ticket.md"
+            path.write_text(
+                "# 001: Example\n\n"
+                "Status: done\n"
+                "Claimed by: —\n"
+                "Claimed at: —\n"
+                "Blocked by: None\n\n"
+                "## Evidence\n\n"
+                "## Notes\n\n"
+                "## Evidence\n"
+                "pytest -q: passed\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "done status requires evidence"):
+                parse_ticket(path)
+
+    def test_parse_ticket_rejects_tilde_fenced_evidence_heading(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = Path(temp) / "001-ticket.md"
+            path.write_text(
+                "# 001: Example\n\n"
+                "Status: done\n"
+                "Claimed by: —\n"
+                "Claimed at: —\n"
+                "Blocked by: None\n\n"
+                "~~~markdown\n"
+                "## Evidence\n"
+                "pytest -q: passed\n"
+                "~~~\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "done status requires evidence"):
+                parse_ticket(path)
+
     def test_frontier_excludes_done_blocker_without_evidence(self) -> None:
         tickets = {
             1: Ticket(1, "Blocker", "done", None, None, (), Path("001-blocker.md")),

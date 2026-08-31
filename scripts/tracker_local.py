@@ -168,6 +168,8 @@ def _parse_evidence(lines: list[str]) -> str:
     for line in lines:
         opening = FENCE_OPEN.match(line)
         if fence_character is not None:
+            if evidence is not None:
+                evidence.append(line)
             if (
                 opening is not None
                 and opening["marker"][0] == fence_character
@@ -178,10 +180,12 @@ def _parse_evidence(lines: list[str]) -> str:
                 fence_length = 0
             continue
         if opening is not None:
+            if evidence is not None:
+                evidence.append(line)
             fence_character = opening["marker"][0]
             fence_length = len(opening["marker"])
             continue
-        if re.fullmatch(r"##\s+Evidence\s*", line):
+        if evidence is None and re.fullmatch(r"##\s+Evidence\s*", line):
             evidence = []
             continue
         if evidence is not None:
