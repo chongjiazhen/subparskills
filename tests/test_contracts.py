@@ -12,7 +12,14 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
-EXPECTED_PACKS = {"core", "delivery", "architecture"}
+EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier"}
+TRACKER_RESOURCES = {
+    "ticket-schema.md",
+    "state-model.md",
+    "backends/local.md",
+    "backends/github.md",
+}
+EXPECTED_PACKS = {"core", "delivery", "architecture", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
 
@@ -59,6 +66,14 @@ class FrameworkContracts(unittest.TestCase):
         self.assertEqual(EXPECTED_PACKS, found)
         core = (ROOT / "packs/core.yml").read_text(encoding="utf-8")
         self.assertTrue(all(f"  - {name}" in core for name in EXPECTED_CORE))
+        tracker = (ROOT / "packs/tracker.yml").read_text(encoding="utf-8")
+        self.assertTrue(all(f"  - {name}" in tracker for name in EXPECTED_TRACKER))
+
+    def test_tracker_skills_do_not_contain_github_access_instructions(self) -> None:
+        for skill_id in EXPECTED_TRACKER:
+            body = (SKILLS / skill_id / "SKILL.md").read_text(encoding="utf-8")
+            for prohibited in ("gh ", "api.github.com", "/issues/"):
+                self.assertNotIn(prohibited, body, skill_id)
 
     def test_adapters_are_thin_and_cover_catalog(self) -> None:
         catalog = sorted(path.parent.name for path in SKILLS.glob("*/SKILL.md"))
@@ -118,7 +133,7 @@ class FrameworkContracts(unittest.TestCase):
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 14 skills", result.stdout)
+        self.assertIn("Found 18 skills", result.stdout)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:
@@ -141,6 +156,75 @@ class FrameworkContracts(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr + result.stdout)
             installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
             self.assertEqual(EXPECTED_CORE, installed)
+
+    def test_tracker_pack_installs_only_tracker_skills_for_codex(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="subparskills-tracker-pack-") as temp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/install_adapter.py",
+                    "--harness",
+                    "codex",
+                    "--pack",
+                    "tracker",
+                    "--destination",
+                    temp,
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+            installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
+            self.assertEqual(EXPECTED_TRACKER, installed)
+
+    def test_tracker_pack_installs_canonical_resources_for_codex(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="subparskills-tracker-resources-") as temp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/install_adapter.py",
+                    "--harness",
+                    "codex",
+                    "--pack",
+                    "tracker",
+                    "--destination",
+                    temp,
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+            for relative_path in TRACKER_RESOURCES:
+                source = SKILLS / "tracker" / relative_path
+                installed = Path(temp) / ".agents/skills/tracker" / relative_path
+                self.assertEqual(source.read_bytes(), installed.read_bytes(), relative_path)
+
+    def test_tracker_pack_installs_only_tracker_commands_for_opencode(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="subparskills-opencode-tracker-") as temp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/install_adapter.py",
+                    "--harness",
+                    "opencode",
+                    "--pack",
+                    "tracker",
+                    "--destination",
+                    temp,
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+            command_dir = Path(temp) / ".opencode/commands"
+            installed = {path.stem for path in command_dir.glob("*.md")}
+            self.assertEqual(EXPECTED_TRACKER, installed)
 
 
 if __name__ == "__main__":

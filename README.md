@@ -29,6 +29,18 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 - `core`: `diagnose`, `tdd`, `verify`, `review`.
 - `delivery`: deliberate workflow skills and operator commands.
 - `architecture`: domain modeling and module depth.
+- `tracker`: opt-in ticket workflow, separate from `delivery`.
+
+The tracker pack uses local Markdown tickets by default. Configure tracker
+behavior in `.agents/tracker.md`; local tickets live in `.agents/tickets/` and
+can be committed with the project. Use the GitHub backend only when
+`.agents/tracker.md` explicitly contains `Backend: github`.
+
+Install the tracker pack into a project-local Codex layout with:
+
+```sh
+python scripts/install_adapter.py --harness codex --pack tracker --destination .
+```
 
 Commands are explicit operator entry points. Skills contain canonical procedure bodies. Adapters must reference canonical skills and must not fork prose.
 
