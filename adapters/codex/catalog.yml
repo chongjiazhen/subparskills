@@ -4,6 +4,8 @@ native_path: .agents/skills
 skills:
   - id: architecture-improvement
     source: ../../skills/architecture-improvement/SKILL.md
+  - id: claim-ticket
+    source: ../../skills/claim-ticket/SKILL.md
   - id: deep-modules
     source: ../../skills/deep-modules/SKILL.md
   - id: diagnose
@@ -26,7 +28,13 @@ skills:
     source: ../../skills/review/SKILL.md
   - id: tdd
     source: ../../skills/tdd/SKILL.md
+  - id: to-tickets
+    source: ../../skills/to-tickets/SKILL.md
+  - id: triage
+    source: ../../skills/triage/SKILL.md
   - id: verify
     source: ../../skills/verify/SKILL.md
+  - id: work-frontier
+    source: ../../skills/work-frontier/SKILL.md
   - id: worktrees
     source: ../../skills/worktrees/SKILL.md

@@ -21,5 +21,5 @@ metadata: { pack: tracker, source: merge }
    implementation phases.
 5. Show the proposed ticket set, acceptance criteria, and blockers to the user.
    Obtain approval before publishing tickets.
-6. After approval, publish through the backend selected by the tracker
+6. After approval, publish via the backend selected by the tracker
    configuration. Follow the corresponding guide in `../tracker/backends/`.

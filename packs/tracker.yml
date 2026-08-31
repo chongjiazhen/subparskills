@@ -1,0 +1,7 @@
+name: tracker
+description: Local tracker workflow, opt-in.
+skills:
+  - to-tickets
+  - triage
+  - claim-ticket
+  - work-frontier
