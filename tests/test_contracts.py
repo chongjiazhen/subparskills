@@ -12,6 +12,18 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
+EXPECTED_DELIVERY = {
+    "choose-skill",
+    "grill",
+    "plan",
+    "implement",
+    "handoff",
+    "worktrees",
+    "parallel-execution",
+    "finish",
+    "writing-for-agents",
+    "wait-what",
+}
 EXPECTED_PACKS = {"core", "delivery", "architecture"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
@@ -62,6 +74,15 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(f"[{name}]({name})", body)
             self.assertTrue((SKILLS / "architecture-improvement" / name).is_file())
 
+    def test_writing_for_agents_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "writing-for-agents/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[SKILL-AUTHORING.md](SKILL-AUTHORING.md)", body)
+        self.assertTrue((SKILLS / "writing-for-agents" / "SKILL-AUTHORING.md").is_file())
+
+    def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
+        data = frontmatter(SKILLS / "choose-skill/SKILL.md")
+        self.assertIn("invocation: user", data["metadata"])
+
     def test_readme_documents_private_overlay_boundary(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("`v0.2.0`", readme)
@@ -90,6 +111,8 @@ class FrameworkContracts(unittest.TestCase):
         self.assertEqual(EXPECTED_PACKS, found)
         core = (ROOT / "packs/core.yml").read_text(encoding="utf-8")
         self.assertTrue(all(f"  - {name}" in core for name in EXPECTED_CORE))
+        delivery = (ROOT / "packs/delivery.yml").read_text(encoding="utf-8")
+        self.assertTrue(all(f"  - {name}" in delivery for name in EXPECTED_DELIVERY))
 
     def test_adapters_are_thin_and_cover_catalog(self) -> None:
         catalog = sorted(path.parent.name for path in SKILLS.glob("*/SKILL.md"))
@@ -149,7 +172,7 @@ class FrameworkContracts(unittest.TestCase):
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 14 skills", result.stdout)
+        self.assertIn("Found 17 skills", result.stdout)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:

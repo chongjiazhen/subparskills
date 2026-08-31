@@ -27,7 +27,7 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 ## Packs
 
 - `core`: `diagnose`, `tdd`, `verify`, `review`.
-- `delivery`: deliberate workflow skills and operator commands.
+- `delivery`: deliberate workflow skills, operator commands, a manual router, and opt-in productivity disciplines such as prompt repair and agent-facing writing.
 - `architecture`: domain modeling and module depth.
 
 Commands are explicit operator entry points. Skills contain canonical procedure bodies. Adapters must reference canonical skills and must not fork prose.

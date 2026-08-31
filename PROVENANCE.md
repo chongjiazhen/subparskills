@@ -14,11 +14,11 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | obra/superpowers: systematic-debugging | b36e0829 | merge | diagnose | Feedback-loop-first diagnosis. |
 | obra/superpowers: test-driven-development | b36e0829 | merge | tdd | Real-behavior red-green gate. |
 | obra/superpowers: using-git-worktrees | b36e0829 | adopt | worktrees | Generic Git only. |
-| obra/superpowers: using-superpowers | b36e0829 | exclude | - | Universal bootstrap is not portable. |
+| obra/superpowers: using-superpowers | b36e0829 | merge | choose-skill | Stripped to manual routing over public skills; no universal bootstrap. |
 | obra/superpowers: verification-before-completion | b36e0829 | adopt | verify | Evidence before claims. |
 | obra/superpowers: writing-plans | b36e0829 | merge | plan | No required artifact path. |
-| obra/superpowers: writing-skills | b36e0829 | exclude | - | Out of v0.1.0 scope. |
-| mattpocock/skills: ask-matt | 6654f6b6 | exclude | - | Persona-specific. |
+| obra/superpowers: writing-skills | b36e0829 | merge | writing-for-agents | Folded portable skill-authoring guidance into the public writing discipline. |
+| mattpocock/skills: ask-matt | 6654f6b6 | merge | choose-skill | Public router over the portable catalog only. |
 | mattpocock/skills: code-review | 6654f6b6 | merge | review | One canonical review discipline. |
 | mattpocock/skills: codebase-design | 6654f6b6 | merge | deep-modules | Deep-module design. |
 | mattpocock/skills: diagnosing-bugs | 6654f6b6 | merge | diagnose | Feedback-loop diagnosis. |
@@ -53,5 +53,5 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | mattpocock/skills: handoff | 6654f6b6 | adopt | handoff | Portable structured handoff. |
 | mattpocock/skills: teach | 6654f6b6 | exclude | - | Learning workflow deferred. |
 | mattpocock/skills: to-questionnaire | 6654f6b6 | exclude | - | Questionnaire workflow deferred. |
-| mattpocock/skills: wait-what | 6654f6b6 | exclude | - | Prompt-only capability deferred. |
-| mattpocock/skills: writing-for-agents | 6654f6b6 | exclude | - | Writing workflow deferred. |
+| mattpocock/skills: wait-what | 6654f6b6 | adopt | wait-what | Portable re-pitch prompt with glossary-aware wording. |
+| mattpocock/skills: writing-for-agents | 6654f6b6 | merge | writing-for-agents | Portable agent-document guidance plus merged skill-authoring reference. |
