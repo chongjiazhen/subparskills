@@ -75,6 +75,8 @@ def parse_ticket(path: Path) -> Ticket:
     claimed_by, claimed_at = _parse_claim(
         metadata["Claimed by"], metadata["Claimed at"]
     )
+    if status == "claimed" and claimed_by is None:
+        raise ValueError("claimed status requires claim metadata")
     blockers = _parse_blockers(metadata["Blocked by"])
     return Ticket(
         number=number,
@@ -126,6 +128,8 @@ def _parse_claim(claimed_by: str, claimed_at: str) -> tuple[str | None, str | No
         raise ValueError("claim actor and timestamp must be paired")
     if not claimed_at.endswith("Z"):
         raise ValueError("claim timestamp must be UTC and end in Z")
+    if "T" not in claimed_at:
+        raise ValueError("claim timestamp must be an ISO-8601 UTC date-time")
     try:
         timestamp = datetime.fromisoformat(f"{claimed_at[:-1]}+00:00")
     except ValueError as error:

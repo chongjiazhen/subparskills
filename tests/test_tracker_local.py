@@ -143,6 +143,27 @@ class TrackerLocalTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "UTC"):
                 parse_ticket(non_utc_timestamp)
 
+    def test_parse_ticket_rejects_claimed_status_without_claim_metadata(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = self.write_ticket(Path(temp), 1, status="claimed")
+            with self.assertRaisesRegex(ValueError, "claimed status"):
+                parse_ticket(path)
+
+    def test_parse_ticket_rejects_date_only_claim_timestamp(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = self.write_ticket(
+                Path(temp),
+                1,
+                claimed_by="Riley",
+                claimed_at="2026-08-31Z",
+            )
+            with self.assertRaisesRegex(ValueError, "date-time"):
+                parse_ticket(path)
+
 
 if __name__ == "__main__":
     unittest.main()
