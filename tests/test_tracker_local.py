@@ -108,6 +108,27 @@ class TrackerLocalTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "done status requires evidence"):
                 load_tickets(directory)
 
+    def test_parse_ticket_rejects_fenced_evidence_heading(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = Path(temp) / "001-ticket.md"
+            path.write_text(
+                "# 001: Example\n\n"
+                "Status: done\n"
+                "Claimed by: —\n"
+                "Claimed at: —\n"
+                "Blocked by: None\n\n"
+                "```markdown\n"
+                "## Evidence\n"
+                "pytest -q: passed\n"
+                "```\n",
+                encoding="utf-8",
+            )
+
+            with self.assertRaisesRegex(ValueError, "done status requires evidence"):
+                parse_ticket(path)
+
     def test_frontier_excludes_done_blocker_without_evidence(self) -> None:
         tickets = {
             1: Ticket(1, "Blocker", "done", None, None, (), Path("001-blocker.md")),

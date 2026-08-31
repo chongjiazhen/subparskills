@@ -24,6 +24,7 @@ HEADING = re.compile(r"^#\s+(?P<number>\d+):\s*(?P<title>.+?)\s*$")
 METADATA = re.compile(r"^(Status|Claimed by|Claimed at|Blocked by):\s*(.*?)\s*$")
 REQUIRED_METADATA = ("Status", "Claimed by", "Claimed at", "Blocked by")
 UNCLAIMED = {"", "—", "-"}
+FENCE_OPEN = re.compile(r"^\s{0,3}(?P<marker>`{3,}|~{3,})")
 
 
 @dataclass(frozen=True)
@@ -161,12 +162,32 @@ def _parse_blockers(value: str) -> tuple[int, ...]:
 
 
 def _parse_evidence(lines: list[str]) -> str:
-    for index, line in enumerate(lines):
+    fence_character: str | None = None
+    fence_length = 0
+    evidence: list[str] | None = None
+    for line in lines:
+        opening = FENCE_OPEN.match(line)
+        if fence_character is not None:
+            if (
+                opening is not None
+                and opening["marker"][0] == fence_character
+                and len(opening["marker"]) >= fence_length
+                and not line[opening.end() :].strip()
+            ):
+                fence_character = None
+                fence_length = 0
+            continue
+        if opening is not None:
+            fence_character = opening["marker"][0]
+            fence_length = len(opening["marker"])
+            continue
         if re.fullmatch(r"##\s+Evidence\s*", line):
-            section: list[str] = []
-            for content_line in lines[index + 1 :]:
-                if re.match(r"##\s+", content_line):
-                    break
-                section.append(content_line)
-            return "\n".join(section).strip()
+            evidence = []
+            continue
+        if evidence is not None:
+            if re.match(r"##\s+", line):
+                break
+            evidence.append(line)
+    if evidence is not None:
+        return "\n".join(evidence).strip()
     return ""
