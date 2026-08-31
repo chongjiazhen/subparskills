@@ -62,6 +62,11 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(f"[{name}]({name})", body)
             self.assertTrue((SKILLS / "architecture-improvement" / name).is_file())
 
+    def test_readme_documents_private_overlay_boundary(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("private overlay", readme.lower())
+        self.assertTrue((ROOT / "CHANGELOG.md").is_file())
+
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()
         for path in (ROOT / "packs").glob("*.yml"):
