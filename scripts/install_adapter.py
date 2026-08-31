@@ -51,6 +51,12 @@ def copy_file(source: Path, target: Path) -> None:
     shutil.copyfile(source, target)
 
 
+def copy_tracker_resources(target: Path) -> None:
+    source_root = ROOT / "skills" / "tracker"
+    for source in source_root.rglob("*.md"):
+        copy_file(source, target / source.relative_to(source_root))
+
+
 def command_members(pack: str | None) -> set[str]:
     if pack is None:
         return {path.stem for path in (ROOT / "commands").glob("*.md")}
@@ -70,6 +76,8 @@ def main() -> None:
     installed = [(skill_id, source) for skill_id, source in entries(catalog) if selected is None or skill_id in selected]
     for skill_id, source in installed:
         copy_file(source, args.destination / native_path / skill_id / "SKILL.md")
+    if args.pack is None or args.pack == "tracker":
+        copy_tracker_resources(args.destination / native_path / "tracker")
     if args.harness == "opencode":
         for command_name in command_members(args.pack):
             command = ROOT / "commands" / f"{command_name}.md"

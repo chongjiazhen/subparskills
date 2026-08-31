@@ -7,7 +7,7 @@ import sys
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from tracker_local import frontier, load_tickets, parse_ticket
+from tracker_local import Ticket, frontier, load_tickets, parse_ticket
 
 
 class TrackerLocalTests(unittest.TestCase):
@@ -21,16 +21,19 @@ class TrackerLocalTests(unittest.TestCase):
         claimed_by: str = "—",
         claimed_at: str = "—",
         blocked_by: str = "None",
+        evidence: str | None = None,
     ) -> Path:
         path = directory / f"{number:03d}-ticket.md"
-        path.write_text(
+        body = (
             f"# {number:03d}: {title}\n\n"
             f"Status: {status}\n"
             f"Claimed by: {claimed_by}\n"
             f"Claimed at: {claimed_at}\n"
-            f"Blocked by: {blocked_by}\n",
-            encoding="utf-8",
+            f"Blocked by: {blocked_by}\n"
         )
+        if evidence is not None:
+            body += f"\n## Evidence\n\n{evidence}\n"
+        path.write_text(body, encoding="utf-8")
         return path
 
     def test_parse_ticket_reads_metadata(self) -> None:
@@ -57,7 +60,7 @@ class TrackerLocalTests(unittest.TestCase):
         with TemporaryDirectory() as temp:
             directory = Path(temp)
             self.write_ticket(directory, 1)
-            self.write_ticket(directory, 2, status="done")
+            self.write_ticket(directory, 2, status="done", evidence="pytest -q: passed")
             self.write_ticket(directory, 3, blocked_by="002")
             self.write_ticket(directory, 4, blocked_by="005")
             self.write_ticket(
@@ -69,6 +72,57 @@ class TrackerLocalTests(unittest.TestCase):
             tickets = load_tickets(directory)
 
         self.assertEqual([1, 3], [ticket.number for ticket in frontier(tickets)])
+
+    def test_parse_ticket_reads_evidence_section(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            path = self.write_ticket(
+                Path(temp),
+                1,
+                evidence="Command: pytest -q\nResult: 24 passed",
+            )
+            ticket = parse_ticket(path)
+
+        self.assertEqual("Command: pytest -q\nResult: 24 passed", ticket.evidence)
+
+    def test_load_tickets_rejects_done_blocker_without_evidence_section(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            directory = Path(temp)
+            self.write_ticket(directory, 1, status="done")
+            self.write_ticket(directory, 2, blocked_by="001")
+
+            with self.assertRaisesRegex(ValueError, "done status requires evidence"):
+                load_tickets(directory)
+
+    def test_load_tickets_rejects_done_blocker_with_empty_evidence_section(self) -> None:
+        from tempfile import TemporaryDirectory
+
+        with TemporaryDirectory() as temp:
+            directory = Path(temp)
+            self.write_ticket(directory, 1, status="done", evidence="   ")
+            self.write_ticket(directory, 2, blocked_by="001")
+
+            with self.assertRaisesRegex(ValueError, "done status requires evidence"):
+                load_tickets(directory)
+
+    def test_frontier_excludes_done_blocker_without_evidence(self) -> None:
+        tickets = {
+            1: Ticket(1, "Blocker", "done", None, None, (), Path("001-blocker.md")),
+            2: Ticket(
+                2,
+                "Dependent",
+                "ready-for-agent",
+                None,
+                None,
+                (1,),
+                Path("002-dependent.md"),
+            ),
+        }
+
+        self.assertEqual([], frontier(tickets))
 
     def test_parse_ticket_rejects_malformed_filename(self) -> None:
         from tempfile import TemporaryDirectory

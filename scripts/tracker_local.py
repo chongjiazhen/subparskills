@@ -35,6 +35,7 @@ class Ticket:
     claimed_at: str | None
     blockers: tuple[int, ...]
     path: Path
+    evidence: str = ""
 
 
 def parse_ticket(path: Path) -> Ticket:
@@ -78,6 +79,9 @@ def parse_ticket(path: Path) -> Ticket:
     if status == "claimed" and claimed_by is None:
         raise ValueError("claimed status requires claim metadata")
     blockers = _parse_blockers(metadata["Blocked by"])
+    evidence = _parse_evidence(lines)
+    if status == "done" and not evidence:
+        raise ValueError("done status requires evidence")
     return Ticket(
         number=number,
         title=heading_match["title"],
@@ -86,6 +90,7 @@ def parse_ticket(path: Path) -> Ticket:
         claimed_at=claimed_at,
         blockers=blockers,
         path=path,
+        evidence=evidence,
     )
 
 
@@ -115,7 +120,11 @@ def frontier(tickets: dict[int, Ticket]) -> list[Ticket]:
             for ticket in tickets.values()
             if ticket.status == "ready-for-agent"
             and ticket.claimed_by is None
-            and all(tickets[blocker].status == "done" for blocker in ticket.blockers)
+            and all(
+                tickets[blocker].status == "done"
+                and bool(tickets[blocker].evidence.strip())
+                for blocker in ticket.blockers
+            )
         ),
         key=lambda ticket: ticket.number,
     )
@@ -149,3 +158,15 @@ def _parse_blockers(value: str) -> tuple[int, ...]:
     if any(blocker < 1 for blocker in blockers) or len(set(blockers)) != len(blockers):
         raise ValueError(f"malformed blocker list: {value}")
     return blockers
+
+
+def _parse_evidence(lines: list[str]) -> str:
+    for index, line in enumerate(lines):
+        if re.fullmatch(r"##\s+Evidence\s*", line):
+            section: list[str] = []
+            for content_line in lines[index + 1 :]:
+                if re.match(r"##\s+", content_line):
+                    break
+                section.append(content_line)
+            return "\n".join(section).strip()
+    return ""

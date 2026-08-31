@@ -56,6 +56,14 @@ def main() -> None:
                     raise RuntimeError(f"{fixture.name}: {skill_id} body changed during install")
                 if "superpowers" in str(target).lower() or "mattpocock" in str(target).lower():
                     raise RuntimeError(f"{fixture.name}: stock collision")
+            resource_root = ROOT / "skills/tracker"
+            for source in resource_root.rglob("*.md"):
+                relative_path = source.relative_to(resource_root)
+                target = destination / native_path.group(1) / "tracker" / relative_path
+                if target.read_bytes() != source.read_bytes():
+                    raise RuntimeError(
+                        f"{fixture.name}: tracker resource changed during install: {relative_path}"
+                    )
             if fixture.name == "opencode":
                 for command in (ROOT / "commands").glob("*.md"):
                     installed = destination / ".opencode/commands" / command.name

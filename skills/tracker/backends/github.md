@@ -1,10 +1,21 @@
 # GitHub backend
 
-Use this backend only when `.agents/tracker.md` explicitly contains:
+Use this backend only when `.agents/tracker.md` explicitly selects it. Every
+tracker skill reads all five semantic mappings before performing backend
+operations. Use this shared configuration template, replacing each convention
+with the repository's actual field, label, or native issue feature:
 
 ```markdown
 Backend: github
+Ready state: repository field or label mapped to ready-for-agent
+Claim convention: assignee plus UTC claim metadata in the issue body
+Completion convention: repository done field or label plus a closed issue and non-empty evidence
+Blocker representation: native issue dependencies with Blocked by body metadata as fallback
 ```
+
+Never assume or hard-code a label name. Resolve ready and completion labels or
+fields from `.agents/tracker.md`, and preserve the semantic meanings in
+`../state-model.md` even when repository names differ.
 
 Keep the ticket schema and state meanings from `../ticket-schema.md` and
 `../state-model.md`. Prefer the repository's native issue dependency links and

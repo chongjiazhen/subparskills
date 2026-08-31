@@ -13,6 +13,12 @@ ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
 EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier"}
+TRACKER_RESOURCES = {
+    "ticket-schema.md",
+    "state-model.md",
+    "backends/local.md",
+    "backends/github.md",
+}
 EXPECTED_PACKS = {"core", "delivery", "architecture", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
@@ -172,6 +178,30 @@ class FrameworkContracts(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr + result.stdout)
             installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
             self.assertEqual(EXPECTED_TRACKER, installed)
+
+    def test_tracker_pack_installs_canonical_resources_for_codex(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="subparskills-tracker-resources-") as temp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/install_adapter.py",
+                    "--harness",
+                    "codex",
+                    "--pack",
+                    "tracker",
+                    "--destination",
+                    temp,
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+            for relative_path in TRACKER_RESOURCES:
+                source = SKILLS / "tracker" / relative_path
+                installed = Path(temp) / ".agents/skills/tracker" / relative_path
+                self.assertEqual(source.read_bytes(), installed.read_bytes(), relative_path)
 
     def test_tracker_pack_installs_only_tracker_commands_for_opencode(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-opencode-tracker-") as temp:
