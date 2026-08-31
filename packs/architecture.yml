@@ -1,0 +1,6 @@
+name: architecture
+description: Domain and module-design disciplines, opt-in.
+skills:
+  - domain-model
+  - deep-modules
+  - architecture-improvement

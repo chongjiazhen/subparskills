@@ -1,0 +1,10 @@
+name: delivery
+description: Deliberate delivery workflow, opt-in.
+skills:
+  - grill
+  - plan
+  - implement
+  - handoff
+  - worktrees
+  - parallel-execution
+  - finish

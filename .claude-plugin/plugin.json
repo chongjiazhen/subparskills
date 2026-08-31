@@ -1,0 +1,8 @@
+{
+  "name": "subparskills",
+  "version": "0.1.0",
+  "description": "Portable curated engineering skills",
+  "license": "MIT",
+  "skills": ["./skills"],
+  "commands": ["./commands"]
+}

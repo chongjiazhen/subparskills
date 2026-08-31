@@ -1,0 +1,33 @@
+harness: qwen
+discovery: .qwen/skills-compatible
+native_path: .qwen/skills
+invocation: user-or-model
+skills:
+  - id: architecture-improvement
+    source: ../../skills/architecture-improvement/SKILL.md
+  - id: deep-modules
+    source: ../../skills/deep-modules/SKILL.md
+  - id: diagnose
+    source: ../../skills/diagnose/SKILL.md
+  - id: domain-model
+    source: ../../skills/domain-model/SKILL.md
+  - id: finish
+    source: ../../skills/finish/SKILL.md
+  - id: grill
+    source: ../../skills/grill/SKILL.md
+  - id: handoff
+    source: ../../skills/handoff/SKILL.md
+  - id: implement
+    source: ../../skills/implement/SKILL.md
+  - id: parallel-execution
+    source: ../../skills/parallel-execution/SKILL.md
+  - id: plan
+    source: ../../skills/plan/SKILL.md
+  - id: review
+    source: ../../skills/review/SKILL.md
+  - id: tdd
+    source: ../../skills/tdd/SKILL.md
+  - id: verify
+    source: ../../skills/verify/SKILL.md
+  - id: worktrees
+    source: ../../skills/worktrees/SKILL.md

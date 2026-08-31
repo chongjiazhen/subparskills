@@ -1,0 +1,16 @@
+---
+name: domain-model
+description: Discover domain language, invariants, and bounded concepts before changing behavior.
+license: MIT
+compatibility: Any Agent Skills-compatible harness.
+metadata: { pack: architecture, source: merge }
+---
+
+# Domain Model
+
+## Procedure
+
+1. Read code, tests, docs, and examples around requested behavior.
+2. Name concepts, relationships, invariants, lifecycle states, and ownership in user language.
+3. Challenge terms that combine different concepts or hide ambiguity.
+4. Record agreed vocabulary and use it in design, interfaces, tests, and handoff.

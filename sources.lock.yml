@@ -1,0 +1,11 @@
+sources:
+  - id: obra-superpowers
+    url: https://github.com/obra/superpowers.git
+    commit: b36e0829c6d0140e93cfef2ca599b1b07d4a7797
+    license: MIT
+    retrieved_at: 2026-08-31T00:00:00Z
+  - id: mattpocock-skills
+    url: https://github.com/mattpocock/skills.git
+    commit: 6654f6b60cd9d5be8b54c6fafe44346dabeb3b76
+    license: MIT
+    retrieved_at: 2026-08-31T00:00:00Z

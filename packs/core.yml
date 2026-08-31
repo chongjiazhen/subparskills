@@ -1,0 +1,7 @@
+name: core
+description: Always-use engineering disciplines.
+skills:
+  - diagnose
+  - tdd
+  - verify
+  - review
