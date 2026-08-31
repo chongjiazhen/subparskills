@@ -79,6 +79,18 @@ class FrameworkContracts(unittest.TestCase):
         self.assertIn("[SKILL-AUTHORING.md](SKILL-AUTHORING.md)", body)
         self.assertTrue((SKILLS / "writing-for-agents" / "SKILL-AUTHORING.md").is_file())
 
+    def test_diagnose_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "diagnose/SKILL.md").read_text(encoding="utf-8")
+        for name in ("FEEDBACK-LOOPS.md", "INTERMITTENT-FAILURES.md"):
+            self.assertIn(f"[{name}]({name})", body)
+            self.assertTrue((SKILLS / "diagnose" / name).is_file())
+
+    def test_grill_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "grill/SKILL.md").read_text(encoding="utf-8")
+        for name in ("DECISION-TREE.md", "GAP-REVIEW.md"):
+            self.assertIn(f"[{name}]({name})", body)
+            self.assertTrue((SKILLS / "grill" / name).is_file())
+
     def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
         data = frontmatter(SKILLS / "choose-skill/SKILL.md")
         self.assertIn("invocation: user", data["metadata"])
