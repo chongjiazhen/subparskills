@@ -22,6 +22,7 @@ TRACKER_RESOURCES = {
 EXPECTED_PACKS = {"core", "delivery", "architecture", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
+PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("private-repo", "factlog"))
 
 
 def frontmatter(path: Path) -> dict[str, str]:
@@ -54,6 +55,36 @@ class FrameworkContracts(unittest.TestCase):
             self.assertEqual("MIT", data["license"], path)
             body = path.read_text(encoding="utf-8").split("---\n", 2)[2]
             self.assertFalse(any(marker.lower() in body.lower() for marker in PERSONAL_MARKERS), path)
+
+    def test_public_skills_have_no_private_markers(self) -> None:
+        for path in SKILLS.rglob("*.md"):
+            self.assertFalse(
+                any(token in path.read_text(encoding="utf-8").lower() for token in PUBLIC_MARKERS),
+                path,
+            )
+
+    def test_architecture_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "architecture-improvement/SKILL.md").read_text(encoding="utf-8")
+        for name in ("LANGUAGE.md", "DEEPENING.md", "INTERFACE-DESIGN.md"):
+            self.assertIn(f"[{name}]({name})", body)
+            self.assertTrue((SKILLS / "architecture-improvement" / name).is_file())
+
+    def test_readme_documents_private_overlay_boundary(self) -> None:
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("`v0.2.0`", readme)
+        self.assertIn("private overlay", readme.lower())
+
+        changelog_path = ROOT / "CHANGELOG.md"
+        self.assertTrue(changelog_path.is_file())
+
+        changelog = changelog_path.read_text(encoding="utf-8")
+        match = re.search(
+            r"^## 0\.2\.0 - 2026-08-31\n\n(.+?)(?=\n## |\Z)",
+            changelog,
+            re.M | re.S,
+        )
+        self.assertIsNotNone(match)
+        self.assertTrue(match.group(1).strip())
 
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()

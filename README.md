@@ -54,6 +54,8 @@ Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Inst
 
 ## Release
 
-Use SemVer tags. First release target: `v0.1.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.
+Use SemVer tags. Current release line: `v0.2.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.
+
+Portable procedure prose ends at the public catalog boundary. Repository-specific facts, paths, policy, and operator routes belong in a private overlay maintained by the consuming repository after it selects the matching public skill ID. Public updates stay curated; this repository does not auto-sync private overlays.
 
 MIT. See [NOTICE](NOTICE) and [PROVENANCE.md](PROVENANCE.md).

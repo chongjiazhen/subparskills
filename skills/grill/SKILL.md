@@ -10,7 +10,7 @@ metadata: { pack: delivery, source: merge }
 
 ## Procedure
 
-1. Read available code and stated goal. Identify implicit decisions with costly reversal.
-2. Ask one decision question at time. Recommend answer with concise reason.
-3. Cover ownership, failure, identifiers, concurrency, reversibility, and done-when where relevant.
-4. Summarize confirmed decisions, deferred questions, and first safe next step.
+1. Read available code and stated goal. If terrain is unknown, survey seams and constraints before questioning plan.
+2. Identify implicit decisions with costly reversal. Ask one decision question at time; recommend answer with concise reason.
+3. Cover ownership, failure, identifiers, concurrency, reversibility, and done-when where relevant. Read code before asking questions code can answer.
+4. For completed proposals, produce cited gap list instead of restarting interview. Otherwise summarize confirmed decisions, deferred questions, and first safe next step.
