@@ -48,6 +48,20 @@ class FrameworkContracts(unittest.TestCase):
             body = path.read_text(encoding="utf-8").split("---\n", 2)[2]
             self.assertFalse(any(marker.lower() in body.lower() for marker in PERSONAL_MARKERS), path)
 
+    def test_public_skills_have_no_private_markers(self) -> None:
+        blocked = ("private-layer", "private-repo", "factlog", "~/", "c:\\users\\")
+        for path in SKILLS.rglob("*.md"):
+            self.assertFalse(
+                any(token in path.read_text(encoding="utf-8").lower() for token in blocked),
+                path,
+            )
+
+    def test_architecture_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "architecture-improvement/SKILL.md").read_text(encoding="utf-8")
+        for name in ("LANGUAGE.md", "DEEPENING.md", "INTERFACE-DESIGN.md"):
+            self.assertIn(name, body)
+            self.assertTrue((SKILLS / "architecture-improvement" / name).is_file())
+
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()
         for path in (ROOT / "packs").glob("*.yml"):
