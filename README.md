@@ -40,6 +40,11 @@ Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Inst
 
 `sources.lock.yml` pins upstream URL, commit, license, and retrieval date. Upstream updates are manual diff-and-curate changes: update lock, update provenance, change canonical text deliberately, run tests. Never auto-sync.
 
+Two helper gates support that manual flow:
+
+- `python scripts/curate-sources.py --upstream obra-superpowers=/path/to/superpowers --upstream mattpocock-skills=/path/to/skills --check` reports upstream capability deltas against the pinned commits and fails if provenance decisions are still missing.
+- `python scripts/verify-release.py --evidence .scratch/release-verification.md` runs the release gate, writes dated evidence only at that explicit path, and leaves publishing as a separate explicit step.
+
 ## Release
 
 Use SemVer tags. Current release line: `v0.2.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.

@@ -30,6 +30,14 @@ PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-laye
 PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("private-repo", "factlog"))
 
 
+def load_script_module(name: str):
+    spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
 def frontmatter(path: Path) -> dict[str, str]:
     match = re.match(r"^---\n(.*?)\n---\n", path.read_text(encoding="utf-8"), re.S)
     if not match:
@@ -112,6 +120,15 @@ class FrameworkContracts(unittest.TestCase):
         self.assertIsNotNone(match)
         self.assertTrue(match.group(1).strip())
 
+    def test_integration_contract_is_opt_in_only(self) -> None:
+        contract = (ROOT / "integrations" / "CONTRACT.md").read_text(encoding="utf-8")
+        self.assertIn("opt-in", contract.lower())
+        self.assertIn("no default hooks", contract.lower())
+        self.assertIn("install", contract.lower())
+        self.assertIn("uninstall", contract.lower())
+        self.assertIn("reversible", contract.lower())
+        self.assertNotIn("CONTEXT.md", contract)
+
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()
         for path in (ROOT / "packs").glob("*.yml"):
@@ -173,6 +190,14 @@ class FrameworkContracts(unittest.TestCase):
         manifest = (ROOT / ".claude-plugin/plugin.json").read_text(encoding="utf-8")
         self.assertIn('"./skills"', manifest)
         self.assertIn('"./commands"', manifest)
+
+    def test_integrations_surface_is_opt_in_only(self) -> None:
+        integrations = ROOT / "integrations"
+        self.assertTrue(integrations.is_dir())
+        self.assertEqual(["CONTRACT.md"], sorted(path.name for path in integrations.iterdir()))
+        contract = (integrations / "CONTRACT.md").read_text(encoding="utf-8").lower()
+        self.assertIn("opt-in", contract)
+        self.assertIn("no default hooks", contract)
 
     def test_skills_cli_discovers_root_catalog(self) -> None:
         result = subprocess.run(
