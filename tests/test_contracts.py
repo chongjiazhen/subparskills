@@ -64,8 +64,20 @@ class FrameworkContracts(unittest.TestCase):
 
     def test_readme_documents_private_overlay_boundary(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("`v0.2.0`", readme)
         self.assertIn("private overlay", readme.lower())
-        self.assertTrue((ROOT / "CHANGELOG.md").is_file())
+
+        changelog_path = ROOT / "CHANGELOG.md"
+        self.assertTrue(changelog_path.is_file())
+
+        changelog = changelog_path.read_text(encoding="utf-8")
+        match = re.search(
+            r"^## 0\.2\.0 - 2026-08-31\n\n(.+?)(?=\n## |\Z)",
+            changelog,
+            re.M | re.S,
+        )
+        self.assertIsNotNone(match)
+        self.assertTrue(match.group(1).strip())
 
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()
