@@ -1,6 +1,6 @@
 ---
 name: deep-modules
-description: Design modules with small interfaces, hidden complexity, and high leverage.
+description: Use when designing or reshaping a module boundary - the interface feels wide, callers leak internals, or an abstraction spreads complexity instead of hiding it.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: architecture, source: adopt }

@@ -1,6 +1,6 @@
 ---
 name: parallel-execution
-description: Delegate independent bounded tasks with explicit acceptance and review gates.
+description: Use when work splits into independent bounded tasks that could run as concurrent workers or subagents - briefing, dispatching, and verifying delegated work.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

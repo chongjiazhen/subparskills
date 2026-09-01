@@ -1,6 +1,6 @@
 ---
 name: implement
-description: Execute approved plan in small, verified, reviewable increments.
+description: Use when executing an approved plan or task list - small verified increments, per-task review, and a ledger that survives context loss.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

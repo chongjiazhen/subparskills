@@ -1,6 +1,6 @@
 ---
 name: review
-description: Review changes against requirements, correctness, tests, and regressions.
+description: Use when changes need review before integration, when asked to review a diff or pull request, or when acting on review feedback received on your own changes.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: core, source: merge }

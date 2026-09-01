@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Use red-green-refactor for features and bug fixes.
+description: Use when writing a feature or fixing a bug that changes production code - any moment you are tempted to write implementation before a failing test exists.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: core, source: merge }

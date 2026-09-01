@@ -1,6 +1,6 @@
 ---
 name: finish
-description: Prepare verified work for integration without hiding unresolved choices.
+description: Use when verified work on a branch is ready for integration - merge, pull request, keep, or discard decisions and branch cleanup.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

@@ -1,6 +1,6 @@
 ---
 name: grill
-description: Surface expensive-to-reverse decisions before implementation starts.
+description: Use when a task carries implicit expensive-to-reverse decisions - requirements feel underspecified, the design is unconfirmed, or implementation is about to start on assumptions.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

@@ -1,6 +1,6 @@
 ---
 name: claim-ticket
-description: Claim a single available tracker ticket before implementation.
+description: Use when about to start tracker work - claim exactly one available ticket first so parallel agents never collide on the same work.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: tracker, source: merge }

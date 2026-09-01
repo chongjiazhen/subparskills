@@ -1,6 +1,6 @@
 ---
 name: work-frontier
-description: List tickets safe for an agent to claim.
+description: Use when choosing what to work on next from the tracker - list the tickets whose blockers are all done and are safe for an agent to claim.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: tracker, source: merge }

@@ -32,10 +32,13 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 - `research`: source-grounded decision research, opt-in.
 - `tracker`: opt-in ticket workflow, separate from `delivery`.
 
-The tracker pack uses local Markdown tickets by default. Configure tracker
-behavior in `.agents/tracker.md`; local tickets live in `.agents/tickets/` and
-can be committed with the project. Use the GitHub backend only when
-`.agents/tracker.md` explicitly contains `Backend: github`.
+The tracker pack needs zero setup: tickets are local Markdown files at
+`.agents/tickets/`, committed with the project so claims and history survive
+sessions and sync across machines. No configuration file is required - absent
+config, every skill uses the local backend defaults. Hosted backends are a
+power-user opt-in with no setup flow: create `.agents/tracker.md` containing
+`Backend: github` and the mappings described in
+`skills/tracker/backends/github.md`.
 
 Install the tracker pack into a project-local Codex layout with:
 

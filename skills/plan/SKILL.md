@@ -1,6 +1,6 @@
 ---
 name: plan
-description: Turn approved design into small implementation tasks with acceptance evidence.
+description: Use when an approved design or spec needs breaking into small implementation tasks with acceptance evidence, before multi-task execution starts.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

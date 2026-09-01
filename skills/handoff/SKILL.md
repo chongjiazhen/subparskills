@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Package goal, changed state, evidence, risks, and next action for another operator.
+description: Use when a session ends with work unfinished, another operator or agent must continue, or context must move to a different harness, directory, or owner.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: adopt }

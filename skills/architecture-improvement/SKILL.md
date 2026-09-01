@@ -1,6 +1,6 @@
 ---
 name: architecture-improvement
-description: Find high-value seams where a deeper module improves locality and testability.
+description: Use when an actively changing area is hard to modify or test - shallow seams, duplicated coordination, hidden coupling - and needs a scoped deepening proposal.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: architecture, source: merge }

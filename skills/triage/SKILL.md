@@ -1,6 +1,6 @@
 ---
 name: triage
-description: Classify incoming tracker work into a compact state machine.
+description: Use when tracker tickets arrive unclassified, stale, or unverified - verify each claim and assign exactly one state before any work starts.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: tracker, source: merge }
@@ -14,7 +14,9 @@ metadata: { pack: tracker, source: merge }
    `../tracker/backends/` before any backend operation. If configuration is
    absent, use every default in the local backend guide.
 2. Read the ticket, its outcome, acceptance criteria, blocker edges, and
-   current evidence using `../tracker/ticket-schema.md`.
+   current evidence using `../tracker/ticket-schema.md`. Read `GLOSSARY.md` and
+   any recorded architecture decisions if present; flag a ticket that
+   contradicts one rather than silently triaging past it.
 3. Verify the claim before choosing a state where possible: reproduce a
    reported bug from its steps, or run a proposed change. Check whether the
    requested outcome already exists in the codebase - if so, `wontfix`

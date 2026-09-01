@@ -1,6 +1,6 @@
 ---
 name: to-tickets
-description: Split approved work into independently verifiable tracker tickets.
+description: Use when approved work is too big for one sitting and needs splitting into independently verifiable tracker tickets with explicit blocker edges.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: tracker, source: merge }
@@ -14,7 +14,9 @@ metadata: { pack: tracker, source: merge }
    `../tracker/backends/` before any backend operation. If configuration is
    absent, use every default in the local backend guide.
 2. Start only from approved work. State the user-visible outcome and the
-   constraints that tickets must preserve.
+   constraints that tickets must preserve. Read `GLOSSARY.md` and any recorded
+   architecture decisions if present; use their vocabulary, and flag a conflict
+   rather than silently overriding it.
 3. Divide the work into small vertical slices. Each ticket must deliver an
    end-to-end behavior that a user or verifier can observe independently.
 4. For every ticket, use the shared template in `../tracker/ticket-schema.md`.

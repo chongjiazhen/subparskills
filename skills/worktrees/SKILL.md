@@ -1,6 +1,6 @@
 ---
 name: worktrees
-description: Isolate concurrent feature work with Git worktrees and explicit branch ownership.
+description: Use when parallel tasks would fight over one checkout, a build or review needs another branch without moving HEAD, or an experiment needs an isolated workspace.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: adopt }

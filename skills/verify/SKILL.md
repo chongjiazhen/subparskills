@@ -1,6 +1,6 @@
 ---
 name: verify
-description: Require fresh evidence before completion, merge, or release claims.
+description: Use when about to claim done, passing, fixed, complete, or ready to merge or release - every completion claim needs fresh evidence first.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: core, source: adopt }
