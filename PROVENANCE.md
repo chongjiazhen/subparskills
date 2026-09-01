@@ -1,6 +1,6 @@
 # Provenance
 
-Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obra/superpowers` `b36e0829c6d0140e93cfef2ca599b1b07d4a7797`; `mattpocock/skills` `6654f6b60cd9d5be8b54c6fafe44346dabeb3b76`. Each upstream capability is represented below. `exclude` means intentionally unavailable in v0.1.0. `wrapper` means command only; `adapter-only` means harness metadata only.
+Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no drift). `sources.lock.yml` contains immutable pins: `obra/superpowers` `b36e0829c6d0140e93cfef2ca599b1b07d4a7797`; `mattpocock/skills` `6654f6b60cd9d5be8b54c6fafe44346dabeb3b76`. Each upstream capability is represented below. `exclude` means intentionally unavailable in v0.1.0. `wrapper` means command only; `adapter-only` means harness metadata only.
 
 | Source capability | Revision | Decision | Canonical target | Local delta |
 | --- | --- | --- | --- | --- |
@@ -55,3 +55,5 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | mattpocock/skills: to-questionnaire | 6654f6b6 | exclude | - | Questionnaire workflow deferred. |
 | mattpocock/skills: wait-what | 6654f6b6 | exclude | - | Prompt-only capability deferred. |
 | mattpocock/skills: writing-for-agents | 6654f6b6 | merge | catalog authoring contract | Context pointers, progressive disclosure, and single-source rules are folded into catalog boundary and contract requirements. |
+
+Upstream PR mattpocock/skills#876 (open as of 2026-09-01) renames `CONTEXT.md`/`CONTEXT-MAP.md` to `GLOSSARY.md`/`GLOSSARY-MAP.md` across ten skills. Moot here whichever way it lands: `domain-model` prescribes no vocabulary filename by design ("No artifact prescription"). Do not "apply" the rename on a future refresh.
