@@ -55,5 +55,6 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | mattpocock/skills: to-questionnaire | 6654f6b6 | merge | to-questionnaire | Grill the send, not the subject; portable Markdown handoff. |
 | mattpocock/skills: wait-what | 6654f6b6 | adopt | wait-what | Portable re-pitch prompt with glossary-aware wording. |
 | mattpocock/skills: writing-for-agents | 6654f6b6 | merge | writing-for-agents | Portable agent-document guidance plus merged skill-authoring reference. |
+| mattpocock/skills: zoom-out | pre-pin (removed e112a6b0) | exclude | - | Historical capability, deleted upstream before the 6654f6b6 pin with no stated rationale. Excluded 2026-09-01, mirroring the upstream removal; private-layer's adapted copy retired the same day. Recorded so refreshes don't re-litigate. |
 
 Upstream PR mattpocock/skills#876 (open as of 2026-09-01) renames `CONTEXT.md`/`CONTEXT-MAP.md` to `GLOSSARY.md`/`GLOSSARY-MAP.md` across ten skills. The catalog uses the `GLOSSARY.md` name wherever a vocabulary doc is mentioned (`wait-what`, `writing-for-agents`, and since 2026-09-01 `domain-model` as its default output name, with `to-tickets` and `triage` as consumers), aligned with the PR. Nothing to apply on a future refresh whichever way the PR lands.
