@@ -116,6 +116,34 @@ restatements, not accretion. They also carry unique load-bearing content the mer
 Note: the `.scratch` set did NOT restore upstream's dropped rigor either - the same losses
 hold there.
 
+## Remediation applied 2026-09-01 - and what was deliberately not applied
+
+Commits 1eae846 and 1b1890d applied every HIGH finding and the one-line MED findings.
+Deliberately skipped, with reasons - revisit only if the trigger fires:
+
+- **defense-in-depth** (diagnose, LOW/MED): validate-at-every-layer sits in tension with the
+  least-code-that-works posture and was upstream's weakest gate. Trigger to revisit: the same
+  bad value reaching a fixed failure point through a second path.
+- **wait-what multi-glossary routing** (CONTEXT-MAP fan-out, LOW): edge-case file routing;
+  the flat "GLOSSARY.md when one exists" rule covers the common case. Trigger: a repo with
+  more than one glossary actually in use.
+- **`!` splice mechanism** (operator writing-for-agents): Claude-Code-specific; the catalog
+  declares harness-neutral compatibility. Stays in the operator's private layer.
+- **Full re-import of upstream bodies** (200-600 lines each): the catalog's lean-body,
+  pointed-reference architecture is the design, not the defect; reinstatement was
+  gate-by-gate, table-by-table.
+- **persuasion-principles citations** (Cialdini; Meincke et al. 2025): the operative wording
+  rule survives compressed in SKILL-AUTHORING's Matching Form To Failure; the study citations
+  and effect sizes stay in the upstream file and the writing-for-agents cluster report.
+- **Red-green revalidation of the reinstated wording**: deferred (also noted in CHANGELOG).
+  The wording compresses upstream text pressure-tested upstream - evidence, not proof.
+  Trigger: any reinstated gate observed failing under pressure in a live session.
+- **Remaining MED items not applied**: diagnose condition-based-waiting (test-authoring
+  technique, not a diagnostic gate); micro-test protocol and meta-testing diagnostic
+  (skill-authoring depth beyond the catalog's current ambition); phase-boundary five-option
+  tree beyond the one-line continue-by-default rule in handoff; to-spec conversation-to-spec
+  synthesis (recorded as unported in its PROVENANCE row).
+
 ## Recommended remediation shape
 
 Do not re-import the 200-600-line upstream bodies. The catalog's own architecture already
