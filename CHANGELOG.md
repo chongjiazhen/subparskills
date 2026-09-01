@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Ported `to-spec` (delivery pack): conversation-to-spec synthesis without re-interviewing - seam sketch confirmed with the user, full spec template, no-file-paths rule with the prototype-snippet exception. Closes the audit's orphaned-wrapper finding; catalog is now 29 skills.
+
 - Rewrote 18 procedure-summary skill descriptions trigger-oriented ("Use when..." with symptoms and keywords) so agent-invoked discovery works without a router or bootstrap, per the catalog's own SKILL-AUTHORING rule.
 - Named `GLOSSARY.md` as `domain-model`'s default output and wired `to-tickets` and `triage` to consume it and flag architecture-decision conflicts.
 - Documented the tracker pack's zero-setup default (committed local Markdown tickets in `.agents/tickets/`, no config file needed); hosted backends are a power-user opt-in via `.agents/tracker.md` only.

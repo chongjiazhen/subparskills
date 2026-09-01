@@ -141,8 +141,8 @@ Deliberately skipped, with reasons - revisit only if the trigger fires:
 - **Remaining MED items not applied**: diagnose condition-based-waiting (test-authoring
   technique, not a diagnostic gate); micro-test protocol and meta-testing diagnostic
   (skill-authoring depth beyond the catalog's current ambition); phase-boundary five-option
-  tree beyond the one-line continue-by-default rule in handoff; to-spec conversation-to-spec
-  synthesis (recorded as unported in its PROVENANCE row).
+  tree beyond the one-line continue-by-default rule in handoff. to-spec conversation-to-spec
+  synthesis was later ported as `skills/to-spec` (2026-09-01, same day).
 
 ## Recommended remediation shape
 

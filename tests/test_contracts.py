@@ -30,6 +30,7 @@ EXPECTED_DELIVERY = {
     "wizard",
     "teach",
     "to-questionnaire",
+    "to-spec",
 }
 TRACKER_RESOURCES = {
     "ticket-schema.md",
@@ -250,7 +251,7 @@ class FrameworkContracts(unittest.TestCase):
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
         plain = re.sub(r"\x1b\[[0-9;?]*[A-Za-z]", "", result.stdout)
-        self.assertIn("Found 28 skills", plain)
+        self.assertIn("Found 29 skills", plain)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:

@@ -35,6 +35,8 @@ skills:
     source: ../../skills/research/SKILL.md
   - id: tdd
     source: ../../skills/tdd/SKILL.md
+  - id: to-spec
+    source: ../../skills/to-spec/SKILL.md
   - id: to-tickets
     source: ../../skills/to-tickets/SKILL.md
   - id: triage

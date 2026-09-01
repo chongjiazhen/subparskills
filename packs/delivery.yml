@@ -3,6 +3,7 @@ description: Deliberate delivery workflow, opt-in.
 skills:
   - choose-skill
   - grill
+  - to-spec
   - plan
   - implement
   - handoff

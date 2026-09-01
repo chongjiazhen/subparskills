@@ -31,7 +31,7 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | mattpocock/skills: resolving-merge-conflicts | 6654f6b6 | merge | merge-conflicts | Intent-first resolution, checks before continuation, explicit authorization before abandon. |
 | mattpocock/skills: setup-matt-pocock-skills | 6654f6b6 | adapter-only | adapters | Replaced by native discovery manifests. |
 | mattpocock/skills: tdd | 6654f6b6 | merge | tdd | Real-behavior red-green gate. |
-| mattpocock/skills: to-spec | 6654f6b6 | wrapper | commands/plan.md | Explicit plan entry point. 2026-09-01 audit: wrapper had absorbed no content; seam-minimization rule folded into `plan` step 2. Conversation-to-spec synthesis remains unported. |
+| mattpocock/skills: to-spec | 6654f6b6 | merge | to-spec | Conversation-to-spec synthesis with seam confirmation; tracker publish opt-in, no setup-skill dependency. Ported 2026-09-01 after the audit found the original `wrapper -> commands/plan.md` decision had absorbed no content. |
 | mattpocock/skills: to-tickets | 6654f6b6 | merge | to-tickets | GitHub tracker backend is opt-in; local Markdown remains default. |
 | mattpocock/skills: triage | 6654f6b6 | merge | triage | GitHub tracker backend is opt-in; local Markdown remains default. |
 | mattpocock/skills: wayfinder | 6654f6b6 | merge | wayfinder | Backend-neutral decision-ticket mapping over the tracker pack. |
