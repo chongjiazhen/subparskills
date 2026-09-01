@@ -35,3 +35,8 @@ Use this when you are unsure which public skill fits. Route first, then invoke t
 - Domain language, invariants, or bounded concepts are unclear: `domain-model`
 - Need module/interface design principles for a focused change: `deep-modules`
 - Need to scan for high-value refactor seams in an active area: `architecture-improvement`
+- Design question needs a throwaway artifact to answer: `prototype`
+- Human-only manual steps need a guided interactive script: `wizard`
+- Decision needs knowledge someone else holds, async: `to-questionnaire`
+- User wants to learn a topic over multiple sessions: `teach`
+- Work too big for one session and the route is foggy: `wayfinder`

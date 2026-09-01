@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
-EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier"}
+EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier", "wayfinder"}
 EXPECTED_RESEARCH = {"research"}
 EXPECTED_DELIVERY = {
     "choose-skill",
@@ -26,6 +26,10 @@ EXPECTED_DELIVERY = {
     "merge-conflicts",
     "writing-for-agents",
     "wait-what",
+    "prototype",
+    "wizard",
+    "teach",
+    "to-questionnaire",
 }
 TRACKER_RESOURCES = {
     "ticket-schema.md",
@@ -244,7 +248,7 @@ class FrameworkContracts(unittest.TestCase):
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 23 skills", result.stdout)
+        self.assertIn("Found 28 skills", result.stdout)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:
@@ -267,6 +271,7 @@ class FrameworkContracts(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr + result.stdout)
             installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
             self.assertEqual(EXPECTED_CORE, installed)
+            self.assertTrue((Path(temp) / ".agents/skills/diagnose/FEEDBACK-LOOPS.md").is_file())
 
     def test_tracker_pack_installs_only_tracker_skills_for_codex(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-tracker-pack-") as temp:

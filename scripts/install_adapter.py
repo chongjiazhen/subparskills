@@ -11,7 +11,7 @@ HARNESSES = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PACKS = {"core", "delivery", "architecture", "research", "tracker"}
 COMMAND_PACKS = {
     "delivery": {"finish", "grill", "handoff", "implement", "plan"},
-    "tracker": {"claim-ticket", "to-tickets", "triage", "work-frontier"},
+    "tracker": {"claim-ticket", "to-tickets", "triage", "work-frontier", "wayfinder"},
 }
 
 
@@ -75,7 +75,10 @@ def main() -> None:
     selected = pack_members(args.pack) if args.pack else None
     installed = [(skill_id, source) for skill_id, source in entries(catalog) if selected is None or skill_id in selected]
     for skill_id, source in installed:
-        copy_file(source, args.destination / native_path / skill_id / "SKILL.md")
+        skill_dir = source.parent
+        for item in skill_dir.rglob("*"):
+            if item.is_file():
+                copy_file(item, args.destination / native_path / skill_id / item.relative_to(skill_dir))
     if args.pack is None or args.pack == "tracker":
         copy_tracker_resources(args.destination / native_path / "tracker")
     if args.harness == "opencode":

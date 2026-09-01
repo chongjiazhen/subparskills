@@ -49,3 +49,13 @@ skills:
     source: ../../skills/worktrees/SKILL.md
   - id: writing-for-agents
     source: ../../skills/writing-for-agents/SKILL.md
+  - id: prototype
+    source: ../../skills/prototype/SKILL.md
+  - id: teach
+    source: ../../skills/teach/SKILL.md
+  - id: to-questionnaire
+    source: ../../skills/to-questionnaire/SKILL.md
+  - id: wayfinder
+    source: ../../skills/wayfinder/SKILL.md
+  - id: wizard
+    source: ../../skills/wizard/SKILL.md

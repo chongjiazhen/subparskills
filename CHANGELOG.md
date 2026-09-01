@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Ported the remaining promoted upstream capabilities: `wayfinder` (tracker pack), `prototype`, `wizard`, `teach`, and `to-questionnaire` (delivery pack); the catalog now covers the full mattpocock promoted set and the superpowers set, with only experimental and repo-policy capabilities excluded.
 - Added public `choose-skill` as the manual router over the portable catalog.
 - Added public `writing-for-agents` and `wait-what` productivity skills to the canonical catalog.
 - Merged portable skill-authoring guidance into `writing-for-agents` instead of shipping a separate `writing-skills` skill.
