@@ -29,6 +29,7 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 - `core`: `diagnose`, `tdd`, `verify`, `review`.
 - `delivery`: deliberate workflow skills and operator commands.
 - `architecture`: domain modeling and module depth.
+- `research`: source-grounded decision research, opt-in.
 - `tracker`: opt-in ticket workflow, separate from `delivery`.
 
 The tracker pack uses local Markdown tickets by default. Configure tracker
@@ -56,6 +57,6 @@ Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Inst
 
 Use SemVer tags. Current release line: `v0.2.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.
 
-Portable procedure prose ends at the public catalog boundary. Repository-specific facts, paths, policy, and operator routes belong in a private overlay maintained by the consuming repository after it selects the matching public skill ID. Public updates stay curated; this repository does not auto-sync private overlays.
+Portable procedure prose ends at the public catalog boundary. Repository-specific facts, paths, policy, and operator routes belong in a private overlay maintained by the consuming repository after it selects the matching public skill ID. Public updates stay curated; this repository does not auto-sync private overlays. Before removing stock skill sets, run and retain [Codex and Claude migration evidence](docs/migration/codex-claude-smoke-test.md).
 
 MIT. See [NOTICE](NOTICE) and [PROVENANCE.md](PROVENANCE.md).

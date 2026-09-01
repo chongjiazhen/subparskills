@@ -13,13 +13,24 @@ ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
 EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
 EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier"}
+EXPECTED_RESEARCH = {"research"}
+EXPECTED_DELIVERY = {
+    "grill",
+    "plan",
+    "implement",
+    "handoff",
+    "worktrees",
+    "parallel-execution",
+    "finish",
+    "merge-conflicts",
+}
 TRACKER_RESOURCES = {
     "ticket-schema.md",
     "state-model.md",
     "backends/local.md",
     "backends/github.md",
 }
-EXPECTED_PACKS = {"core", "delivery", "architecture", "tracker"}
+EXPECTED_PACKS = {"core", "delivery", "architecture", "research", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
 PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("private-repo", "factlog"))
@@ -97,6 +108,10 @@ class FrameworkContracts(unittest.TestCase):
         self.assertEqual(EXPECTED_PACKS, found)
         core = (ROOT / "packs/core.yml").read_text(encoding="utf-8")
         self.assertTrue(all(f"  - {name}" in core for name in EXPECTED_CORE))
+        delivery = (ROOT / "packs/delivery.yml").read_text(encoding="utf-8")
+        self.assertTrue(all(f"  - {name}" in delivery for name in EXPECTED_DELIVERY))
+        research = (ROOT / "packs/research.yml").read_text(encoding="utf-8")
+        self.assertTrue(all(f"  - {name}" in research for name in EXPECTED_RESEARCH))
         tracker = (ROOT / "packs/tracker.yml").read_text(encoding="utf-8")
         self.assertTrue(all(f"  - {name}" in tracker for name in EXPECTED_TRACKER))
 
@@ -129,8 +144,24 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(source, provenance)
         self.assertIn("b36e0829c6d0140e93cfef2ca599b1b07d4a7797", provenance)
         self.assertIn("6654f6b60cd9d5be8b54c6fafe44346dabeb3b76", provenance)
+        self.assertIn("writing-for-agents", provenance)
+        self.assertIn("GitHub tracker", provenance)
+        self.assertIn("merge-conflicts", provenance)
+        self.assertIn("research", provenance)
         self.assertIn("Copyright (c) 2025 Jesse Vincent", (ROOT / "NOTICE").read_text(encoding="utf-8"))
         self.assertIn("Copyright (c) 2026 Matt Pocock", (ROOT / "NOTICE").read_text(encoding="utf-8"))
+
+    def test_live_migration_runbook_has_required_evidence_fields(self) -> None:
+        runbook = (ROOT / "docs/migration/codex-claude-smoke-test.md").read_text(encoding="utf-8")
+        for required in (
+            "Fresh session",
+            "Skill discovery",
+            "Bug diagnosis prompt",
+            "Feature delivery prompt",
+            "Stock absence",
+            "Evidence record",
+        ):
+            self.assertIn(required, runbook)
 
     def test_clean_install_fixtures_have_no_stock_collision(self) -> None:
         for fixture in (ROOT / "tests/fixtures").iterdir():
@@ -164,7 +195,7 @@ class FrameworkContracts(unittest.TestCase):
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 18 skills", result.stdout)
+        self.assertIn("Found 20 skills", result.stdout)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:
@@ -209,6 +240,28 @@ class FrameworkContracts(unittest.TestCase):
             self.assertEqual(0, result.returncode, result.stderr + result.stdout)
             installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
             self.assertEqual(EXPECTED_TRACKER, installed)
+
+    def test_research_pack_installs_only_research_skill_for_codex(self) -> None:
+        with tempfile.TemporaryDirectory(prefix="subparskills-research-pack-") as temp:
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    "scripts/install_adapter.py",
+                    "--harness",
+                    "codex",
+                    "--pack",
+                    "research",
+                    "--destination",
+                    temp,
+                ],
+                cwd=ROOT,
+                capture_output=True,
+                text=True,
+                check=False,
+            )
+            self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+            installed = {path.parent.name for path in (Path(temp) / ".agents/skills").glob("*/SKILL.md")}
+            self.assertEqual(EXPECTED_RESEARCH, installed)
 
     def test_tracker_pack_installs_canonical_resources_for_codex(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-tracker-resources-") as temp:

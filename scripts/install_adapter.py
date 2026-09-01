@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 HARNESSES = {"claude-code", "codex", "pi", "opencode", "qwen"}
-PACKS = {"core", "delivery", "architecture", "tracker"}
+PACKS = {"core", "delivery", "architecture", "research", "tracker"}
 COMMAND_PACKS = {
     "delivery": {"finish", "grill", "handoff", "implement", "plan"},
     "tracker": {"claim-ticket", "to-tickets", "triage", "work-frontier"},

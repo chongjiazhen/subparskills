@@ -17,7 +17,7 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | obra/superpowers: using-superpowers | b36e0829 | exclude | - | Universal bootstrap is not portable. |
 | obra/superpowers: verification-before-completion | b36e0829 | adopt | verify | Evidence before claims. |
 | obra/superpowers: writing-plans | b36e0829 | merge | plan | No required artifact path. |
-| obra/superpowers: writing-skills | b36e0829 | exclude | - | Out of v0.1.0 scope. |
+| obra/superpowers: writing-skills | b36e0829 | merge | catalog authoring contract | Reusable authoring discipline is represented by canonical frontmatter, portability, fixture, and contract requirements; no harness-specific creation workflow. |
 | mattpocock/skills: ask-matt | 6654f6b6 | exclude | - | Persona-specific. |
 | mattpocock/skills: code-review | 6654f6b6 | merge | review | One canonical review discipline. |
 | mattpocock/skills: codebase-design | 6654f6b6 | merge | deep-modules | Deep-module design. |
@@ -27,13 +27,13 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | mattpocock/skills: implement | 6654f6b6 | merge | implement | TDD-managed execution. |
 | mattpocock/skills: improve-codebase-architecture | 6654f6b6 | merge | architecture-improvement | Scoped deepening scan. |
 | mattpocock/skills: prototype | 6654f6b6 | exclude | - | UI-specific, deferred. |
-| mattpocock/skills: research | 6654f6b6 | exclude | - | Source-specific research workflow deferred. |
-| mattpocock/skills: resolving-merge-conflicts | 6654f6b6 | exclude | - | Narrow Git workflow deferred. |
+| mattpocock/skills: research | 6654f6b6 | merge | research | Primary-source evidence, direct citations, and decision-ready findings; no required background agent or artifact path. |
+| mattpocock/skills: resolving-merge-conflicts | 6654f6b6 | merge | merge-conflicts | Intent-first resolution, checks before continuation, explicit authorization before abandon. |
 | mattpocock/skills: setup-matt-pocock-skills | 6654f6b6 | adapter-only | adapters | Replaced by native discovery manifests. |
 | mattpocock/skills: tdd | 6654f6b6 | merge | tdd | Real-behavior red-green gate. |
 | mattpocock/skills: to-spec | 6654f6b6 | wrapper | commands/plan.md | Explicit plan entry point. |
-| mattpocock/skills: to-tickets | 6654f6b6 | exclude | - | Tracker integration deferred. |
-| mattpocock/skills: triage | 6654f6b6 | exclude | - | Issue-tracker workflow deferred. |
+| mattpocock/skills: to-tickets | 6654f6b6 | merge | to-tickets | GitHub tracker backend is opt-in; local Markdown remains default. |
+| mattpocock/skills: triage | 6654f6b6 | merge | triage | GitHub tracker backend is opt-in; local Markdown remains default. |
 | mattpocock/skills: wayfinder | 6654f6b6 | exclude | - | Exploration-specific workflow deferred. |
 | mattpocock/skills: wizard | 6654f6b6 | exclude | - | UI flow-specific workflow deferred. |
 | mattpocock/skills: claude-handoff | 6654f6b6 | merge | handoff | Harness-specific wording removed. |
@@ -54,4 +54,4 @@ Retrieved 2026-08-31T00:00:00Z. `sources.lock.yml` contains immutable pins: `obr
 | mattpocock/skills: teach | 6654f6b6 | exclude | - | Learning workflow deferred. |
 | mattpocock/skills: to-questionnaire | 6654f6b6 | exclude | - | Questionnaire workflow deferred. |
 | mattpocock/skills: wait-what | 6654f6b6 | exclude | - | Prompt-only capability deferred. |
-| mattpocock/skills: writing-for-agents | 6654f6b6 | exclude | - | Writing workflow deferred. |
+| mattpocock/skills: writing-for-agents | 6654f6b6 | merge | catalog authoring contract | Context pointers, progressive disclosure, and single-source rules are folded into catalog boundary and contract requirements. |
