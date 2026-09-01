@@ -2,6 +2,8 @@ harness: pi
 discovery: package-skills-directory
 native_path: .pi/skills
 skills:
+  - id: choose-skill
+    source: ../../skills/choose-skill/SKILL.md
   - id: architecture-improvement
     source: ../../skills/architecture-improvement/SKILL.md
   - id: claim-ticket
@@ -40,5 +42,9 @@ skills:
     source: ../../skills/verify/SKILL.md
   - id: work-frontier
     source: ../../skills/work-frontier/SKILL.md
+  - id: wait-what
+    source: ../../skills/wait-what/SKILL.md
   - id: worktrees
     source: ../../skills/worktrees/SKILL.md
+  - id: writing-for-agents
+    source: ../../skills/writing-for-agents/SKILL.md

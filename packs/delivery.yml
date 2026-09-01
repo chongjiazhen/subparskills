@@ -1,6 +1,7 @@
 name: delivery
 description: Deliberate delivery workflow, opt-in.
 skills:
+  - choose-skill
   - grill
   - plan
   - implement
@@ -9,3 +10,5 @@ skills:
   - worktrees
   - parallel-execution
   - finish
+  - wait-what
+  - writing-for-agents

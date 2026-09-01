@@ -15,6 +15,7 @@ EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
 EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier"}
 EXPECTED_RESEARCH = {"research"}
 EXPECTED_DELIVERY = {
+    "choose-skill",
     "grill",
     "plan",
     "implement",
@@ -23,6 +24,8 @@ EXPECTED_DELIVERY = {
     "parallel-execution",
     "finish",
     "merge-conflicts",
+    "writing-for-agents",
+    "wait-what",
 }
 TRACKER_RESOURCES = {
     "ticket-schema.md",
@@ -34,6 +37,14 @@ EXPECTED_PACKS = {"core", "delivery", "architecture", "research", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
 PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
 PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("private-repo", "factlog"))
+
+
+def load_script_module(name: str):
+    spec = importlib.util.spec_from_file_location(name, ROOT / "scripts" / f"{name}.py")
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
 
 
 def frontmatter(path: Path) -> dict[str, str]:
@@ -80,6 +91,27 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(f"[{name}]({name})", body)
             self.assertTrue((SKILLS / "architecture-improvement" / name).is_file())
 
+    def test_writing_for_agents_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "writing-for-agents/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[SKILL-AUTHORING.md](SKILL-AUTHORING.md)", body)
+        self.assertTrue((SKILLS / "writing-for-agents" / "SKILL-AUTHORING.md").is_file())
+
+    def test_diagnose_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "diagnose/SKILL.md").read_text(encoding="utf-8")
+        for name in ("FEEDBACK-LOOPS.md", "INTERMITTENT-FAILURES.md"):
+            self.assertIn(f"[{name}]({name})", body)
+            self.assertTrue((SKILLS / "diagnose" / name).is_file())
+
+    def test_grill_references_are_relative_and_present(self) -> None:
+        body = (SKILLS / "grill/SKILL.md").read_text(encoding="utf-8")
+        for name in ("DECISION-TREE.md", "GAP-REVIEW.md"):
+            self.assertIn(f"[{name}]({name})", body)
+            self.assertTrue((SKILLS / "grill" / name).is_file())
+
+    def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
+        data = frontmatter(SKILLS / "choose-skill/SKILL.md")
+        self.assertIn("invocation: user", data["metadata"])
+
     def test_readme_documents_private_overlay_boundary(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn("`v0.2.0`", readme)
@@ -96,6 +128,15 @@ class FrameworkContracts(unittest.TestCase):
         )
         self.assertIsNotNone(match)
         self.assertTrue(match.group(1).strip())
+
+    def test_integration_contract_is_opt_in_only(self) -> None:
+        contract = (ROOT / "integrations" / "CONTRACT.md").read_text(encoding="utf-8")
+        self.assertIn("opt-in", contract.lower())
+        self.assertIn("no default hooks", contract.lower())
+        self.assertIn("install", contract.lower())
+        self.assertIn("uninstall", contract.lower())
+        self.assertIn("reversible", contract.lower())
+        self.assertNotIn("CONTEXT.md", contract)
 
     def test_packs_reference_existing_skills(self) -> None:
         found: set[str] = set()
@@ -185,6 +226,14 @@ class FrameworkContracts(unittest.TestCase):
         self.assertIn('"./skills"', manifest)
         self.assertIn('"./commands"', manifest)
 
+    def test_integrations_surface_is_opt_in_only(self) -> None:
+        integrations = ROOT / "integrations"
+        self.assertTrue(integrations.is_dir())
+        self.assertEqual(["CONTRACT.md"], sorted(path.name for path in integrations.iterdir()))
+        contract = (integrations / "CONTRACT.md").read_text(encoding="utf-8").lower()
+        self.assertIn("opt-in", contract)
+        self.assertIn("no default hooks", contract)
+
     def test_skills_cli_discovers_root_catalog(self) -> None:
         result = subprocess.run(
             ["npx.cmd", "skills", "add", ".", "--list"],
@@ -195,7 +244,7 @@ class FrameworkContracts(unittest.TestCase):
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 20 skills", result.stdout)
+        self.assertIn("Found 23 skills", result.stdout)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:

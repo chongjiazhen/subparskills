@@ -27,7 +27,7 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 ## Packs
 
 - `core`: `diagnose`, `tdd`, `verify`, `review`.
-- `delivery`: deliberate workflow skills and operator commands.
+- `delivery`: deliberate workflow skills, operator commands, a manual router, and opt-in productivity disciplines such as prompt repair and agent-facing writing.
 - `architecture`: domain modeling and module depth.
 - `research`: source-grounded decision research, opt-in.
 - `tracker`: opt-in ticket workflow, separate from `delivery`.
@@ -52,6 +52,11 @@ Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Inst
 ## Updating sources
 
 `sources.lock.yml` pins upstream URL, commit, license, and retrieval date. Upstream updates are manual diff-and-curate changes: update lock, update provenance, change canonical text deliberately, run tests. Never auto-sync.
+
+Two helper gates support that manual flow:
+
+- `python scripts/curate-sources.py --upstream obra-superpowers=/path/to/superpowers --upstream mattpocock-skills=/path/to/skills --check` reports upstream capability deltas against the pinned commits and fails if provenance decisions are still missing.
+- `python scripts/verify-release.py --evidence .scratch/release-verification.md` runs the release gate, writes dated evidence only at that explicit path, and leaves publishing as a separate explicit step.
 
 ## Release
 
