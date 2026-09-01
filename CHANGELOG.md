@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added `measurement-standards` (core pack): earn belief in a number before it decides anything - condition tracing, both instrument controls, comparison isolation, re-run before generalizing, best-of-N selection-bias floor, and six untrustworthy-provenance shapes. Original curation from the maintainer's private harness (MIT, no pinned upstream); pressure evidence in `docs/migration/pressure-test/results4.txt`. Catalog is now 30 skills.
+
 - Ported `to-spec` (delivery pack): conversation-to-spec synthesis without re-interviewing - seam sketch confirmed with the user, full spec template, no-file-paths rule with the prototype-snippet exception. Closes the audit's orphaned-wrapper finding; catalog is now 29 skills.
 
 - Rewrote 18 procedure-summary skill descriptions trigger-oriented ("Use when..." with symptoms and keywords) so agent-invoked discovery works without a router or bootstrap, per the catalog's own SKILL-AUTHORING rule.

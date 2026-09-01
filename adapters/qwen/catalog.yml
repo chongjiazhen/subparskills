@@ -23,6 +23,8 @@ skills:
     source: ../../skills/handoff/SKILL.md
   - id: implement
     source: ../../skills/implement/SKILL.md
+  - id: measurement-standards
+    source: ../../skills/measurement-standards/SKILL.md
   - id: merge-conflicts
     source: ../../skills/merge-conflicts/SKILL.md
   - id: parallel-execution

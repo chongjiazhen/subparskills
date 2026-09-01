@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).parents[1]
 SKILLS = ROOT / "skills"
-EXPECTED_CORE = {"diagnose", "tdd", "verify", "review"}
+EXPECTED_CORE = {"diagnose", "tdd", "verify", "review", "measurement-standards"}
 EXPECTED_TRACKER = {"to-tickets", "triage", "claim-ticket", "work-frontier", "wayfinder"}
 EXPECTED_RESEARCH = {"research"}
 EXPECTED_DELIVERY = {
@@ -251,7 +251,7 @@ class FrameworkContracts(unittest.TestCase):
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
         plain = re.sub(r"\x1b\[[0-9;?]*[A-Za-z]", "", result.stdout)
-        self.assertIn("Found 29 skills", plain)
+        self.assertIn("Found 30 skills", plain)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:
