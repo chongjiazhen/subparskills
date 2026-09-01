@@ -12,8 +12,9 @@ Continue in-session by default - it costs nothing and loses nothing. Hand off on
 
 ## Procedure
 
-1. State completed goal and scope.
-2. List files changed and reason for each.
-3. Record commands, observed results, risks, and unverified areas.
-4. Redact secrets, credentials, and PII - the handoff may become another agent's literal prompt.
-5. State exact next action and prerequisite context.
+1. Reconcile claims against version control: enumerate changed files from fresh `git status` and `git log` output, never from recall. Flag any completion claim the history does not confirm; record uncommitted work and its disposition.
+2. State completed goal and scope.
+3. List files changed and reason for each.
+4. Record commands, observed results, risks, and unverified areas.
+5. Redact secrets, credentials, and PII - the handoff may become another agent's literal prompt.
+6. State exact next action and prerequisite context.
