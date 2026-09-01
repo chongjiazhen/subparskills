@@ -243,12 +243,14 @@ class FrameworkContracts(unittest.TestCase):
             ["npx.cmd", "skills", "add", ".", "--list"],
             cwd=ROOT,
             capture_output=True,
-            text=True,
+            encoding="utf-8",
+            errors="replace",
             check=False,
             timeout=60,
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
-        self.assertIn("Found 28 skills", result.stdout)
+        plain = re.sub(r"\x1b\[[0-9;?]*[A-Za-z]", "", result.stdout)
+        self.assertIn("Found 28 skills", plain)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:
