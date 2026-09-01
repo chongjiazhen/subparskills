@@ -135,9 +135,20 @@ Deliberately skipped, with reasons - revisit only if the trigger fires:
 - **persuasion-principles citations** (Cialdini; Meincke et al. 2025): the operative wording
   rule survives compressed in SKILL-AUTHORING's Matching Form To Failure; the study citations
   and effect sizes stay in the upstream file and the writing-for-agents cluster report.
-- **Red-green revalidation of the reinstated wording**: deferred (also noted in CHANGELOG).
-  The wording compresses upstream text pressure-tested upstream - evidence, not proof.
-  Trigger: any reinstated gate observed failing under pressure in a live session.
+- **Red-green revalidation of the reinstated wording**: run 2026-09-01T04:10Z on the four
+  highest-stakes gates (tdd delete-pre-test-code, verify subagent-report-not-evidence, grill
+  confirm-before-acting, diagnose repro-before-fix). Method: one pressure scenario per gate,
+  fresh sonnet session per cell, red control = the pre-reinstatement fe70af3 body, green =
+  current body, N=1 per cell. Results: **grill differentiated** - the old body started
+  implementing on a stale "just get going" pre-authorization; the new body refused, citing
+  the skill's confirm-the-summary requirement. The other three held in BOTH arms: the old
+  bodies' ordered procedures plus model priors already resisted at this pressure level, so
+  those cells show the green wording holds but do not prove it necessary (a non-failing
+  control means the scenario did not reach the old body's breaking point, not that the guard
+  is vacuous - N=1, single scenario, one model). Raw transcripts:
+  `docs/migration/pressure-test/results.txt`; scenario prompts in
+  `docs/migration/pressure-test/run.sh`. Remaining trigger
+  unchanged: any reinstated gate observed failing under pressure in a live session.
 - **Remaining MED items not applied**: diagnose condition-based-waiting (test-authoring
   technique, not a diagnostic gate); micro-test protocol and meta-testing diagnostic
   (skill-authoring depth beyond the catalog's current ambition); phase-boundary five-option
