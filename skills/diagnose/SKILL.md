@@ -1,6 +1,6 @@
 ---
 name: diagnose
-description: Use when a bug, regression, flaky test, or incident has an unclear cause, or a fix attempt just failed - build the evidence loop before touching code.
+description: Use when the user says "debug this" or "diagnose", or reports something broken, throwing, failing, flaky, or slow with an unclear cause, or a fix attempt just failed - build the evidence loop before touching code.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: core, source: merge }

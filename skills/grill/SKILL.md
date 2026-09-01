@@ -1,6 +1,6 @@
 ---
 name: grill
-description: Use when a task carries implicit expensive-to-reverse decisions - requirements feel underspecified, the design is unconfirmed, or implementation is about to start on assumptions.
+description: 'Use when work is starting on fuzzy direction and a wrong branch would be expensive to reverse - volunteer it unprompted, not only on "grill me". Also holes a finished proposal, RFC, or deck on "hole-punch": cited gaps, no rewrite.'
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: delivery, source: merge }

@@ -1,6 +1,6 @@
 ---
 name: domain-model
-description: Use when domain terms are ambiguous or contested, code and users name one concept differently, or a behavior change needs agreed vocabulary and invariants first.
+description: Use when domain terms are ambiguous or contested, code and users name one concept differently, a GLOSSARY.md or decision record needs creating or editing, or a behavior change needs agreed vocabulary and invariants first.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: architecture, source: merge }

@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Use when writing a feature or fixing a bug that changes production code - any moment you are tempted to write implementation before a failing test exists.
+description: Use when writing a feature or fixing a bug that changes production code, or the user mentions red-green-refactor or test-first - any moment implementation is about to precede a failing test.
 license: MIT
 compatibility: Any Agent Skills-compatible harness.
 metadata: { pack: core, source: merge }
