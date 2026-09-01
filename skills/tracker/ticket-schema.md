@@ -29,6 +29,9 @@ at` are either both populated or both unclaimed markers (`—`, `-`, or empty).
 `Claimed at` uses an ISO-8601 UTC timestamp ending in `Z`. `Blocked by` is
 `None` when there are no dependencies, otherwise a comma-separated list of
 ticket numbers. `Outcome` states the delivered behavior, acceptance criteria
-make it observable, and evidence records how completion was verified. A ticket
+make it observable, and evidence records how completion was verified. Write
+outcomes and criteria against interfaces and behavior, never file paths or line
+numbers - those go stale before the ticket is claimed. Say what, not how, and
+list what is out of scope when gold-plating is a risk. A ticket
 with `Status: done` is invalid when the `## Evidence` section is absent, empty,
 or contains only whitespace.

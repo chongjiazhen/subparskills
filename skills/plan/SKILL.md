@@ -10,7 +10,7 @@ metadata: { pack: delivery, source: merge }
 
 ## Procedure
 
-1. State goal, constraints, interfaces, files, and verification for each task.
-2. Keep each task independently reviewable: failing test, minimal implementation, focused verification.
+1. State goal, constraints, files, and verification for each task, plus its interfaces: what it consumes from earlier tasks and produces for later ones, exact names and signatures.
+2. Keep each task independently reviewable: failing test, minimal implementation, focused verification. Prefer the highest, fewest test seams - ideally one; confirm seam choice with the user.
 3. Name exact commands and expected result. Remove placeholders and ambiguous steps.
-4. Check every design requirement maps to task before execution.
+4. Before execution: check every design requirement maps to a task, names and signatures agree across tasks, and every task pair sharing a file or interface is contradiction-free. Rule on conflicts before dispatching task one.

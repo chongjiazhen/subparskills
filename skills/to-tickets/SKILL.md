@@ -21,8 +21,12 @@ metadata: { pack: tracker, source: merge }
    Write a specific outcome and observable acceptance criteria.
 5. Record directed blocker edges in `Blocked by`; do not hide ordering in prose.
    Keep unrelated work independent and avoid tickets that are only layers or
-   implementation phases.
+   implementation phases. Exception: a mechanical, blast-radius-wide change
+   (rename, retype) is not a vertical slice - ticket it as expand, then batched
+   migrate, then contract, staying green between tickets.
 6. Show the proposed ticket set, acceptance criteria, and blockers to the user.
    Obtain approval before publishing tickets.
 7. After approval, publish using the configured ready, claim, completion, and
    blocker mappings. Follow the selected guide in `../tracker/backends/`.
+   Publish only new tickets; never close or edit the issue or spec the work
+   originated from.

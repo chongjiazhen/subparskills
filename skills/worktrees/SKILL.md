@@ -11,6 +11,6 @@ metadata: { pack: delivery, source: adopt }
 ## Procedure
 
 1. Inspect repository status and target branch. Preserve existing work.
-2. Create one named worktree and branch per isolated task.
+2. Verify the worktree directory is gitignored before creating it; add and commit the ignore first if not. Create one named worktree and branch per isolated task.
 3. Verify correct worktree, branch, and clean task scope before edits.
 4. Remove worktree only after integration and explicit confirmation.

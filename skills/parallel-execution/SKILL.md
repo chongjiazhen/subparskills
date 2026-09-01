@@ -11,6 +11,6 @@ metadata: { pack: delivery, source: merge }
 ## Procedure
 
 1. Split only independent work with no shared-file or ordering dependency.
-2. Give each worker goal, scope, acceptance, and report format.
-3. Keep integration, risk judgment, and final verification with commander.
-4. Inspect each result independently before combining changes.
+2. Give each worker goal, scope, acceptance, and report format, including a status vocabulary: done, done-with-concerns, blocked, needs-context. Escalating uncertainty is never penalized; silently shipping unsure work is.
+3. Keep integration, risk judgment, and final verification with commander. Workers never dispatch their own reviewers or helpers - review comes from the commander after the report.
+4. Inspect each result independently before combining changes. A worker's report is a claim, not evidence - check the state it says it changed.

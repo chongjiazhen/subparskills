@@ -8,9 +8,12 @@ metadata: { pack: delivery, source: adopt }
 
 # Handoff
 
+Continue in-session by default - it costs nothing and loses nothing. Hand off only when context must change harness, directory, or owner.
+
 ## Procedure
 
 1. State completed goal and scope.
 2. List files changed and reason for each.
 3. Record commands, observed results, risks, and unverified areas.
-4. State exact next action and prerequisite context.
+4. Redact secrets, credentials, and PII - the handoff may become another agent's literal prompt.
+5. State exact next action and prerequisite context.

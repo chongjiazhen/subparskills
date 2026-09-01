@@ -13,6 +13,23 @@ Create and edit skills with the same red-green discipline used for code:
 
 If you did not watch the baseline fail, you do not know whether the skill teaches the right behavior.
 
+Test shape follows skill type: discipline rule - pressure scenario; technique - apply to a new case plus edge cases; pattern - recognize when it applies plus a counter-example; reference - can it be found, plus a gap check. One skill at a time: test each before starting the next - batch-authoring untested skills is the same violation as batching untested code.
+
+## Matching Form To Failure
+
+Classify the baseline failure before choosing wording:
+
+- Skips a step under pressure: prohibition plus a rationalization table (excuse - reality) and a red-flags self-check naming the workarounds you observed. A bare rule restatement folds under pressure.
+- Wrong output shape: a positive recipe. Prohibition here measurably produces more of the unwanted content, not less.
+- Omitted element: a required field or slot.
+- Conditional behavior: a keyed conditional, never an unconditional rule with exemption clauses - exemptions do not scope.
+
+Wording that must survive pressure reads imperative and immediate, with explicit no-exceptions; soft or deferred phrasing measurably loses compliance.
+
+## Reference Mechanics
+
+Keep every disclosed reference one hop from the entry file - a reference chained through another reference gets partially read. Give any reference file past ~100 lines a table of contents so a partial read still shows scope. Cross-reference another skill by its plain name; some harnesses force-load `@`-style file references immediately, defeating the pointer. File paths use forward slashes even when authored on Windows.
+
 ## Discovery And Frontmatter
 
 Every skill needs frontmatter that matches the catalog contract:
