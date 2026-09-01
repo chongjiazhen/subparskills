@@ -55,6 +55,10 @@ Choose autonomous discovery only when the agent must reach the skill on its own,
 
 Shared reference used by several discoverable skills can live in one skill-level reference file. Shared reference that should stay outside discovery can live in a plain document such as `GLOSSARY.md`, then any skill or instructions file can point at it without turning it into another skill.
 
+## Guarantees
+
+A guarantee the skill must always uphold - persistence, validation, naming, idempotency - lives in a bundled script the skill runs, never in body prose. Prose like "always write X to Y" or "always validate Z first" is a guarantee mis-housed in wording that drifts; move it into a script step the body calls.
+
 ## Router Skills
 
 When the number of user-invoked skills grows past easy recall, create one router skill that names the others and states when to reach for each. The router lowers human indexing cost without forcing every downstream skill into autonomous discovery.

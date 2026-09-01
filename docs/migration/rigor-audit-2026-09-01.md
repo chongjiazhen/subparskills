@@ -167,3 +167,29 @@ confirm); fix the two provenance rows; port the four operator-unique items above
 canonical bodies. Per-item terse reinstatement wording for every finding is in the seven
 cluster reports (session artifacts); the HIGH-tier wording is short enough to apply from
 this document alone.
+
+## Round-2 pressure tests (2026-09-01, private-delta curation)
+
+Six cells red-green testing privately sourced deltas: review anti-anchoring, handoff
+git-reconcile (both retroactive for 63bd2e4), candidate parallel-execution
+commit-hygiene step, and three candidate SKILL-AUTHORING bullets. Method as round 1,
+with two corrections: prompts on stdin (round-2a lost the handoff prompts to a greedy
+`--allowedTools`), and an isolated `CLAUDE_CONFIG_DIR` after round-2a's old-guarantee
+probe cited the operator's private `code-modification.md` verbatim - the box's
+always-on rule layer was contaminating the control (round-2a kept as
+`results2.txt` for that finding; graded run is `run3.sh` / `results3.txt`).
+
+Differentiated (shipped): **parallel-execution** - old arm bare `git commit`, new arm
+footprint check + pathspec; **SKILL-AUTHORING Guarantees** - old arm built prose
+rationalization-table defenses around always-save/always-validate, new arm routed both
+through a bundled script; **review** - old arm leaked the author's diagnosis and
+fix framing into the request, new arm stated subject and scope only.
+
+Held in both arms (not shipped): **handoff git-reconcile** - old body verified claims
+against git unprompted at base pressure AND under explicit "no need to re-open
+anything" hurry pressure (N=2), so the step is a no-op for the default behavior;
+reverted from the catalog same day. **one-skill-per-process** and
+**codify-on-inconsistency** - baseline chose two skills / declined to codify, citing
+the existing pruning rule. Same caveat as round 1: a held control at N=1-2 on one
+model shows the wording is unnecessary at this pressure, not that the behavior is safe
+on every harness the catalog serves; trigger to revisit is a live-session failure.
