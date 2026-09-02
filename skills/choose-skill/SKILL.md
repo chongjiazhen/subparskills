@@ -21,7 +21,7 @@ Use this when you are unsure which public skill fits. Route first, then invoke t
 
 - Prior explanation did not land: `wait-what`
 - Need to write or edit agent-facing docs or skills: `writing-for-agents`
-- Unclear design with expensive reversals ahead: `grill`
+- Work starting on a feature, behavior change, or fix with design room: `grill` (classifies spike, bounded, or architectural, then hands off by path)
 - Approved design needs task breakdown: `plan`
 - Approved plan needs execution in verified increments: `implement`
 - Bug, regression, or incident cause is unclear: `diagnose`
