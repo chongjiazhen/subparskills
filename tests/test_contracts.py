@@ -132,7 +132,7 @@ class FrameworkContracts(unittest.TestCase):
 
     def test_readme_documents_private_overlay_boundary(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("`v0.2.0`", readme)
+        self.assertIn("`v0.3.0`", readme)
         self.assertIn("private overlay", readme.lower())
 
         changelog_path = ROOT / "CHANGELOG.md"

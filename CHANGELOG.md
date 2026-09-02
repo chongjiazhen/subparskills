@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Five cribs from a side-by-side of github/spec-kit (0053c3a3) and Fission-AI/openspec (d0071d73), both now pinned in `sources.lock.yml`: `to-spec` marks open points with `[NEEDS CLARIFICATION: <question>]` inline (three or more returns to `grill`), gives each user story an Independent Test, requires a measurable criterion behind every quality word, and states the spec-membership test (the implementation cannot change without changing the line); `plan` searches for the marker before task one; grill's `GAP-REVIEW` gains the gap-admissibility test (the requirement's wording is the subject). Excluded with reasons in `PROVENANCE.md`: openspec's delta-spec archive lifecycle and CLI validator, spec-kit's clarify session, constitution, and installer surface. Red-green revalidation of the new wording is deferred.
+
 ## 0.3.0 - 2026-09-02
 
 - `review` gains two cribs from a side-by-side of the harness-native reviewers (Claude Code bundled `code-review` 2.1.258, Codex 0.149.0 `review` rubric) and the two upstream pins: a ref-resolves and non-empty-diff precheck (mattpocock), and a finding-admissibility step (Codex: affected code plus triggering input named, author would fix it, no padding; pre-existing defects in a touched function in scope and labelled). Two more were drafted and rejected on a held baseline: Claude's three finder angles and mattpocock's spec axis. Provenance rows added for the two harness sources. Red-green: `.scratch/pressure-test/run6.sh` / `results8.txt`, `results8b.txt`.

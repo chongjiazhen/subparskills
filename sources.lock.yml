@@ -9,3 +9,13 @@ sources:
     commit: 6654f6b60cd9d5be8b54c6fafe44346dabeb3b76
     license: MIT
     retrieved_at: 2026-08-31T00:00:00Z
+  - id: github-spec-kit
+    url: https://github.com/github/spec-kit.git
+    commit: 0053c3a328aefbfebae096657c095eb0740a444d
+    license: MIT
+    retrieved_at: 2026-09-02T09:46:52Z
+  - id: fission-openspec
+    url: https://github.com/Fission-AI/openspec.git
+    commit: d0071d7326689a0269332a500c8f56b3f2218ba9
+    license: MIT
+    retrieved_at: 2026-09-02T09:46:52Z
