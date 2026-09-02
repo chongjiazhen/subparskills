@@ -10,10 +10,12 @@ metadata: { pack: core, source: merge }
 
 ## Procedure
 
-1. Read stated requirements and changed diff before judging implementation.
-2. Find correctness, security, compatibility, test, and maintainability defects. Cite file and line.
-3. Classify findings by severity. Verify disputed claims with source or test.
-4. Recheck critical and important fixes before approval. Cap fix/re-review rounds; at the cap, adjudicate every open finding explicitly and log the ruling - never drop one silently.
+1. Confirm the target ref resolves and the diff is non-empty. A bad ref or an empty diff ends the review here, with that message.
+2. Read stated requirements and changed diff before judging implementation.
+3. Find correctness, security, compatibility, test, and maintainability defects. Cite file and line.
+4. Admit a finding only when it names the affected code and the input or state that triggers it, and the author would fix it on being told. A defect in a touched function that predates the change is in scope, labelled pre-existing. Prefer no findings to a padded list.
+5. Classify findings by severity. Verify disputed claims with source or test.
+6. Recheck critical and important fixes before approval. Cap fix/re-review rounds; at the cap, adjudicate every open finding explicitly and log the ruling - never drop one silently.
 
 ## Rules
 
