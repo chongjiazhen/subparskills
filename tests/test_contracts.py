@@ -113,6 +113,13 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(f"[{name}]({name})", body)
             self.assertTrue((SKILLS / "diagnose" / name).is_file())
 
+    def test_domain_model_format_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "domain-model/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md)", body)
+        fmt = (SKILLS / "domain-model" / "GLOSSARY-FORMAT.md").read_text(encoding="utf-8")
+        for marker in ("_Avoid_", "docs/adr/"):
+            self.assertIn(marker, fmt)
+
     def test_grill_references_are_relative_and_present(self) -> None:
         body = (SKILLS / "grill/SKILL.md").read_text(encoding="utf-8")
         for name in ("DECISION-TREE.md", "GAP-REVIEW.md"):

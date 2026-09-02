@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `domain-model` gains `GLOSSARY-FORMAT.md` (upstream `CONTEXT-FORMAT.md`): term, one-sentence definition, `_Avoid_` synonym list, context-specific terms only, and the `docs/adr/` location for decision records that step 5 offered without naming a home.
+
 - Five cribs from a side-by-side of github/spec-kit (0053c3a3) and Fission-AI/openspec (d0071d73), both now pinned in `sources.lock.yml`: `to-spec` marks open points with `[NEEDS CLARIFICATION: <question>]` inline (three or more returns to `grill`), gives each user story an Independent Test, requires a measurable criterion behind every quality word, and states the spec-membership test (the implementation cannot change without changing the line); `plan` searches for the marker before task one; grill's `GAP-REVIEW` gains the gap-admissibility test (the requirement's wording is the subject). Excluded with reasons in `PROVENANCE.md`: openspec's delta-spec archive lifecycle and CLI validator, spec-kit's clarify session, constitution, and installer surface. Red-green revalidation of the new wording is deferred.
 
 ## 0.3.0 - 2026-09-02

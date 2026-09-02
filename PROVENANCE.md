@@ -31,7 +31,7 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | Fission-AI/openspec: delta specs, sync-specs, archive, verify-change | d0071d73 | exclude | - | Delta specs merged into a living per-capability archive is a whole lifecycle with its own pack; the merge is agent judgment with only shape validated by the CLI. verify-change's implementation-vs-spec audit was already rejected as review's spec axis (`results8b.txt`). Recorded so refreshes do not re-litigate. |
 | mattpocock/skills: codebase-design | 6654f6b6 | merge | deep-modules | Deep-module design. |
 | mattpocock/skills: diagnosing-bugs | 6654f6b6 | merge | diagnose | Feedback-loop diagnosis. |
-| mattpocock/skills: domain-modeling | 6654f6b6 | merge | domain-model | Portable vocabulary discovery. |
+| mattpocock/skills: domain-modeling | 6654f6b6 | merge | domain-model | Portable vocabulary discovery. 2026-09-02: `GLOSSARY-FORMAT.md` ported from upstream `CONTEXT-FORMAT.md` (term, tight definition, `_Avoid_` synonyms, context-specific terms only) plus the `docs/adr/` decision-record path; the multi-context `CONTEXT-MAP.md` section stays out until a consumer needs it. |
 | mattpocock/skills: grill-with-docs | 6654f6b6 | merge | grill | No artifact prescription. |
 | mattpocock/skills: implement | 6654f6b6 | merge | implement | TDD-managed execution. |
 | mattpocock/skills: improve-codebase-architecture | 6654f6b6 | merge | architecture-improvement | Scoped deepening scan. |

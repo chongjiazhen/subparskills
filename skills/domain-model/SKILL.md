@@ -13,5 +13,5 @@ metadata: { pack: architecture, source: merge }
 1. Read code, tests, docs, and examples around requested behavior.
 2. Name concepts, relationships, invariants, lifecycle states, and ownership in user language.
 3. Challenge terms that combine different concepts or hide ambiguity.
-4. Record agreed vocabulary in `GLOSSARY.md` at the repository or context root - the default name other skills read - and use it in design, interfaces, tests, and handoff. Keep it free of implementation detail - it is a glossary, not a spec or scratch pad.
-5. Offer a decision record only when reversal cost is real AND the choice will look surprising later AND a genuine alternative was rejected; skip otherwise.
+4. Record agreed vocabulary in `GLOSSARY.md` at the repository or context root - the default name other skills read - in the shape of [GLOSSARY-FORMAT.md](GLOSSARY-FORMAT.md), and use it in design, interfaces, tests, and handoff. Keep it free of implementation detail - it is a glossary, not a spec or scratch pad.
+5. Offer a decision record only when reversal cost is real AND the choice will look surprising later AND a genuine alternative was rejected; skip otherwise. Write it to `docs/adr/` per the format file.
