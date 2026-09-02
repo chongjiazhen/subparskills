@@ -4,11 +4,11 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 
 | Source capability | Revision | Decision | Canonical target | Local delta |
 | --- | --- | --- | --- | --- |
-| obra/superpowers: brainstorming | b36e0829 | merge | grill | Decision interrogation only; no harness gate. 2026-09-01 audit: upstream's confirm-before-acting approval gate had not landed; restored to grill step 5. |
+| obra/superpowers: brainstorming | b36e0829 | merge | grill | Decision interrogation only; no harness gate. 2026-09-01 audit: upstream's confirm-before-acting approval gate had not landed; restored to grill step 5. 2026-09-02: spike/bounded/architectural path classification and per-path hand-off ported (`results7b.txt` differentiated); upstream's session-start hook and skill-to-skill hard gates stay out. |
 | obra/superpowers: dispatching-parallel-agents | b36e0829 | merge | parallel-execution | Portable worker contract. |
-| obra/superpowers: executing-plans | b36e0829 | merge | implement | Compact task loop. |
+| obra/superpowers: executing-plans | b36e0829 | merge | implement | Compact task loop. 2026-09-02: skill edges to `worktrees`, `tdd`, `review`, `finish` named in-body (issue #1; `results7.txt` cell A). |
 | obra/superpowers: finishing-a-development-branch | b36e0829 | merge | finish | No default branch policy. |
-| obra/superpowers: receiving-code-review | b36e0829 | merge | review | Consolidated review flow. |
+| obra/superpowers: receiving-code-review | b36e0829 | merge | review | Consolidated review flow. 2026-09-02: executed mutation check for new defensive branches - original curation from the maintainer's private harness, issue #1 (`results7.txt` cell B, differentiated on mechanism). |
 | obra/superpowers: requesting-code-review | b36e0829 | merge | review | Consolidated review flow. |
 | obra/superpowers: subagent-driven-development | b36e0829 | merge | parallel-execution | Harness-neutral dispatch. |
 | obra/superpowers: systematic-debugging | b36e0829 | merge | diagnose | Feedback-loop-first diagnosis. |
@@ -16,7 +16,7 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | obra/superpowers: using-git-worktrees | b36e0829 | adopt | worktrees | Generic Git only. |
 | obra/superpowers: using-superpowers | b36e0829 | merge | choose-skill | Stripped to manual routing over public skills; no universal bootstrap. |
 | obra/superpowers: verification-before-completion | b36e0829 | adopt | verify | Evidence before claims. |
-| obra/superpowers: writing-plans | b36e0829 | merge | plan | No required artifact path. |
+| obra/superpowers: writing-plans | b36e0829 | merge | plan | No required artifact path. 2026-09-02: `TEMPLATE.md` (spec path, Global Constraints, commit step per task) and hand-off edge ported (`results7.txt` cell D); the 2-5 minute step sizing and plan-reviewer prompt stay out. |
 | obra/superpowers: writing-skills | b36e0829 | merge | writing-for-agents | Folded portable skill-authoring guidance into the public writing discipline. |
 | mattpocock/skills: ask-matt | 6654f6b6 | merge | choose-skill | Public router over the portable catalog only. |
 | mattpocock/skills: code-review | 6654f6b6 | merge | review | One canonical review discipline. |

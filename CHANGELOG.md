@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Ceremony edges, from the 2026-09-02 comparison against the upstream pins and issue #1: `implement` names the `worktrees`, `tdd`, `review`, and `finish` skills at the points it reaches them (the bare phrase "using TDD" never fired the skill); `review` gains an executed mutation check for every new defensive branch; `plan` gains `TEMPLATE.md` (spec path in the header, Global Constraints block, commit step per task) and an explicit hand-off to `implement` or `parallel-execution`; `grill` classifies the path aloud (spike, bounded, architectural) with the artifact scaling and the approval gate fixed, and hands off by path to `prototype`, `implement`, or `to-spec`; `choose-skill` routes any starting feature to `grill`. Every delta red-green tested (`docs/migration/pressure-test/run5.sh`, `run5b.sh`, `results7.txt`, `results7b.txt`): all four differentiated, the bounded-ask grill cell held in both arms and the architectural-ask cell differentiated.
+
 - Added `measurement-standards` (core pack): earn belief in a number before it decides anything - condition tracing, both instrument controls, comparison isolation, re-run before generalizing, best-of-N selection-bias floor, and six untrustworthy-provenance shapes. Original curation from the maintainer's private harness (MIT, no pinned upstream); pressure evidence in `docs/migration/pressure-test/results4.txt`. Catalog is now 30 skills.
 
 - Ported `to-spec` (delivery pack): conversation-to-spec synthesis without re-interviewing - seam sketch confirmed with the user, full spec template, no-file-paths rule with the prototype-snippet exception. Closes the audit's orphaned-wrapper finding; catalog is now 29 skills.
