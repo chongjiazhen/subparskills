@@ -4,7 +4,7 @@ Scope: mattpocock-skills {grilling, grill-me, grill-with-docs, wait-what, to-que
 + superpowers brainstorming (read for cross-reference, has no direct merge counterpart -
 excluded from tallies) -> subparskills {skills/grill/*, skills/wait-what, skills/to-questionnaire,
 commands/grill.md}. Second pass: subparskills vs operator's personal deepened versions
-(private skills/{grill,wait-what}).
+(private, {grill,wait-what}).
 
 ## Part A - upstream -> merged
 

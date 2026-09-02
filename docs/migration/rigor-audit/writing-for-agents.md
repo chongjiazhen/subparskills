@@ -4,7 +4,7 @@ Upstream read in full: superpowers/skills/writing-skills/{SKILL.md, anthropic-be
 persuasion-principles.md, testing-skills-with-subagents.md}; mattpocock-skills/skills/productivity/
 writing-for-agents/{SKILL.md, SKILL-MECHANICS.md}.
 Merged: subparskills/skills/writing-for-agents/{SKILL.md, SKILL-AUTHORING.md}.
-Operator deepened: private skills/writing-for-agents/{SKILL.md, SKILL-MECHANICS.md}.
+Operator deepened (private): writing-for-agents/{SKILL.md, SKILL-MECHANICS.md}.
 
 ## Verdict summary
 

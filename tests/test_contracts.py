@@ -40,8 +40,14 @@ TRACKER_RESOURCES = {
 }
 EXPECTED_PACKS = {"core", "delivery", "architecture", "research", "tracker"}
 EXPECTED_ADAPTERS = {"claude-code", "codex", "pi", "opencode", "qwen"}
-PERSONAL_MARKERS = ("~/", "C:\\Users\\", "C:\\", "/private-repo/", "private-layer", "worker-delegate")
-PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("private-repo", "factlog"))
+_EXTRA_MARKERS = ROOT / ".scratch" / "markers.txt"  # optional, local-only
+_BASE_MARKERS = ("~/", "C:\\Users\\", "C:\\")
+PERSONAL_MARKERS = _BASE_MARKERS + (
+    tuple(line.strip() for line in _EXTRA_MARKERS.read_text(encoding="utf-8").splitlines() if line.strip())
+    if _EXTRA_MARKERS.exists()
+    else ()
+)
+PUBLIC_MARKERS = tuple(marker.lower() for marker in PERSONAL_MARKERS + ("factlog",))
 
 
 def load_script_module(name: str):

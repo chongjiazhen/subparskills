@@ -2,7 +2,7 @@
 
 Created 2026-09-01T03:02:20Z. Audits the Codex-executed merge (subparskills fe70af3) against
 upstream pins `obra/superpowers` b36e0829 and `mattpocock/skills` 6654f6b6 (re-cloned, pins
-verified), plus the operator's `the maintainer's private skills` deepened set. Method: seven
+verified), plus the maintainer's privately deepened set. Method: seven
 parallel per-cluster reviews grading every upstream mechanism KEPT / PRUNED-OK /
 LOST-LOAD-BEARING; key claims re-verified against source by the commander.
 
@@ -128,7 +128,7 @@ Deliberately skipped, with reasons - revisit only if the trigger fires:
   the flat "GLOSSARY.md when one exists" rule covers the common case. Trigger: a repo with
   more than one glossary actually in use.
 - **`!` splice mechanism** (operator writing-for-agents): Claude-Code-specific; the catalog
-  declares harness-neutral compatibility. Stays in the operator's private layer.
+  declares harness-neutral compatibility. Stays in the maintainer's private layer.
 - **Full re-import of upstream bodies** (200-600 lines each): the catalog's lean-body,
   pointed-reference architecture is the design, not the defect; reinstatement was
   gate-by-gate, table-by-table.
@@ -146,8 +146,8 @@ Deliberately skipped, with reasons - revisit only if the trigger fires:
   those cells show the green wording holds but do not prove it necessary (a non-failing
   control means the scenario did not reach the old body's breaking point, not that the guard
   is vacuous - N=1, single scenario, one model). Raw transcripts:
-  `docs/migration/pressure-test/results.txt`; scenario prompts in
-  `docs/migration/pressure-test/run.sh`. Remaining trigger
+  the maintainer's local transcripts (`results.txt`; scenario prompts in `run.sh`,
+  both kept out of the tree). Remaining trigger
   unchanged: any reinstated gate observed failing under pressure in a live session.
 - **Remaining MED items not applied**: diagnose condition-based-waiting (test-authoring
   technique, not a diagnostic gate); micro-test protocol and meta-testing diagnostic

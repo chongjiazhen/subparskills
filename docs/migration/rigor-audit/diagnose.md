@@ -122,11 +122,11 @@ Reinstatement (optional, low priority): append to Step 5 - "Check whether the ba
 - Non-deterministic-bug rate-raising ladder (loop the trigger, stress, narrow timing) - preserved almost verbatim in `INTERMITTENT-FAILURES.md`.
 - Loop ladder ordering (test > CLI/fixture > replay > harness > differential/bisection > human-assisted).
 
-## Operator deepened version (`private skills/diagnose/SKILL.md`) vs merged
+## Operator deepened version (private) vs merged
 
 Single-file monolith (no split FEEDBACK-LOOPS/INTERMITTENT-FAILURES); content is the upstream
 skill re-stepped to match the merged catalog's 6-step shape, plus repo-specific pointers
-(factlog domain check, `a repo-specific evidence guide` for live-incident evidence gathering).
+(factlog domain check, a repo-specific evidence guide for live-incident gathering).
 
 **(a) Load-bearing in operator, missing from merged:**
 - Post-mortem reflection at Step 6 close: "ask what would have prevented this bug... hand off to `/improve` with specifics, make the recommendation after the fix is in (more information than at the start)." Merged Step 6 stops at the cleanup checklist and never closes the loop into architecture follow-up. Minor but real: it's the only place in either version that captures anything like upstream's "3+ fixes -> question architecture" spirit (post-hoc rather than as a stop-gate). Worth porting into merged Step 6 as a closing line.
