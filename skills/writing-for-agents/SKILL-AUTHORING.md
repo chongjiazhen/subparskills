@@ -59,6 +59,16 @@ Shared reference used by several discoverable skills can live in one skill-level
 
 A guarantee the skill must always uphold - persistence, validation, naming, idempotency - lives in a bundled script the skill runs, never in body prose. Prose like "always write X to Y" or "always validate Z first" is a guarantee mis-housed in wording that drifts; move it into a script step the body calls.
 
+## Before Shipping
+
+A skill is done when every item holds, checked against the file rather than recalled:
+
+- Frontmatter complete per the catalog contract, description trigger-oriented.
+- Every dependency the body assumes (a script, a sibling file, a tool) is named and present.
+- Every disclosed reference is one hop away and linked relatively.
+- No hardcoded per-model, per-run, or per-machine constant in the body.
+- The red-green scenario for this edit passed, on more than one model where feasible.
+
 ## Router Skills
 
 When the number of user-invoked skills grows past easy recall, create one router skill that names the others and states when to reach for each. The router lowers human indexing cost without forcing every downstream skill into autonomous discovery.

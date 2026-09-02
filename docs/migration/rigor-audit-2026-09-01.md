@@ -118,7 +118,7 @@ hold there.
 
 ## Remediation applied 2026-09-01 - and what was deliberately not applied
 
-Commits 1eae846 and 1b1890d applied every HIGH finding and the one-line MED findings.
+Commits 1eae846 and 1b1890d applied every HIGH finding and the one-line MED findings, with one miss found by the 2026-09-02 re-audit: HIGH 7's ship checklist for `writing-for-agents` never landed (only the one-skill-at-a-time rule did); added to `SKILL-AUTHORING.md` §Before Shipping that day, together with five more gates the re-audit surfaced (finish: re-verify the merged tree, typed `discard`, no self-initiated force push; review: stop on a finding that reverses a prior user decision; to-spec: self-review for contradiction and scope).
 Deliberately skipped, with reasons - revisit only if the trigger fires:
 
 - **defense-in-depth** (diagnose, LOW/MED): validate-at-every-layer sits in tension with the
