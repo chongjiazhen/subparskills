@@ -10,10 +10,11 @@ metadata: { pack: delivery, source: merge }
 
 ## Procedure
 
-1. Read plan and current workspace. Confirm a work branch, not the default branch, before the first edit.
-2. Execute one task at time using TDD. Keep unrelated changes untouched.
-3. Run task verification and inspect state. Every task gets independent review before the next starts; self-review never substitutes.
+1. Read plan and current workspace. Confirm a work branch, not the default branch, before the first edit; on the default branch or a shared checkout, invoke the `worktrees` skill first.
+2. Execute one task at a time with the `tdd` skill. Keep unrelated changes untouched.
+3. Run task verification and inspect state. Every task gets independent review through the `review` skill before the next starts; self-review never substitutes.
 4. Record each completed task with its evidence in a durable ledger file. On resume, trust the ledger over recollection - never re-run a task the ledger marks done.
+5. After the last task passes review, invoke the `finish` skill for the integration decision.
 
 ## Rules
 
