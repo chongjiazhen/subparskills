@@ -50,7 +50,7 @@ Commands are explicit operator entry points. Skills contain canonical procedure 
 
 ## Harnesses
 
-Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Installer copies canonical bodies unchanged to documented native project paths. OpenCode additionally receives explicit `commands/` wrappers; commands are operator-invoked, not autoinvoked. Qwen receives `.qwen/skills` layout.
+Claude Code, Codex, Pi, OpenCode, and Qwen catalogs live under `adapters/`. Installer copies canonical bodies unchanged to documented native project paths. OpenCode additionally receives explicit `commands/` wrappers; commands are operator-invoked, not autoinvoked. Qwen receives `.qwen/skills` layout. On Claude Code the catalog's `review` takes the typed `/review` too (the bundled `code-review` skill lists `review` as an alias, but a user-scope skill of that name wins; verified 2026-09-02 in an isolated config), so the bundled reviewer stays reachable only as `/code-review`. On Codex the native `/review` command and the catalog `review` skill are separate surfaces and do not shadow each other.
 
 ## Updating sources
 
