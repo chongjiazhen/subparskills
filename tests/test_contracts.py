@@ -113,6 +113,13 @@ class FrameworkContracts(unittest.TestCase):
             self.assertIn(f"[{name}]({name})", body)
             self.assertTrue((SKILLS / "grill" / name).is_file())
 
+    def test_plan_template_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "plan/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[TEMPLATE.md](TEMPLATE.md)", body)
+        template = (SKILLS / "plan" / "TEMPLATE.md").read_text(encoding="utf-8")
+        for marker in ("Spec:", "## Global Constraints", "- [ ] Commit:"):
+            self.assertIn(marker, template)
+
     def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
         data = frontmatter(SKILLS / "choose-skill/SKILL.md")
         self.assertIn("invocation: user", data["metadata"])
