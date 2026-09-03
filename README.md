@@ -63,7 +63,7 @@ Two helper gates support that manual flow:
 
 ## Release
 
-Use SemVer tags. Current release line: `v0.3.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.
+Use SemVer tags. Current release line: `v0.4.0`. Test in clean harness fixtures beside stock installs before publishing. Migrate repositories one at time; remove stock installs only after recorded migration evidence.
 
 Portable procedure prose ends at the public catalog boundary. Repository-specific facts, paths, policy, and operator routes belong in a private overlay maintained by the consuming repository after it selects the matching public skill ID. Public updates stay curated; this repository does not auto-sync private overlays. Before removing stock skill sets, run and retain [Codex and Claude migration evidence](docs/migration/codex-claude-smoke-test.md).
 

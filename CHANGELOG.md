@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.4.0 - 2026-09-03
+
 - `diagnose` step 6 gains one sentence, cribbed from cavekit's backprop: when the prevention answer is an invariant, write it into the project's invariant record (glossary, spec, decision record) before reporting. Red-green (`.scratch/pressure-test/run9*.sh`, `results11*.txt`): the glossary write differentiated 0/2 to 2/2; a softer phrasing went 1/2 on a deferred offer and was replaced by the imperative form, which held 2/2. Rejected on a held baseline: caveman verify-and-stop's four verdict states for `verify` (`run8.sh`, `results10.txt`) - the baseline already re-ran fresh, called the stale CI record stale, and returned not-ready; the crib only changed a label.
 
 - `plan` gains step 4, cribbed from caveman's `migration` verb: when a task retires a persisted shape, a wire field, or a separately deployed interface, the removal is its own last task gated on no-live-reader evidence, and the task before it names idempotent re-run and a both-shapes read as acceptance. Red-green (`.scratch/pressure-test/run7*.sh`, `results9*.txt`, sonnet, isolated config): the expand-migrate-contract split itself was a no-op against the baseline and stayed out; the gate, the dual-read window, and the idempotency acceptance differentiated and held 2/2 after trimming. Rejected as a separate skill (trigger over-fires on library migrations, resident cost per consumer).
