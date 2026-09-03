@@ -118,7 +118,7 @@ persuasion-principles.md (a whole file, cited research, N=28,000) is not referen
    been worded to make the correct choice unmistakable - the answer sorts into ignored-it
    (need a stronger foundational rule), missing-content (add verbatim), or buried (promote it)."
 
-8. **Degrees of freedom (narrow-bridge vs open-field)**
+8. **Degrees of freedom (narrow-bridge vs open-field)** (reinstated 2026-09-03, SKILL-AUTHORING §Guarantees)
    (anthropic-best-practices.md lines 59-131) - Defends against: over-specifying a judgment-call
    task (kills adaptability) or under-specifying a fragile, must-follow-exact-sequence task
    (invites drift/error). Concrete 3-tier framework - high freedom (text heuristics) / medium
@@ -155,7 +155,7 @@ persuasion-principles.md (a whole file, cited research, N=28,000) is not referen
     Reinstatement: "Skill file paths: forward slashes only, even when authored on Windows -
     backslash paths break on Unix runtimes."
 
-11. **Script-bundling discipline** (anthropic-best-practices.md "Solve, don't punt" lines 855-906,
+11. **Script-bundling discipline** (reinstated 2026-09-03 with item 8, SKILL-AUTHORING §Guarantees) (anthropic-best-practices.md "Solve, don't punt" lines 855-906,
     "Provide utility scripts" + execute-vs-read-as-reference distinction lines 908-961,
     "Create verifiable intermediate outputs" / plan-validate-execute lines 985-1002,
     and MCP fully-qualified tool names lines 1053-1071) - Defends against 4 distinct failure

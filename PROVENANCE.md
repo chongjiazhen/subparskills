@@ -62,7 +62,7 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | mattpocock/skills: setup-pre-commit | 6654f6b6 | exclude | - | Repository policy, not skill discipline. |
 | mattpocock/skills: grill-me | 6654f6b6 | merge | grill | One decision procedure. |
 | mattpocock/skills: grilling | 6654f6b6 | merge | grill | One decision procedure. |
-| mattpocock/skills: handoff | 6654f6b6 | adopt | handoff | Portable structured handoff. |
+| mattpocock/skills: handoff | 6654f6b6 | adopt | handoff | Portable structured handoff. Upstream saves to the OS temp dir; here the brief lands in the receiving directory, since a handoff exists to survive the session and temp does not. |
 | mattpocock/skills: teach | 6654f6b6 | merge | teach | Stateful teaching workspace; lazy file creation. |
 | mattpocock/skills: to-questionnaire | 6654f6b6 | merge | to-questionnaire | Grill the send, not the subject; portable Markdown handoff. |
 | mattpocock/skills: wait-what | 6654f6b6 | adopt | wait-what | Portable re-pitch prompt with glossary-aware wording. |

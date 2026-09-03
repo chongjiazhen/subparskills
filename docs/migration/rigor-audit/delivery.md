@@ -113,6 +113,24 @@ Merged `handoff` (4 lines) has no redaction step at all.
 Reinstatement (handoff): "Redact secrets, credentials, and PII before
 writing the handoff."
 
+### 7b. Handoff lands on disk, referencing existing artifacts by path - HIGH
+(found 2026-09-03, on retiring the maintainer's private session-close skill)
+Upstream: `mattpocock-skills/productivity/handoff/SKILL.md`: "Write a handoff
+document ... Save to the temporary directory of the user's OS" and "Do not
+duplicate content already captured in other artifacts (specs, plans, ADRs,
+issues, commits, diffs). Reference them by path or URL instead."
+Failure defended against: a handoff that exists only in the closing
+conversation - every step of the merged skill says state/list/record, none
+says write - so `/handoff` then a fresh session loses the payload it was
+invoked to keep; and a brief that restates the spec and plan it should point at.
+Merged `handoff` (5 steps) has no write step and no reference-by-path line.
+Reinstatement (handoff, step 5 clause + step 6): reference existing artifacts
+by path; write the brief to a file in the receiving directory and report the
+path. Deliberate divergence from upstream: the receiving directory, not the OS
+temp dir, because temp does not survive the reboot a handoff must.
+Red-green deferred on the same ground as the 2026-09-01 batch: the wording
+compresses upstream text; the write verb is the whole delta.
+
 ## LOST-LOAD-BEARING (MED)
 
 ### 8. Receiving-feedback discipline is entirely absent

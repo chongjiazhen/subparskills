@@ -59,6 +59,10 @@ Shared reference used by several discoverable skills can live in one skill-level
 
 A guarantee the skill must always uphold - persistence, validation, naming, idempotency - lives in a bundled script the skill runs, never in body prose. Prose like "always write X to Y" or "always validate Z first" is a guarantee mis-housed in wording that drifts; move it into a script step the body calls.
 
+Match specificity to fragility. Many valid paths: text heuristics. A preferred pattern with acceptable variation: parameterized pseudocode. One exact sequence that fails when varied: a fixed script with nothing to negotiate.
+
+A bundled script handles its own errors and justifies every constant; the body says whether the agent runs it or reads it as reference. A batch or destructive operation validates a plan file before executing it. An MCP tool is named `ServerName:tool_name`.
+
 ## Before Shipping
 
 A skill is done when every item holds, checked against the file rather than recalled:
