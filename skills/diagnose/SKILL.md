@@ -19,7 +19,7 @@ Use [FEEDBACK-LOOPS.md](FEEDBACK-LOOPS.md) when the hard part is constructing or
 3. Write 3-5 ranked falsifiable hypotheses. Each hypothesis must predict an observable change in the loop. Before ranking, diff against a working example or reference implementation where one exists - read it in full and list every difference, however small.
 4. Probe one prediction at a time with debugger-first or targeted tagged instrumentation. An error surfacing deep in a call chain: trace backward to the originating call before fixing at the surfacing point. For performance work, measure baseline before changing code.
 5. Turn the real repro into a regression test at the correct seam. Watch it fail, apply the smallest fix, then re-run the regression and the original loop.
-6. Remove temporary probes, state the confirmed hypothesis, and record missing seam or architecture findings separately. Close by asking what would have prevented this bug; record the recommendation now, while the information is fresh.
+6. Remove temporary probes, state the confirmed hypothesis, and record missing seam or architecture findings separately. Close by asking what would have prevented this bug; record the recommendation now, while the information is fresh. When the answer is an invariant the class of bug violates, write it into the project's invariant record (a glossary, a spec, a decision record) before reporting; an invariant that lives only in the report is not recorded.
 
 Stop if no trustworthy loop. State attempts and request reproduction artifact or access.
 
