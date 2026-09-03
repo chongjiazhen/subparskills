@@ -19,3 +19,9 @@ sources:
     commit: d0071d7326689a0269332a500c8f56b3f2218ba9
     license: MIT
     retrieved_at: 2026-09-02T09:46:52Z
+  - id: anthropics-claude-plugins-official
+    url: https://github.com/anthropics/claude-plugins-official.git
+    commit: 0120fb83da5d7cdaa52dd11979690f2dc5f76052
+    license: Apache-2.0
+    retrieved_at: 2026-09-03T00:00:00Z
+    decision: exclude-all

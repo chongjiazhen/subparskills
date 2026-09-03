@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Scanned all 39 plugins of `anthropics/claude-plugins-official` (0120fb83, pinned in `sources.lock.yml`) and excluded the whole marketplace in one `PROVENANCE.md` row: harness plumbing, products, multi-agent review variants, a compounded feature-dev workflow, skill-creator's eval tooling, and claude-md-management's rubric audit, each named against the catalog rule that keeps it out. No text copied; the row expires with its pin.
+
+- `prototype` gains `NOTE.md` and `wizard` gains `RUNBOOK.md` - the two artifact shapes the maintainer's private spec-lite guideline still carried after the spec/plan/ADR shapes were found already housed here (`to-spec` sections, `plan/TEMPLATE.md`, `domain-model` step 5 + `docs/adr/`). A prototype note is written even when the prototype is abandoned; a runbook is the document a wizard is generated from, every step cold-readable with a post-state verify gate and a failure branch. Contract tests cover both references.
+
 - Re-audit against both parent pins (two graded tables, every 2026-09-01 reinstatement verified by quote) found six load-bearing gates still missing; all reinstated. `finish`: verification re-run on the merged tree before cleanup, discard needs the typed word `discard`, no self-initiated force push. `review`: stop and confirm on a finding that reverses a prior explicit user decision. `to-spec`: self-review for contradiction and one-plan scope before handoff. `writing-for-agents`: §Before Shipping checklist, which the prior audit had recorded as applied. Audit document corrected. Red-green revalidation deferred except for the review gate, which is a judgment gate and gets a pressure scenario next.
 
 - `domain-model` gains `GLOSSARY-FORMAT.md` (upstream `CONTEXT-FORMAT.md`): term, one-sentence definition, `_Avoid_` synonym list, context-specific terms only, and the `docs/adr/` location for decision records that step 5 offered without naming a home.
