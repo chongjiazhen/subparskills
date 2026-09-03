@@ -133,6 +133,20 @@ class FrameworkContracts(unittest.TestCase):
         for marker in ("Spec:", "## Global Constraints", "- [ ] Commit:"):
             self.assertIn(marker, template)
 
+    def test_prototype_note_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "prototype/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[NOTE.md](NOTE.md)", body)
+        note = (SKILLS / "prototype" / "NOTE.md").read_text(encoding="utf-8")
+        for marker in ("question:", "outcome:", "## Tried", "## Learned", "## Decision"):
+            self.assertIn(marker, note)
+
+    def test_wizard_runbook_reference_is_relative_and_present(self) -> None:
+        body = (SKILLS / "wizard/SKILL.md").read_text(encoding="utf-8")
+        self.assertIn("[RUNBOOK.md](RUNBOOK.md)", body)
+        runbook = (SKILLS / "wizard" / "RUNBOOK.md").read_text(encoding="utf-8")
+        for marker in ("Preconditions:", "Rollback:", "Run:", "Expect:", "If not:"):
+            self.assertIn(marker, runbook)
+
     def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
         data = frontmatter(SKILLS / "choose-skill/SKILL.md")
         self.assertIn("invocation: user", data["metadata"])

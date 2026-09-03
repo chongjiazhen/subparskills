@@ -8,7 +8,7 @@ metadata: { pack: delivery, source: merge }
 
 # Wizard
 
-A wizard is a bash script that walks a human through a manual procedure: it opens each URL, says exactly what to click and copy, captures values, writes them where they belong, confirms at every stage, and shows stages remaining. Generate one only for steps the agent cannot perform itself.
+A wizard is a bash script that walks a human through a manual procedure: it opens each URL, says exactly what to click and copy, captures values, writes them where they belong, confirms at every stage, and shows stages remaining. Generate one only for steps the agent cannot perform itself. When the procedure will repeat and is worth keeping as a document, write the runbook first in the shape of [RUNBOOK.md](RUNBOOK.md) and generate the wizard from it.
 
 The UX is solved by [template.sh](template.sh): stage progress, confirmation gates, cross-platform URL opening, hidden secret entry, idempotent env-file upserts, CI secret writes, closing summary. Author only the stages below the STAGES marker; never hand-edit the library above it.
 

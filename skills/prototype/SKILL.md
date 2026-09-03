@@ -18,4 +18,4 @@ A prototype is throwaway code that answers a question. The question decides the 
 4. Skip polish. No tests, no abstractions, no error handling beyond runnable.
 5. Surface the state. After every action or variant switch, show the full relevant state so the user sees what changed.
 6. Keep the logic under test in a pure module - no page, DOM, or handler coupling. The page is a thin shell over it, so the validated logic lifts into the real codebase.
-7. Capture when done. Fold the validated decision into real code; keep the prototype off the main branch with a pointer from the tracking artifact; record the verdict and the question it settled. The main branch keeps only the validated decision.
+7. Capture when done. Fold the validated decision into real code; keep the prototype off the main branch with a pointer from the tracking artifact; record the verdict and the question it settled in the shape of [NOTE.md](NOTE.md) - even when the prototype is abandoned, the note is the value. The main branch keeps only the validated decision.
