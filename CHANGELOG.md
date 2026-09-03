@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Scanned the JuliusBrussee cave family (`caveman` 3b74643f, `cavekit` 7421e87d, both pinned) and excluded both in `PROVENANCE.md`: a token-compression product whose discipline verbs restate existing catalog skills and whose spec-driven loop is the axis already litigated against spec-kit and openspec. Three crib candidates recorded for a later red-green pass: verify-and-stop's exact verdict states, backprop's bug-to-invariant question, and a `migration` discipline that names a gap the catalog does not cover.
+
 - Scanned all 39 plugins of `anthropics/claude-plugins-official` (0120fb83, pinned in `sources.lock.yml`) and excluded the whole marketplace in one `PROVENANCE.md` row: harness plumbing, products, multi-agent review variants, a compounded feature-dev workflow, skill-creator's eval tooling, and claude-md-management's rubric audit, each named against the catalog rule that keeps it out. No text copied; the row expires with its pin.
 
 - `prototype` gains `NOTE.md` and `wizard` gains `RUNBOOK.md` - the two artifact shapes the maintainer's private spec-lite guideline still carried after the spec/plan/ADR shapes were found already housed here (`to-spec` sections, `plan/TEMPLATE.md`, `domain-model` step 5 + `docs/adr/`). A prototype note is written even when the prototype is abandoned; a runbook is the document a wizard is generated from, every step cold-readable with a post-state verify gate and a failure branch. Contract tests cover both references.

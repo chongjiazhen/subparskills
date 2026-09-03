@@ -25,3 +25,15 @@ sources:
     license: Apache-2.0
     retrieved_at: 2026-09-03T00:00:00Z
     decision: exclude-all
+  - id: juliusbrussee-caveman
+    url: https://github.com/JuliusBrussee/caveman.git
+    commit: 3b74643f4d910f496babd4e634b1ba7168816f14
+    license: MIT (skills/; engine-linked Go dirs BSL-1.1, not used)
+    retrieved_at: 2026-09-03T00:00:00Z
+    decision: exclude-all
+  - id: juliusbrussee-cavekit
+    url: https://github.com/JuliusBrussee/cavekit.git
+    commit: 7421e87d5b517c415c519ddf58a3dd10ba842530
+    license: MIT
+    retrieved_at: 2026-09-03T00:00:00Z
+    decision: exclude-all
