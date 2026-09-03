@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- `plan` gains step 4, cribbed from caveman's `migration` verb: when a task retires a persisted shape, a wire field, or a separately deployed interface, the removal is its own last task gated on no-live-reader evidence, and the task before it names idempotent re-run and a both-shapes read as acceptance. Red-green (`.scratch/pressure-test/run7*.sh`, `results9*.txt`, sonnet, isolated config): the expand-migrate-contract split itself was a no-op against the baseline and stayed out; the gate, the dual-read window, and the idempotency acceptance differentiated and held 2/2 after trimming. Rejected as a separate skill (trigger over-fires on library migrations, resident cost per consumer).
+
 - Scanned the JuliusBrussee cave family (`caveman` 3b74643f, `cavekit` 7421e87d, both pinned) and excluded both in `PROVENANCE.md`: a token-compression product whose discipline verbs restate existing catalog skills and whose spec-driven loop is the axis already litigated against spec-kit and openspec. Three crib candidates recorded for a later red-green pass: verify-and-stop's exact verdict states, backprop's bug-to-invariant question, and a `migration` discipline that names a gap the catalog does not cover.
 
 - Scanned all 39 plugins of `anthropics/claude-plugins-official` (0120fb83, pinned in `sources.lock.yml`) and excluded the whole marketplace in one `PROVENANCE.md` row: harness plumbing, products, multi-agent review variants, a compounded feature-dev workflow, skill-creator's eval tooling, and claude-md-management's rubric audit, each named against the catalog rule that keeps it out. No text copied; the row expires with its pin.
