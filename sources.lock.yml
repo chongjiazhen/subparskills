@@ -37,3 +37,15 @@ sources:
     license: MIT
     retrieved_at: 2026-09-03T00:00:00Z
     decision: exclude-all
+  - id: anthropics-claude-plugins-community
+    url: https://github.com/anthropics/claude-plugins-community.git
+    commit: a727be1c7bd6064419b6f60d71993a19198adc17
+    license: n/a (marketplace index; each plugin carries its own)
+    retrieved_at: 2026-09-03T00:00:00Z
+    decision: exclude-all
+  - id: evanklem-evanflow
+    url: https://github.com/evanklem/evanflow.git
+    commit: c9ae21f8ed0c53f861a049effffdf353119ff777
+    license: MIT
+    retrieved_at: 2026-09-03T00:00:00Z
+    decision: exclude-all
