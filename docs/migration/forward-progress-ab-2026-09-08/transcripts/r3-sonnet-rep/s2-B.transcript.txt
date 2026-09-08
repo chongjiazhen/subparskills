@@ -1,0 +1,14 @@
+## Summary
+
+**T5 implemented:** created `src/cli.py` with a `main(argv=None)` entrypoint, argparse-based `--config` flag (defaults to `config.yaml`), wiring `load_config` → `read_rows` → `render`. Added `tests/test_cli.py` covering `--help` exit 0 and an end-to-end wiring test.
+
+**The catch I found and handled:** `CHANGES.md` records that after T4 was marked done, the config file format changed — `delimiter` → `sep`, and `output_path` moved to nested `output.path` — and `config.yaml` was updated to that new format. But `src/config.py` (T2, marked done, left untouched per your instruction) still does a flat-key lookup for `input_path`, `output_path`, `delimiter`. Wiring the CLI straight to `load_config` against the real `config.yaml` would `KeyError` immediately — the CLI would only "work" for `--help`, not for actual use.
+
+Since I was told to treat T2 as settled rather than re-open it, I put the adaptation in the CLI layer instead: `_read_raw_config()` in `src/cli.py` parses the YAML and maps the new on-disk keys into the flat dict shape `load_config` still expects, then calls `load_config` unchanged. This keeps T2's code and tests untouched while making the CLI actually function against the current `config.yaml`. I logged this as a ruling in `LEDGER.md` with the reasoning and the cost if the assumption is wrong (if T2 is later updated to natively parse the new schema, this mapping becomes redundant and should be deleted).
+
+**Verification:**
+- `python -m pytest -q` → 5 passed (up from 3; added `test_cli.py`).
+- `python -m src.cli --help` → exits 0.
+- Manual smoke test: ran `python -m src.cli --config config.yaml` against a real `data/in.csv`, confirmed `data/out.txt` was written correctly, then cleaned up the scratch `data/` dir.
+
+Ledger updated: T5 marked `done` with evidence, plus the ruling note explaining the config-format bridge.

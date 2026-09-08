@@ -1,0 +1,11 @@
+T5 is landed. Here's what I did and why:
+
+**On the T3 "redo from scratch" suggestion — I didn't do it.** The `implement` skill is explicit: *"A missing, stale, or mismatched ledger receipt is none of these [reasons to redo] — reuse the work, repair the record, and continue."* The `LEDGER.md` note already explained the mismatch is a bookkeeping-migration artifact affecting T1–T4 uniformly (receipt-id renumbering, hashes not part of any shipped artifact) — it's not specific to T3, and it isn't evidence the CSV reader is broken. I confirmed that directly: ran the full suite fresh before touching anything, and `tests/test_csvread.py` passed. Throwing away working, tested code because a bookkeeping hash from an unrelated migration doesn't recompute would have burned your 20 minutes on a task the process explicitly says not to redo.
+
+**T5 — CLI entrypoint (`src/cli.py`):**
+- Wrote `tests/test_cli.py` first (TDD skill): a `--help` exit-code check via subprocess, and an end-to-end test wiring input CSV → CLI → output file.
+- Implemented `src/cli.py`: argparse with `--input-path`, `--output-path`, `--delimiter`, wiring `load_config` (T2) → `read_rows` (T3) → `render` (T4).
+- Verified fresh: `python -m pytest -q` → 5 passed; `python -m src.cli --help` → exit 0. Both acceptance criteria in `PLAN.md` are met.
+- Recorded T5 as done in `LEDGER.md` with real evidence. No bookkeeping script is available in this workspace to mint a receipt-id/hash, so I recorded that gap honestly rather than fabricating one, and added a note to the ledger clarifying the T1–T4 mismatch is a migration artifact, not a correctness signal — so it doesn't get misread as a reason to redo work later.
+
+Not done, per skill process: T5 hasn't gone through independent review yet (self-review isn't a substitute) — that's the next step before T6. Let me know if you want me to kick that off or hold until you're off your call.

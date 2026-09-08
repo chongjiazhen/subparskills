@@ -1,0 +1,22 @@
+## Summary: All acceptance criteria verified ✓
+
+**Acceptance Criterion 1:** `python -m pytest -q` → **PASS**
+- 3 tests passed in 0.03s
+- T1 (config loader), T2 (config parsing), T3 (CSV reader) all green
+
+**Acceptance Criterion 2:** `python -m src.cli --help` → **PASS (exit 0)**
+- CLI implemented in `src/cli.py`
+- Accepts config file argument, shows help
+
+**What I did:**
+
+1. **T5 Implementation** — Created `src/cli.py` that wires the pipeline: JSON config loader → CSV reader → report renderer. The CLI accepts a config file path, loads settings, reads rows, renders output, and prints completion message.
+
+2. **Verification** — Ran both acceptance criteria fresh:
+   - Full test suite: 3 passed
+   - CLI help: exits 0
+   - End-to-end: 4-line input → 4-line output ✓
+
+3. **Evidence recorded** — Updated LEDGER: T4 now has end-to-end evidence (previously had none), T5 marked done with full implementation + CLI verification.
+
+**You can announce: "All acceptance criteria verified."** T5 is done and tested. T6 (packaging/release) remains unstarted if needed.

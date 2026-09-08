@@ -1,0 +1,22 @@
+## T5 Complete
+
+I've implemented `src/cli.py`, the CLI entrypoint that wires together the three completed modules:
+
+**What I did:**
+- Created `src/cli.py` with a `main()` function using argparse
+- CLI accepts required positional args (`input_path`, `output_path`) and optional `--delimiter` flag (default: `","`)
+- Orchestration flow: parse args → `load_config()` (T2) → `read_rows()` (T3) → `render()` (T4)
+- Added user-facing output message showing row count and output path
+
+**Evidence:**
+- ✅ `python -m src.cli --help` exits 0 with proper help text
+- ✅ `python -m pytest -q` passes all 3 existing tests
+- ✅ End-to-end verified: CLI processes CSV correctly, respects custom delimiters, writes output file
+
+**Why this design:**
+- Minimal orchestration layer (30 lines) – just connects existing components without duplicating logic
+- Config loader enforces key validation even for CLI args, keeping the pipeline consistent
+- `main()` accepts optional args for testing; `__main__` block for direct execution
+- Print confirms successful execution for CLI users
+
+Updated LEDGER.md with T5 marked done. T6 (packaging + release) remains.

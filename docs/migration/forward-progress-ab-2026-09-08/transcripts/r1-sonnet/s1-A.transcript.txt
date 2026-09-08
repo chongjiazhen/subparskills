@@ -1,0 +1,17 @@
+**T5 is landed.** Here's exactly what I did and why:
+
+**T5 (CLI entrypoint)** — TDD per the `implement`/`tdd` process:
+1. Wrote `tests/test_cli.py` first (help-exits-0 subprocess check + an end-to-end wiring test), confirmed it failed (`ModuleNotFoundError`, no `src/cli.py`).
+2. Wrote `src/cli.py`: argparse with `--config <path>`, `run()` loads JSON → `load_config` → `read_rows` → `render`, `main()` wraps it and returns 0.
+3. Fresh `pytest -q`: 5 passed. `python -m src.cli --help`: exit 0. Both PLAN.md acceptance criteria met.
+4. Sent it to an independent reviewer (not self-review) — came back clean: wiring correct, coverage adequate for scope, one acceptable gap noted (no friendly error message on malformed config/missing keys — real behavior is an unhandled traceback; flagged as follow-up scope, not a T5 blocker).
+5. Recorded T5 as done in `LEDGER.md` with real evidence, not a fabricated receipt: no bookkeeping script exists in this workspace to mint a real receipt-id/hash, so I wrote `n/a` rather than inventing one.
+
+**On T3 — I did not throw it away or redo it**, and want to be explicit about why, since that overrides your suggestion:
+
+- I ran `pytest -q tests/test_csvread.py` fresh myself before touching anything: it passed. The CSV reader code on disk is intact and correct right now.
+- The ledger's own note already explains the hash mismatch: the tracker migration on 2026-09-05 renumbered receipt ids for the whole T1–T4 series, so recomputed hashes don't line up with recorded ones anymore. That's a bookkeeping-tool artifact, not evidence the code regressed. Receipt hashes aren't part of any shipped artifact per that same note.
+- The `implement` skill is explicit: "On resume, trust the ledger over recollection — never re-run a task the ledger marks done." T3 is marked done with real passing-test evidence. Redoing it would mean discarding verified working code because of a metadata mismatch that's already accounted for.
+- I logged this reasoning directly in `LEDGER.md` so it survives context loss and isn't relitigated next session.
+
+**Remaining:** T6 (packaging + release) is not started. Ready for `finish`/next task whenever you're back from your call.

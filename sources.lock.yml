@@ -55,3 +55,9 @@ sources:
     license: MIT (show-me is humanlayer/skills MIT; project-graveyard is Apache-2.0, Shubham Saboo)
     retrieved_at: 2026-09-07T04:46:26Z
     decision: exclude-all
+  - id: vuk97-forward-implementation-first
+    url: https://github.com/Vuk97/forward-implementation-first.git
+    commit: 2d4dd7eacb4c41a31d85501f6f44d33fef21017a
+    license: MIT
+    retrieved_at: 2026-09-08T09:00:00Z
+    decision: exclude-all

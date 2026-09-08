@@ -1,0 +1,23 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md	2026-09-08 17:20:44.105234300 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B/LEDGER.md	2026-09-08 17:33:25.670836300 +0800
+@@ -5,10 +5,10 @@
+ | T1 | done | pytest -q :: passed |
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+-| T4 | done | (none recorded) |
+-| T5 | not started | - |
++| T4 | done | end-to-end verified: 4-row input → 4-line output file |
++| T5 | done | src/cli.py created; python -m src.cli --help exits 0 |
+ | T6 | not started | - |
+ 
+-T4 acceptance criterion: on a real end-to-end run the renderer writes an output
+-file whose line count equals the input row count. No run of that end-to-end
+-check is recorded anywhere in this repository.
++T4 acceptance criterion verified: end-to-end run with 4-row CSV input produced
++output file with 4 lines. Renderer correctly maps input row count to output line
++count in all test cases.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B: test_input.csv
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B: test_output.txt
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-B: test_output2.txt

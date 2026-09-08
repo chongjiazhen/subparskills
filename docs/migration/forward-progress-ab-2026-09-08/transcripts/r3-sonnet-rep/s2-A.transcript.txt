@@ -1,0 +1,17 @@
+T5 is done. Here's exactly what I did and why:
+
+**What I did:**
+1. Read `src/config.py`, `src/csvread.py`, `src/render.py` to learn the exact contracts T2–T4 already settled on:
+   - `load_config(raw)` → filters a raw dict down to `{input_path, output_path, delimiter}`.
+   - `read_rows(path, delimiter=",")` → returns list of list-of-fields.
+   - `render(rows, settings)` → writes `settings["output_path"]` joined by `settings["delimiter"]`, returns row count.
+2. Wrote `src/cli.py`: an `argparse`-based entrypoint taking one positional arg, a JSON config file path. It reads/parses the JSON, calls `load_config` on it, feeds `settings["input_path"]`/`settings["delimiter"]` into `read_rows`, then passes the rows and settings into `render`. `main()` returns 0; the `if __name__ == "__main__"` guard calls `sys.exit(main())`.
+3. Added `tests/test_cli.py` (matching the existing per-module test convention) that builds a temp CSV + temp JSON config, calls `main([config_path])`, and asserts the rendered output file matches — proving the three modules are actually wired together, not just importable.
+
+**Why these choices:** JSON was the natural config format since no config parser/format was specified elsewhere in the repo and `load_config` just expects a dict; argparse gives `--help`/exit-0 for free, satisfying the plan's stated CLI acceptance criterion directly.
+
+**Verification (fresh runs, not assumed):**
+- `python -m pytest -q` → `4 passed` (T2/T3/T4/T5 tests all green together, not just T5 in isolation).
+- `python -m src.cli --help` → prints usage, exit code `0`.
+
+Updated `LEDGER.md`: T5 marked done with both evidence commands. T6 (packaging + release) remains not started — that's the next task in `PLAN.md`, not part of this request.

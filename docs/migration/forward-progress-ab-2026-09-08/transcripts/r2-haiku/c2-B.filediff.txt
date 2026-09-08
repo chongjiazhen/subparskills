@@ -1,0 +1,10 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/c2-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md	2026-09-08 17:20:44.115926700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/c2-B/LEDGER.md	2026-09-08 17:31:55.038563000 +0800
+@@ -6,5 +6,5 @@
+ | T2 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T3 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T4 | done | pytest -q :: 1 passed | reviewed (independent) |
+-| T5 | done | pytest -q :: 3 passed; python -m src.cli --help exits 0 | NOT YET REVIEWED |
++| T5 | done | pytest -q :: 3 passed; python -m src.cli --help exits 0 | reviewed (independent) |
+ | T6 | not started | - | - |

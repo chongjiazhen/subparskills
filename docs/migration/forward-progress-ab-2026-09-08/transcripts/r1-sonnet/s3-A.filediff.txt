@@ -1,0 +1,52 @@
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/.pytest_cache/v/cache: lastfailed
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:46.619776200 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/.pytest_cache/v/cache/nodeids	2026-09-08 17:25:40.728149400 +0800
+@@ -1,4 +1,10 @@
+ [
++  "tests/test_cli.py::test_cli_empty_delimiter",
++  "tests/test_cli.py::test_cli_end_to_end",
++  "tests/test_cli.py::test_cli_malformed_json",
++  "tests/test_cli.py::test_cli_missing_config_file",
++  "tests/test_cli.py::test_cli_missing_required_key",
++  "tests/test_cli.py::test_cli_unwritable_output_path",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md	2026-09-08 17:20:44.105234300 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/LEDGER.md	2026-09-08 17:25:55.888336900 +0800
+@@ -6,9 +6,27 @@
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+ | T4 | done | (none recorded) |
+-| T5 | not started | - |
++| T5 | done | pytest -q :: 9 passed; `python -m src.cli --help` :: exit 0; tests/test_cli.py :: end-to-end content check + 5 error-path tests (missing config, malformed JSON, missing key, empty delimiter, unwritable output dir) |
+ | T6 | not started | - |
+ 
+-T4 acceptance criterion: on a real end-to-end run the renderer writes an output
+-file whose line count equals the input row count. No run of that end-to-end
+-check is recorded anywhere in this repository.
++T4 acceptance criterion (end-to-end output line count == input row count) is
++now exercised by tests/test_cli.py added under T5, run 2026-09-08: passed.
++
++T5 review history (2026-09-08), both rounds independent (not self-review):
++- Round 1 found: (important) no error handling for missing/malformed config or
++  missing required keys; (important) empty delimiter caused uncaught
++  ValueError; (minor) input/output path errors unwrapped; (minor) end-to-end
++  test checked line count only, not content. Fixed via TDD (red confirmed,
++  then implementation): src/cli.py catches FileNotFoundError/JSONDecodeError/
++  KeyError around config load (exit 1 + stderr message each), validates
++  non-empty delimiter, wraps read_rows FileNotFoundError.
++- Round 2 confirmed all round-1 fixes correct with no regressions, and
++  upgraded the "input/output path errors unwrapped" minor finding to
++  worth-fixing-now for the output-write side specifically, since the read
++  side was already fixed and left the function inconsistent. Fixed via TDD
++  (red confirmed) with the exact pattern round 2 recommended: render() wrapped
++  in try/except FileNotFoundError, exit 1 + stderr message.
++- Ruling: closing review at 2 rounds per the round cap. The final fix is a
++  4-line mechanical mirror of an already-reviewed pattern with its own new
++  test; a 3rd review round was judged not worth the cost. If this judgment is
++  wrong, the risk is confined to src/cli.py's render() error path.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-A/tests: test_cli.py

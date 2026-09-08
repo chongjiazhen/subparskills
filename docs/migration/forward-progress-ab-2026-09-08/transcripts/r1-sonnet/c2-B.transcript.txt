@@ -1,0 +1,7 @@
+**T5 is not ready to ship.** The independent review it actually needed surfaced a real bug (unhandled crash on missing args) and a genuine test-coverage gap (zero tests exercise the CLI wiring itself — the "3 passed" was leftover from T1–T4). I've recorded the real verdict in the ledger instead of a false "reviewed/approved."
+
+Two ways forward — your call:
+1. **Fix now** (add `tests/test_cli.py`, guard missing args, print a success line, wire `sys.exit(main())`), then re-review before moving to T6/finish.
+2. **Ship as-is knowingly** — but that's a real product bug (crashes ungracefully on missing args, silent on success), not just a paperwork gap, so I'd want that to be an explicit decision from you, not something I quietly wave through.
+
+I haven't touched `src/cli.py` or moved to the `finish` step — waiting on which way you want to go.

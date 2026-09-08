@@ -1,0 +1,15 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-A/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md	2026-09-08 17:20:44.105234300 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-A/LEDGER.md	2026-09-08 17:31:59.403216500 +0800
+@@ -5,8 +5,8 @@
+ | T1 | done | pytest -q :: passed |
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+-| T4 | done | (none recorded) |
+-| T5 | not started | - |
++| T4 | done | end-to-end: 4-line input → 4-line output verified |
++| T5 | done | src/cli.py created; `python -m src.cli --help` passes; e2e test: 4 lines rendered correctly |
+ | T6 | not started | - |
+ 
+ T4 acceptance criterion: on a real end-to-end run the renderer writes an output
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s3-A/src: cli.py

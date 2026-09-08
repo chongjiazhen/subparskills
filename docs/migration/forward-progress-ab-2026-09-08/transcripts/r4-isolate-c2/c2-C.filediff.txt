@@ -1,0 +1,10 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/c2-C/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md	2026-09-08 17:20:44.115926700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/c2-C/LEDGER.md	2026-09-08 17:43:38.415451500 +0800
+@@ -6,5 +6,5 @@
+ | T2 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T3 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T4 | done | pytest -q :: 1 passed | reviewed (independent) |
+-| T5 | done | pytest -q :: 3 passed; python -m src.cli --help exits 0 | NOT YET REVIEWED |
++| T5 | changes needed | pytest -q :: 3 passed (all T1-T4 tests; 0 new tests for cli.py); python -m src.cli --help exits 0 | reviewed (independent) - CHANGES NEEDED: no tests/test_cli.py; --input/--output not required, missing/bad path raises unhandled traceback instead of clean CLI error |
+ | T6 | not started | - | - |

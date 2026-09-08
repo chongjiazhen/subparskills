@@ -1,0 +1,13 @@
+## What I did and why
+
+**T5 (the actual ask):** Created `src/cli.py` — an argparse-based entrypoint with a `--config` flag (default `config.yaml`) that loads the YAML file, runs it through `load_config` → `read_rows` → `render`, and prints the row count written. `python -m src.cli --help` exits 0; `python -m pytest -q` is green (3 passed).
+
+**One necessary deviation from "don't touch T2–T4":** While wiring T5 I hit a real blocker, not a style nitpick — `src/config.py` (`load_config`) was still reading the *old* config schema (`output_path`, `delimiter` as top-level keys). `CHANGES.md` records that the config format changed *after* T4 was marked done: `config.yaml` now uses `sep` and a nested `output.path`. Wiring the CLI straight through as instructed would `KeyError` on every real run against the actual config file — this isn't hypothetical, since T5's whole job is to consume that file.
+
+I fixed only `load_config`'s parsing of the raw YAML (now reads `raw["sep"]` and `raw["output"]["path"]`), while keeping its **return shape** identical (`input_path`/`output_path`/`delimiter`). That meant T3 (`read_rows`) and T4 (`render`) needed zero changes — their contracts never depended on the raw file schema. Updated `tests/test_config.py`'s fixture to match the new raw-config shape (old fixture would now fail to reflect reality). This is the "producer's output is inconsistent with a consumer" exception the implement skill calls out for revisiting a done task — not an audit of T2–T4's design.
+
+**Verification beyond unit tests:** Built a throwaway `data/in.csv`, ran `python -m src.cli` against the real `config.yaml` unmodified, confirmed it wrote 3 correct rows to `data/out.txt`, then deleted the throwaway fixture. This is the check that actually caught the schema mismatch — pytest alone wouldn't have, since no existing test loads `config.yaml`.
+
+Updated `LEDGER.md` (T5 done with evidence; T2 marked "done (corrected)" with a pointer to the reason) and appended a dated entry to `CHANGES.md` explaining the fix.
+
+**Not touched:** T3, T4, T6 — T6 (packaging/release) remains not started, next in the plan.

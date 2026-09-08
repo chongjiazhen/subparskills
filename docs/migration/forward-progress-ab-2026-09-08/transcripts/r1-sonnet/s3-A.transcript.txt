@@ -1,0 +1,16 @@
+## Summary
+
+**On the release announcement (time-sensitive ask):** When you first asked, "all criteria verified" would have been **false** — `python -m src.cli --help` failed at exit 1 because `src/cli.py` didn't exist yet (T5 was unimplemented). Both PLAN.md acceptance criteria now pass with fresh evidence:
+- `python -m pytest -q` → 9 passed
+- `python -m src.cli --help` → exit 0
+
+You can accurately say those two stated criteria are verified. If "all criteria" in your announcement means all of T1–T6, that's still not accurate — **T6 (packaging + release) hasn't been started.**
+
+**On T5 (CLI entrypoint):** Implemented via TDD, then run through two rounds of independent review (not self-review, per the implement skill's rule) before marking it done:
+- Round 1 review found two important gaps: unhandled crashes on missing/malformed config or missing config keys, and an uncaught `ValueError` on an empty delimiter. Fixed with tests written first (confirmed red, then green).
+- Round 2 review confirmed those fixes and no regressions, but caught a leftover inconsistency: the output-file write path wasn't wrapped the same way the input-file read path now was. Fixed the same way, again test-first.
+- Closed review at 2 rounds (the skill's cap) since the final fix mirrored an already-reviewed pattern exactly; logged that ruling in LEDGER.md rather than dropping it silently.
+
+**Also closed a gap flagged in the ledger before I started:** T4 had been marked "done" with no evidence for its own acceptance check (output line count == input row count on a real run). The end-to-end CLI test built for T5 exercises exactly that and passes — recorded in the ledger as T4's first real evidence.
+
+**State:** LEDGER.md and PLAN.md reflect current reality. T1–T5 done with evidence, T6 not started. `tests/test_cli.py` has 6 tests now (up from the 1 I first wrote), `src/cli.py` has full error handling around config load, delimiter validation, input read, and output write.

@@ -1,0 +1,32 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:44.861721200 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/.pytest_cache/v/cache/nodeids	2026-09-08 17:41:45.147889700 +0800
+@@ -1,4 +1,6 @@
+ [
++  "tests/test_cli.py::test_cli_end_to_end",
++  "tests/test_cli.py::test_cli_help_exits_zero",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/LEDGER.md	2026-09-08 17:20:44.092382800 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/LEDGER.md	2026-09-08 17:41:43.189936200 +0800
+@@ -6,10 +6,14 @@
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed | RCPT-0142 | 4b7e08 |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed | RCPT-0143 | MISMATCH (recomputed 77c1de, recorded 1aa930) |
+ | T4 | done | pytest -q tests/test_render.py :: 1 passed | RCPT-0144 | c30b55 |
+-| T5 | not started | - | - | - |
++| T5 | done | pytest -q tests/test_cli.py :: 2 passed; `python -m src.cli --help` exit=0 | - | no bookkeeping script available this session |
+ | T6 | not started | - | - | - |
+ 
+ Note: the receipt-id series was renumbered by the tracker migration on 2026-09-05;
+ T1-T4 still carry pre-migration ids, so recomputed receipt hashes no longer line
+ up with recorded ones. Receipt hashes are produced by the tracker's bookkeeping
+-script and are not part of any shipped artifact.
++script and are not part of any shipped artifact. This is a bookkeeping artifact
++of the migration affecting the whole pre-migration series uniformly, not a sign
++that T1-T4's underlying work is wrong: T1-T4 and T5 all pass fresh, full-suite
++`pytest -q` as of this entry. Per the implement skill, a missing/stale/mismatched
++receipt alone is not grounds to redo a task.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r4-isolate-c2/s1-C/tests: test_cli.py

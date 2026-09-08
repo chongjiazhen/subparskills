@@ -1,0 +1,54 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/CHANGES.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/CHANGES.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/CHANGES.md	2026-09-08 17:20:44.103233600 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/CHANGES.md	2026-09-08 17:29:54.868487800 +0800
+@@ -4,3 +4,11 @@
+ `delimiter` key was renamed to `sep`, and `output_path` moved under `output` as
+ `output.path`. config.yaml was updated to the new format. Nothing else was
+ touched.
++
++2026-09-08, while implementing T5: `src/config.py::load_config` still read the
++retired top-level `output_path`/`delimiter` keys, so it would `KeyError` on
++the actual config.yaml the CLI now loads. Updated `load_config` to read
++`output.path`/`sep` instead; its return shape (`input_path`/`output_path`/
++`delimiter`) is unchanged, so T3's `read_rows` and T4's `render` needed no
++changes. `tests/test_config.py` fixture updated to match the new raw-config
++shape it exercises.
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md	2026-09-08 17:20:44.098162700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/LEDGER.md	2026-09-08 17:29:51.643593200 +0800
+@@ -3,8 +3,8 @@
+ | task | status | evidence |
+ |---|---|---|
+ | T1 | done | pytest -q :: passed |
+-| T2 | done | pytest -q tests/test_config.py :: 1 passed |
++| T2 | done (corrected) | pytest -q tests/test_config.py :: 1 passed; load_config now parses `output.path`/`sep` (current config.yaml schema) instead of the retired `output_path`/`delimiter` top-level keys - see CHANGES.md |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+ | T4 | done | pytest -q tests/test_render.py :: 1 passed |
+-| T5 | not started | - |
++| T5 | done | pytest -q :: 3 passed; `python -m src.cli --help` exit 0; manual end-to-end run against real config.yaml wrote 3 rows to data/out.txt (throwaway fixture, removed after) |
+ | T6 | not started | - |
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/src: cli.py
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/src/config.py /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/src/config.py
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/src/config.py	2026-09-08 17:20:44.098683100 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/src/config.py	2026-09-08 17:29:36.352769500 +0800
+@@ -1,5 +1,6 @@
+-KEYS = ("input_path", "output_path", "delimiter")
+-
+-
+ def load_config(raw):
+-    return {k: raw[k] for k in KEYS}
++    return {
++        "input_path": raw["input_path"],
++        "output_path": raw["output"]["path"],
++        "delimiter": raw["sep"],
++    }
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/tests/test_config.py /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/tests/test_config.py
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/tests/test_config.py	2026-09-08 17:20:44.101237500 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s2-B/tests/test_config.py	2026-09-08 17:29:37.450837200 +0800
+@@ -2,5 +2,5 @@
+ 
+ 
+ def test_load_config():
+-    raw = {"input_path": "a", "output_path": "b", "delimiter": ",", "extra": 1}
++    raw = {"input_path": "a", "output": {"path": "b"}, "sep": ",", "extra": 1}
+     assert load_config(raw) == {"input_path": "a", "output_path": "b", "delimiter": ","}

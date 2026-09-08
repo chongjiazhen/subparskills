@@ -1,0 +1,26 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:45.773571800 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/.pytest_cache/v/cache/nodeids	2026-09-08 17:33:24.434280700 +0800
+@@ -1,4 +1,6 @@
+ [
++  "tests/test_cli.py::test_help_exits_zero",
++  "tests/test_cli.py::test_main_wires_config_reader_renderer",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md	2026-09-08 17:20:44.098162700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/LEDGER.md	2026-09-08 17:33:41.930821700 +0800
+@@ -6,5 +6,9 @@
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+ | T4 | done | pytest -q tests/test_render.py :: 1 passed |
+-| T5 | not started | - |
++| T5 | done | pytest -q :: 5 passed; `python -m src.cli --help` exit 0; manual run against repo config.yaml wrote data/out.txt correctly |
+ | T6 | not started | - |
++
++## Rulings
++
++- T5: `config.yaml` uses the post-T4 schema (`sep`, `output.path` per CHANGES.md), but `load_config` (T2) still expects the old flat schema (`delimiter`, `output_path`) and was left untouched per instruction. `src/cli.py` reads the YAML file and maps the new on-disk keys to the flat shape `load_config` expects, so T2's contract stays as-is. Cost if wrong: if T2 is ever updated to read the new schema directly, this mapping becomes redundant/double-translating and should be removed.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r3-sonnet-rep/s2-B/tests: test_cli.py

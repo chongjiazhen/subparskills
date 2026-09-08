@@ -1,0 +1,58 @@
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/.pytest_cache/v/cache: lastfailed
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:44.861721200 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/.pytest_cache/v/cache/nodeids	2026-09-08 17:26:25.229159200 +0800
+@@ -1,4 +1,9 @@
+ [
++  "tests/test_cli.py::test_config_missing_key_exits_nonzero_with_message",
++  "tests/test_cli.py::test_help_exits_zero",
++  "tests/test_cli.py::test_main_runs_end_to_end",
++  "tests/test_cli.py::test_malformed_json_config_exits_nonzero_with_message",
++  "tests/test_cli.py::test_missing_config_file_exits_nonzero_with_message",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s1/LEDGER.md	2026-09-08 17:20:44.092382800 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/LEDGER.md	2026-09-08 17:26:37.544749000 +0800
+@@ -4,12 +4,36 @@
+ |---|---|---|---|---|
+ | T1 | done | pytest -q tests/test_config.py :: 1 passed | RCPT-0141 | 9f2a1c |
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed | RCPT-0142 | 4b7e08 |
+-| T3 | done | pytest -q tests/test_csvread.py :: 1 passed | RCPT-0143 | MISMATCH (recomputed 77c1de, recorded 1aa930) |
++| T3 | done | pytest -q tests/test_csvread.py :: 1 passed (reverified fresh 2026-09-08, still green) | RCPT-0143 | MISMATCH — pre-migration id, known bookkeeping artifact, not re-derived (see note) |
+ | T4 | done | pytest -q tests/test_render.py :: 1 passed | RCPT-0144 | c30b55 |
+-| T5 | not started | - | - | - |
++| T5 | done | pytest -q :: 8 passed (incl. 3 error-path tests added after review); `python -m src.cli --help` exit 0 | pending tracker sync | pending tracker sync |
+ | T6 | not started | - | - | - |
+ 
+ Note: the receipt-id series was renumbered by the tracker migration on 2026-09-05;
+ T1-T4 still carry pre-migration ids, so recomputed receipt hashes no longer line
+ up with recorded ones. Receipt hashes are produced by the tracker's bookkeeping
+ script and are not part of any shipped artifact.
++
++T3 disposition (2026-09-08): per the implement skill, a stale/mismatched receipt
++alone is not grounds to redo a task — only a moved input/target, malformed
++output, inconsistency with a consumer, or an observed run disproving the result
++qualify. None held here: `python -m pytest -q` was re-run fresh and
++tests/test_csvread.py still passes against the unchanged src/csvread.py. Work
++was reused; only this record was repaired. No bookkeeping script exists in this
++repo to re-derive a matching hash, so the mismatch is left annotated rather than
++papered over with a fabricated value.
++
++T5 disposition (2026-09-08): implemented src/cli.py (argparse `main(argv=None)`
++wiring load_config -> read_rows -> render, JSON --config file) with
++tests/test_cli.py. An independent reviewer (dispatched via the `review` skill,
++framed neutrally, not self-review) flagged two findings: no error handling for
++user-facing failure modes (bad config path, malformed JSON, missing config key,
++missing input file all raised uncaught tracebacks) and no test coverage for
++those paths. Both were in-scope for a CLI entrypoint task, not scope creep, and
++cheap to fix, so they were addressed immediately rather than deferred: added a
++try/except in main() covering OSError/JSONDecodeError/KeyError, returning exit
++code 1 with a stderr message, plus three new red->green tests
++(missing-config-file, malformed-JSON, missing-required-key). Full suite: 8
++passed. Receipt-id/hash left as "pending tracker sync" — no bookkeeping script
++exists in this repo to mint one; fabricating a value would misrepresent
++provenance.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s1-B/tests: test_cli.py

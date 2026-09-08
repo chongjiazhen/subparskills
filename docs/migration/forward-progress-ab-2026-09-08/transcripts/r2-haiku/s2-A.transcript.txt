@@ -1,0 +1,17 @@
+**T5 Review: src/cli.py implementation**
+
+## Findings
+
+None. The implementation is correct:
+
+1. **Correct wiring**: cli.py properly chains config loader → CSV reader → renderer in the right order (load config, read rows, render output).
+
+2. **Test coverage**: test_cli.py creates a concrete end-to-end scenario (input CSV → config file → output), verifies output file content matches expected rows, and confirms the line count return value.
+
+3. **Acceptance criteria met**:
+   - ✅ `python -m pytest -q` → 4 passed (including new test)
+   - ✅ `python -m src.cli --help` → exits 0 with usage text
+
+4. **Code quality**: Minimal implementation (no over-engineering), proper use of argparse for CLI argument handling, correct encoding (utf-8 throughout).
+
+**Approved.** No changes needed. Ready to mark T5 done.

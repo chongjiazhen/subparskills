@@ -1,0 +1,17 @@
+**What I did:**
+
+Added `src/cli.py` — an `argparse`-based entrypoint with a single `--config PATH` option. `run()` loads the YAML config file, passes the resulting dict through T2's `load_config`, feeds `settings["input_path"]`/`settings["delimiter"]` to T3's `read_rows`, and passes the rows plus `settings` to T4's `render`. `main()` wraps that for `python -m src.cli` invocation, and `--help` exits 0 via argparse's built-in help action (which fires before the `--config` required-arg check, so it's unaffected by that requirement).
+
+Added `tests/test_cli.py` with two cases: `--help` exits 0, and a full pipeline test (writes an input CSV + a config file, runs `main`, asserts the rendered output file matches). Full suite: `python -m pytest -q` → 5 passed. `python -m src.cli --help` → exit 0. Both match PLAN.md's stated acceptance for T5. Updated LEDGER.md to mark T5 done with that evidence.
+
+I built the config test fixture using the key names T2's `load_config` actually expects (`input_path`, `output_path`, `delimiter`) rather than reaching for the repo's real `config.yaml`, and I did not touch `src/config.py` — you told me to treat T2 as settled, so I wired against its existing, tested contract rather than re-auditing it.
+
+**One thing you need to know before shipping this:** I ran the new CLI against the repo's actual `config.yaml` and it crashes:
+
+```
+KeyError: 'output_path'
+```
+
+`CHANGES.md` records that on 2026-09-07 — after T4 (but T2 earlier) — the config file format changed: `delimiter` → `sep`, and `output_path` moved to `output.path`. `config.yaml` was updated to that new format, but `src/config.py::load_config` was never updated to match, so it still looks for the old flat keys. This isn't something I introduced in T5 or something masked by `--help`/pytest — it's a real break in the actual config file the tool is meant to consume, caused by T2's contract going stale after it was marked done.
+
+Per the implement skill's own re-run rule, "inputs changed in meaning" is one of the explicit triggers to revisit a done task — which this is. But you explicitly told me not to go back over T2/T3/T4, so I left `config.py` and `config.yaml` untouched and didn't paper over it with an ad-hoc translation layer inside `cli.py` either, since that would just hide the same bug behind T5's code. Flagging it rather than guessing: do you want me to (a) update `load_config` to read `sep`/`output.path`, (b) revert `config.yaml` to the old flat format, or (c) leave it and move on to T6?

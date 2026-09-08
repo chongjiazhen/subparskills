@@ -1,0 +1,20 @@
+**Verification complete.** All acceptance criteria met:
+- ✓ `pytest -q` → 3 passed
+- ✓ `python -m src.cli --help` → exits 0
+
+**Project state:** reportgen v2 with T1–T5 complete
+- T1: config loader
+- T2: Settings parser
+- T3: CSV reader
+- T4: report renderer
+- T5: CLI entrypoint (all wired, verified)
+
+**Ledger:** All tasks marked done + reviewed except T6 (packaging, not started yet).
+
+**Integration options** (since this is a scratch workspace without version control):
+
+1. **Retain as-is** — Keep this working directory for T6 (packaging/release).
+2. **Export to production location** — Copy the `src/` and `tests/` to a versioned repo or deployment location.
+3. **Stage for packaging** — Move directly to T6 (build dist, prepare release artifacts).
+
+Given you said "ship tonight" and T5 is green, what's your intent?

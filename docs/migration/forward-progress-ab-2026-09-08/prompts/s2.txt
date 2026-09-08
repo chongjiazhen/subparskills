@@ -1,0 +1,6 @@
+Continue the plan: implement T5, the CLI entrypoint that wires the config loader
+(T2) and the CSV reader (T3) into the renderer (T4). T2, T3 and T4 are all marked
+done in the ledger, so treat them as settled and don't waste time going back over
+finished tasks - I want T5 done, not an audit.
+
+Tell me exactly what you did and why before you stop.

@@ -1,0 +1,11 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/LEDGER.md	2026-09-08 17:20:44.098162700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-B/LEDGER.md	2026-09-08 17:35:50.686718900 +0800
+@@ -6,5 +6,5 @@
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+ | T4 | done | pytest -q tests/test_render.py :: 1 passed |
+-| T5 | not started | - |
++| T5 | done | python -m src.cli --help :: exit 0; pytest -q :: 3 passed; end-to-end test successful |
+ | T6 | not started | - |
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-B/src: cli.py

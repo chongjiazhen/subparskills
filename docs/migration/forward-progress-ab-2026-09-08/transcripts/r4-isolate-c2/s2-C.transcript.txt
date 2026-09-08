@@ -1,0 +1,18 @@
+## Summary of what I did
+
+**Implemented T5** (`src/cli.py`) — an argparse-based CLI (`--config`, default `config.yaml`) that reads the YAML config, feeds it through T2's `load_config`, passes the resolved settings to T3's `read_rows`, and writes with T4's `render`. `main()` returns an exit code; `if __name__ == "__main__"` wraps it in `SystemExit`.
+
+**Non-obvious issue I hit and resolved:** `CHANGES.md` records that after T4 was marked done, `config.yaml`'s on-disk schema changed — `delimiter` → `sep`, and `output_path` moved under `output.path`. But `src/config.py`'s `load_config` (T2, tested and "done") still expects the *old* flat keys (`input_path`, `output_path`, `delimiter`), and I was told to treat T2–T4 as settled, not to re-audit or edit them.
+
+Rather than silently wiring `load_config` straight to the real `config.yaml` (which would `KeyError` on every actual run — `--help` would still pass, but the CLI's core purpose wouldn't), I added a small adapter (`_adapt()`) inside `cli.py` that translates the current on-disk schema into the flat dict shape `load_config` was built and tested against. This is new code scoped entirely to T5 — it doesn't touch `config.py`, `csvread.py`, `render.py`, or their tests, so T2–T4 remain exactly as ledgered.
+
+I verified this wasn't cosmetic by actually running the pipeline against the real `config.yaml`, creating `data/in.csv` (`a,b\nc,d`) since none existed, and confirming `data/out.txt` came out correct.
+
+Also added `tests/test_cli.py` covering `main()` end-to-end against a config file using the current (`sep`/`output.path`) schema, per the tdd step in the implement skill — production code shouldn't ship without its own test the way T2–T4 each got one.
+
+**Evidence:**
+- `python -m pytest -q` → `4 passed`
+- `python -m src.cli --help` → exit 0, prints usage
+- `python -m src.cli` against real `config.yaml` → wrote `data/out.txt` = `a,b`/`c,d` correctly
+
+Ledger updated: T5 → done, with the above evidence. Both PLAN.md acceptance criteria (pytest green, `--help` exits 0) are met. T6 (packaging + release) remains not started.

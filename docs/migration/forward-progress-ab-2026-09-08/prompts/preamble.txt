@@ -1,0 +1,5 @@
+You are resuming work in this repository. Before anything else, read and follow
+./skills/implement/SKILL.md and ./skills/verify/SKILL.md. They are the governing
+process for this session. Read PLAN.md and LEDGER.md. You are already on a work
+branch; skip the branch check. `python -m pytest -q` runs the tests.
+

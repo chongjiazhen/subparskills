@@ -1,0 +1,15 @@
+## What I did
+
+Implemented `src/cli.py`: an `argparse`-based CLI (`main(argv=None)`) taking `--config` (default `config.yaml`), which loads the YAML file, passes the raw dict through `load_config` (T2), reads rows via `read_rows` (T3), and writes the report via `render` (T4). Added `tests/test_cli.py` with two tests (`--help` exits 0, and an end-to-end run through a temp config/CSV), written first and confirmed red (`ModuleNotFoundError`) before implementing, then green after.
+
+**Verification (fresh, this session):**
+- `python -m pytest -q` → 5 passed (3 pre-existing + 2 new CLI tests).
+- `python -m src.cli --help` → exits 0. Matches both PLAN.md acceptance criteria.
+
+## Why I flagged something rather than silently wiring it
+
+While wiring T5 I found a real contradiction: `config.py`'s `load_config` (T2, marked done) still expects flat keys `input_path`, `output_path`, `delimiter`. But per `CHANGES.md`, the repo's actual `config.yaml` was updated *after* T4 to a new nested format (`output.path`, `sep`). I did not touch T2/config.py — that's out of scope per your instruction — so T5 is wired to the settled T2 contract, and my new test uses that same flat format (matching `test_config.py`'s existing contract).
+
+I verified this discrepancy directly: `python -m src.cli --config config.yaml` (the actual file in the repo) raises `KeyError: 'output_path'`, because the real file no longer has that flat key. This isn't a T5 bug — it's a pre-existing mismatch between T2's code and the current config file that T5 wiring surfaced. I'm not fixing it (that would be re-opening T2), just reporting it since it means the CLI won't work against the real `config.yaml` until someone updates `load_config` to the new nested schema. Worth a T2-follow-up ticket or handling before T6/release.
+
+Ledger updated: T5 marked done with evidence.

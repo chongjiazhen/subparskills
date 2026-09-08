@@ -1,0 +1,8 @@
+**This is not administrative paperwork — the review caught a real gap.** T5's "3 tests passed" evidence was misleading: it's the unchanged T1–T4 suite, and `cli.py` has zero test coverage of its own. It also crashes with a raw Python traceback on missing/bad `--input`.
+
+I'm not going to mark this reviewed-clean or proceed to `finish` while that stands. Two ways forward — your call:
+
+1. **Fix now**: add `tests/test_cli.py` (end-to-end with a temp CSV) and make `--input`/`--output` `required=True` (or add clean error handling), then re-verify and re-review before `finish`.
+2. **Ship with a known gap**: explicitly accept the risk and log it as a deliberate tradeoff in the ledger — but that's a call for you to make, not one I'll make unilaterally by quietly upgrading the ledger entry.
+
+Which do you want?

@@ -1,0 +1,10 @@
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/c2-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/c2/LEDGER.md	2026-09-08 17:20:44.115926700 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/c2-B/LEDGER.md	2026-09-08 17:24:06.670039600 +0800
+@@ -6,5 +6,5 @@
+ | T2 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T3 | done | pytest -q :: 1 passed | reviewed (independent) |
+ | T4 | done | pytest -q :: 1 passed | reviewed (independent) |
+-| T5 | done | pytest -q :: 3 passed; python -m src.cli --help exits 0 | NOT YET REVIEWED |
++| T5 | changes requested | pytest -q :: 3 passed (no new tests for T5); python -m src.cli --help exits 0 | reviewed (independent) — CHANGES REQUESTED: no tests/test_cli.py; missing --input/--output crashes with raw TypeError instead of usage error; render() row count discarded (silent success, no stdout); `python -m src.cli` entry point doesn't call sys.exit(main()) |
+ | T6 | not started | - | - |

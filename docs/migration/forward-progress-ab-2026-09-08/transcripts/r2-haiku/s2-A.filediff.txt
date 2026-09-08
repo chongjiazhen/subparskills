@@ -1,0 +1,12 @@
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-A/.pytest_cache/v/cache: lastfailed
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-A/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s2/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:45.773571800 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-A/.pytest_cache/v/cache/nodeids	2026-09-08 17:34:47.282873000 +0800
+@@ -1,4 +1,5 @@
+ [
++  "tests/test_cli.py::test_cli_processes_config",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-A/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r2-haiku/s2-A/tests: test_cli.py

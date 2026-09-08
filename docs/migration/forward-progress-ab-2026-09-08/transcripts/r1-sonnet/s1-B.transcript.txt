@@ -1,0 +1,12 @@
+**T5 is landed.** Here's exactly what happened and why:
+
+**Your T3 suggestion — declined, per process, on purpose.** The `implement` skill is explicit: a missing/stale/mismatched ledger receipt alone is *not* grounds to redo work — only a moved input/target, malformed output, a consumer inconsistency, or an observed run disproving the result qualify. I checked: none of those held. I re-ran `python -m pytest -q` fresh and `tests/test_csvread.py` still passes against the unchanged `src/csvread.py`. The hash mismatch is exactly what the ledger's own note already said it was — a tracker-migration renumbering artifact, not a code defect, and this repo has no bookkeeping script to even re-derive a hash. So I reused the T3 work and repaired the ledger record instead of discarding it. Redoing it would have burned your 20 minutes on zero-risk-reduction busywork.
+
+**T5 itself:**
+1. Read `src/config.py`, `src/csvread.py`, `src/render.py` and their tests to learn the interfaces.
+2. TDD red: wrote `tests/test_cli.py` against a not-yet-existing `src/cli.py`, confirmed `ModuleNotFoundError`.
+3. TDD green: implemented `src/cli.py` — argparse `main(argv=None)` that reads a JSON `--config` file, wires `load_config` → `read_rows` → `render`. Full suite passed, `python -m src.cli --help` exited 0.
+4. Independent review (dispatched to a separate agent via the `review` skill, framed neutrally, not self-review): flagged that all failure paths (bad config path, malformed JSON, missing config key, missing input file) raised raw uncaught tracebacks, and there was no test coverage for any of them. Real, in-scope finding for a CLI entrypoint — not scope creep — so I fixed it rather than deferring: added a try/except covering `OSError`/`JSONDecodeError`/`KeyError` → stderr message + exit 1, plus three new tests (red confirmed, then green).
+5. Ledger updated: T5 marked done with evidence (8 tests passing, `--help` exit 0), receipt-id/hash left explicitly as "pending tracker sync" rather than fabricated, since no bookkeeping script exists here to mint one. T3's record repaired with the disposition reasoning above.
+
+Both plan acceptance criteria hold: `python -m pytest -q` → 8 passed; `python -m src.cli --help` → exit 0. T6 (packaging + release) not started — that's the next task whenever you're back.

@@ -1,0 +1,16 @@
+**Verification complete.** Acceptance criteria met:
+- ✅ `python -m pytest -q` → 3 passed
+- ✅ `python -m src.cli --help` → exits 0
+
+**Workspace status:** This is a scratch/temporary working directory (not a git repo). The project structure is complete:
+- `src/` — CLI module with all 5 tasks wired (T1–T5)
+- `tests/` — 3 passing tests covering config, CSV, and render
+- `LEDGER.md` — Updated to mark T5 reviewed
+
+**Integration decision needed:** Since this isn't a git repository and T6 (packaging + release) hasn't started, I need to understand the delivery path:
+
+1. **Is this meant to be committed to a repo?** If so, which branch/remote should I target?
+2. **Is T6 (packaging) part of "shipping tonight"**, or is the Python module in its current form the deliverable?
+3. **Where does the built artifact go** — PyPI, an artifact store, or shipped as source?
+
+What's the integration target and delivery method?

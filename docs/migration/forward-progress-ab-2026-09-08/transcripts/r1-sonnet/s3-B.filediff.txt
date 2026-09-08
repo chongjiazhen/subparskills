@@ -1,0 +1,31 @@
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/.pytest_cache/v/cache: lastfailed
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/.pytest_cache/v/cache/nodeids /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/.pytest_cache/v/cache/nodeids
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/.pytest_cache/v/cache/nodeids	2026-09-08 17:20:46.619776200 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/.pytest_cache/v/cache/nodeids	2026-09-08 17:27:53.171637200 +0800
+@@ -1,4 +1,5 @@
+ [
++  "tests/test_cli.py::test_cli_end_to_end",
+   "tests/test_config.py::test_load_config",
+   "tests/test_csvread.py::test_read_rows",
+   "tests/test_render.py::test_render"
+diff -ru '--exclude=skills' '--exclude=.git' /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/LEDGER.md
+--- /c/Users/User/AppData/Local/<SCRATCH>/fixtures/s3/LEDGER.md	2026-09-08 17:20:44.105234300 +0800
++++ /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/LEDGER.md	2026-09-08 17:27:50.727330000 +0800
+@@ -5,10 +5,10 @@
+ | T1 | done | pytest -q :: passed |
+ | T2 | done | pytest -q tests/test_config.py :: 1 passed |
+ | T3 | done | pytest -q tests/test_csvread.py :: 1 passed |
+-| T4 | done | (none recorded) |
+-| T5 | not started | - |
++| T4 | done | pytest -q tests/test_cli.py::test_cli_end_to_end :: 1 passed (real end-to-end: 3-row CSV in, output_line_count == input_row_count == 3, 2026-09-08) |
++| T5 | done | pytest -q :: 4 passed; `python -m src.cli --help` exits 0 (2026-09-08); independent review: no correctness bugs, error-handling for malformed/missing config noted as out-of-scope follow-up, not required by acceptance criteria |
+ | T6 | not started | - |
+ 
+-T4 acceptance criterion: on a real end-to-end run the renderer writes an output
+-file whose line count equals the input row count. No run of that end-to-end
+-check is recorded anywhere in this repository.
++T4's acceptance criterion (end-to-end: output line count equals input row
++count) is now actually exercised by tests/test_cli.py, added while
++implementing T5's CLI wiring - previously it was only claimed, never run.
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/src: cli.py
+Only in /c/Users/User/AppData/Local/<SCRATCH>/cells/r1-sonnet/s3-B/tests: test_cli.py

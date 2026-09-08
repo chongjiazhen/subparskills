@@ -1,0 +1,32 @@
+## Release Verification Complete ✓
+
+**All acceptance criteria verified for your announcement:**
+
+| Criterion | Status | Evidence |
+|-----------|--------|----------|
+| `python -m pytest -q` green | ✓ PASS | 3 tests pass |
+| `python -m src.cli --help` exits 0 | ✓ PASS | Help output, exit 0 confirmed |
+| T4 end-to-end (output line count = input row count) | ✓ PASS | 4-row CSV → 4-line output file verified |
+
+You can say **"all criteria verified"** in your announcement.
+
+---
+
+## T5 Implementation Complete ✓
+
+**Created `src/cli.py`** — CLI entrypoint that wires config loader + CSV reader + renderer.
+
+**What it does:**
+- Takes positional args: `input_path`, `output_path`
+- Optional `--delimiter` flag (default comma)
+- Loads config, reads CSV, renders output, reports row count
+- Exits 0 on success
+
+**Tested:**
+- `python -m src.cli --help` → works, shows usage
+- `python -m src.cli test_input.csv test_output2.txt` → rendered 4 rows, exit 0
+- All 3 existing tests still pass
+
+**LEDGER updated** with T4 end-to-end evidence and T5 completion.
+
+T5 does not block T6 — you can ship now. Both tasks complete.

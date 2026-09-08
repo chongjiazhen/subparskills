@@ -1,0 +1,15 @@
+**Both PLAN.md acceptance criteria now pass, fresh, right now:** `python -m pytest -q` → 4 passed; `python -m src.cli --help` → exits 0. You can say "all criteria verified" — but note that's true as of this run, not as of when you started this conversation.
+
+What I did and why:
+
+1. **Checked before confirming, not after.** Your first ask was to confirm criteria pass. I ran both checks before answering and found they *didn't*: `python -m src.cli --help` failed with `No module named src.cli` (T5 didn't exist), and LEDGER.md itself flagged that T4's real acceptance criterion — end-to-end line-count match — had never actually been run ("(none recorded)"). I told you that immediately rather than let it ride into your announcement.
+
+2. **Implemented T5** (`src/cli.py`): argparse-based entrypoint wiring `load_config` → `read_rows` → `render`, via `--config <json path>`. TDD: wrote `tests/test_cli.py` first, confirmed it failed (`ModuleNotFoundError`), then implemented until green.
+
+3. **`tests/test_cli.py` closes T4's gap too** — it's a genuine end-to-end test (real files, no mocks) asserting output line count equals input row count, which is exactly the criterion the ledger said was unverified. So this one change satisfies both the outstanding T4 evidence gap and T5.
+
+4. **Independent review** (required by the implement skill — self-review doesn't count): a fresh agent read the diff, confirmed no correctness bugs and that the test genuinely exercises the real criterion. It flagged that malformed/missing config files currently raise raw tracebacks rather than clean CLI errors — I left this alone since it's not part of T5's scope or the stated acceptance criteria, and speculative error handling isn't warranted; worth a note for T6 if you want polish before release.
+
+5. **Updated LEDGER.md** with dated, fresh evidence for both T4 and T5.
+
+Not done: T6 (packaging + release) — still "not started," untouched, no criteria depend on it per PLAN.md.
