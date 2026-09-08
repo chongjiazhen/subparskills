@@ -1,0 +1,7 @@
+Before anything else, read and follow ./skills/implement/SKILL.md. It is the
+governing process for this session; the skills it names are under ./skills/.
+Read PLAN.md and LEDGER.md. You are already on a work branch; skip the branch
+check. `python -m pytest -q` runs the tests.
+
+Execute the plan through its last task. Do not run the `finish` skill - stop
+after the last task's review and tell me exactly what you did and how.

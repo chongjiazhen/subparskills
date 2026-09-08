@@ -10,7 +10,7 @@ Retrieved 2026-08-31T00:00:00Z. Pins re-verified at upstream HEAD 2026-09-01 (no
 | obra/superpowers: finishing-a-development-branch | b36e0829 | merge | finish | No default branch policy. 2026-09-02 re-audit: re-verify on the merged tree before cleanup, typed `discard` token, and no self-initiated force push reinstated. |
 | obra/superpowers: receiving-code-review | b36e0829 | merge | review | Consolidated review flow. 2026-09-02 re-audit: stop-and-confirm on a finding that reverses a prior explicit user decision reinstated. 2026-09-02: executed mutation check for new defensive branches - original curation from the maintainer's private harness, issue #1 (`results7.txt` cell B, differentiated on mechanism). |
 | obra/superpowers: requesting-code-review | b36e0829 | merge | review | Consolidated review flow. |
-| obra/superpowers: subagent-driven-development | b36e0829 | merge | parallel-execution | Harness-neutral dispatch. |
+| obra/superpowers: subagent-driven-development | b36e0829 | merge | parallel-execution, implement | Harness-neutral dispatch. The sequential one-subagent-per-task model landed in `implement` steps 2-3 on 2026-09-08 after a red-green A/B (`docs/migration/implement-dispatch-ab-2026-09-08.md`); the 2026-08-31 merge had kept only its rules and mapped the dispatch itself to fan-out. |
 | obra/superpowers: systematic-debugging | b36e0829 | merge | diagnose | Feedback-loop-first diagnosis. |
 | obra/superpowers: test-driven-development | b36e0829 | merge | tdd | Real-behavior red-green gate. |
 | obra/superpowers: using-git-worktrees | b36e0829 | adopt | worktrees | Generic Git only. |

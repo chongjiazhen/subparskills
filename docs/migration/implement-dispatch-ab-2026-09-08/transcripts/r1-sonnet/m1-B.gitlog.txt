@@ -1,0 +1,9 @@
+993ea3a chore(ledger): record T3 completion
+b5fa378 test(cli): cover missing --config guard
+957a572 feat(cli): wire config, reader, filter, renderer
+c33d0b0 chore(ledger): record T2 completion
+2f64815 feat(filter): drop all-empty rows
+5bc97b6 chore(ledger): record T1 completion
+91649df fix(render): force LF newlines, not platform default
+7d66ea7 feat(render): write rows to output_path
+b2c86ed fixture baseline

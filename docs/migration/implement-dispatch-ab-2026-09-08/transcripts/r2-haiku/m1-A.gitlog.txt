@@ -1,0 +1,4 @@
+55fa8e5 feat(cli): wire config, reader, filter, renderer
+7e1b24f feat(filter): drop all-empty rows
+743b4b9 feat(render): write rows to output_path
+b2c86ed fixture baseline
