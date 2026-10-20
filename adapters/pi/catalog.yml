@@ -8,6 +8,8 @@ skills:
     source: ../../skills/architecture-improvement/SKILL.md
   - id: claim-ticket
     source: ../../skills/claim-ticket/SKILL.md
+  - id: deepen
+    source: ../../skills/deepen/SKILL.md
   - id: deep-modules
     source: ../../skills/deep-modules/SKILL.md
   - id: diagnose

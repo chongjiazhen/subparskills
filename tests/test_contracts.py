@@ -17,6 +17,7 @@ EXPECTED_RESEARCH = {"research"}
 EXPECTED_DELIVERY = {
     "choose-skill",
     "grill",
+    "deepen",
     "plan",
     "implement",
     "handoff",
@@ -150,6 +151,22 @@ class FrameworkContracts(unittest.TestCase):
     def test_choose_skill_records_user_invocation_in_metadata(self) -> None:
         data = frontmatter(SKILLS / "choose-skill/SKILL.md")
         self.assertIn("invocation: user", data["metadata"])
+
+    def test_deepen_is_available_in_delivery_for_every_harness(self) -> None:
+        data = frontmatter(SKILLS / "deepen/SKILL.md")
+        self.assertIn("invocation: user", data["metadata"])
+        self.assertIn("  - deepen\n", (ROOT / "packs/delivery.yml").read_text())
+        for harness in EXPECTED_ADAPTERS:
+            with self.subTest(harness=harness), tempfile.TemporaryDirectory() as temp:
+                result = subprocess.run(
+                    [sys.executable, str(ROOT / "scripts/install_adapter.py"),
+                     "--harness", harness, "--pack", "delivery", "--destination", temp],
+                    capture_output=True, text=True, check=False,
+                )
+                self.assertEqual(0, result.returncode, result.stderr + result.stdout)
+                copies = list(Path(temp).rglob("deepen/SKILL.md"))
+                self.assertEqual(1, len(copies))
+                self.assertEqual((SKILLS / "deepen/SKILL.md").read_bytes(), copies[0].read_bytes())
 
     def test_readme_documents_private_overlay_boundary(self) -> None:
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -285,7 +302,7 @@ class FrameworkContracts(unittest.TestCase):
         )
         self.assertEqual(0, result.returncode, result.stderr + result.stdout)
         plain = re.sub(r"\x1b\[[0-9;?]*[A-Za-z]", "", result.stdout)
-        self.assertIn("Found 30 skills", plain)
+        self.assertIn(f"Found {len(list(SKILLS.glob('*/SKILL.md')))} skills", plain)
 
     def test_pack_install_selects_only_requested_skills(self) -> None:
         with tempfile.TemporaryDirectory(prefix="subparskills-pack-") as temp:

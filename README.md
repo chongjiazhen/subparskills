@@ -27,7 +27,7 @@ Replace `codex` with `claude-code`, `pi`, `opencode`, or `qwen`; omit `--pack` f
 ## Packs
 
 - `core`: `diagnose`, `tdd`, `verify`, `review`.
-- `delivery`: deliberate workflow skills, operator commands, a manual router, and opt-in productivity disciplines such as prompt repair and agent-facing writing.
+- `delivery`: deliberate workflow skills, operator commands, a manual router, and opt-in productivity disciplines such as prompt repair and agent-facing writing. Includes `deepen` for dogfooding: raise a task's method and evidence standard without expanding its scope; returns a rewritten prompt, not execution.
 - `architecture`: domain modeling and module depth.
 - `research`: source-grounded decision research, opt-in.
 - `tracker`: opt-in ticket workflow, separate from `delivery`.
