@@ -8,7 +8,7 @@ metadata: { pack: delivery, source: merge, invocation: user }
 
 # Choose Skill
 
-Use this when you are unsure which public skill fits. Route first, then invoke the chosen skill. Do not try to run a universal bootstrap or the full lifecycle by default.
+Use this when you are unsure which public skill fits. Naming a route is not executing it: invoke the chosen skill only when the operator also asks you to execute. Do not try to run a universal bootstrap or the full lifecycle by default.
 
 ## Routing Rules
 
@@ -16,6 +16,7 @@ Use this when you are unsure which public skill fits. Route first, then invoke t
 2. Pick one starting skill whose scope matches that immediate problem.
 3. If two skills are close, choose the narrower one and say why the other is not first.
 4. Stop after naming the route unless the operator also asked you to execute it.
+5. The route map suffices to select a skill. Before asserting what a skill contains, or advising that one of its steps can be skipped, read that skill's SKILL.md. Read only the skills in question, never all of them.
 
 ## Route Map
 
