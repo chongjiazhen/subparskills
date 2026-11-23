@@ -6,7 +6,8 @@ subagent entries and harness-injected context. Consecutive entries from one
 role merge into one numbered turn.
 
 Usage: python extract_transcript.py <session-id | transcript.jsonl | opencode.db> [--session ID] [--out PATH]
-Prints the extract path, format, the session's working directory, and counts.
+       python extract_transcript.py --latest [--cwd DIR] [--out PATH]
+Prints the extract path, source, format, the session's working directory, and counts.
 Exit 2: no transcript matches. Exit 3: unknown format or no conversation text -
 never hand an empty extract on as a brief's input.
 """
@@ -19,6 +20,7 @@ import re
 import sqlite3
 import sys
 import tempfile
+import time
 from pathlib import Path
 from typing import Iterator
 
@@ -28,6 +30,10 @@ CLAUDE_NOISE = ("<local-command-caveat>", "<local-command-stdout>", "[Request in
 # Codex injects AGENTS.md and <environment_context>-style blocks as user input_text.
 CODEX_NOISE = ("<", "# AGENTS.md instructions")
 SCAN_LINES = 50  # format markers sit in the first entries of every JSONL format
+CWD_SCAN_LINES = 200  # Claude Code can open with snapshot entries that carry no cwd
+# Default prompt-cache TTL: a session active more recently is still warm, so
+# resume beats a retroactive handoff - and the running session is always inside it.
+WARM_SECONDS = 5 * 60
 
 
 class FormatError(Exception):
@@ -51,18 +57,65 @@ def find_transcript(arg: str) -> tuple[Path, str | None] | None:
     if arg.startswith("ses_"):
         db = opencode_db()
         return (db, arg) if db.is_file() else None
-    codex = Path(os.environ.get("CODEX_HOME") or home() / ".codex")
-    patterns = [
-        (home() / ".claude" / "projects", f"*/{arg}.jsonl"),  # subagent files sit one level deeper
-        (home() / ".qwen" / "projects", f"*/chats/{arg}.jsonl"),
-        (home() / ".pi" / "agent" / "sessions", f"*/*_{arg}.jsonl"),
-        (home() / ".pi" / "agent" / "sessions", f"*/*/forks/*_{arg}.jsonl"),
-        (codex / "sessions", f"*/*/*/rollout-*{arg}.jsonl"),
-    ]
-    for root, pattern in patterns:
+    for root, pattern in store_patterns(arg):
         hits = sorted(root.glob(pattern))
         if hits:
             return hits[0], None
+    return None
+
+
+def store_patterns(session: str) -> list[tuple[Path, str]]:
+    """JSONL transcript globs per harness; session "*" matches every session."""
+    codex = Path(os.environ.get("CODEX_HOME") or home() / ".codex")
+    pi_root = home() / ".pi" / "agent" / "sessions"
+    return [
+        (home() / ".claude" / "projects", f"*/{session}.jsonl"),  # subagent files sit one level deeper
+        (home() / ".qwen" / "projects", f"*/chats/{session}.jsonl"),
+        (pi_root, f"*/*_{session}.jsonl"),
+        (pi_root, f"*/*/forks/*_{session}.jsonl"),
+        (codex / "sessions", f"*/*/*/rollout-*{session}.jsonl"),
+    ]
+
+
+def same_dir(a: str, b: str) -> bool:
+    return bool(a) and os.path.normcase(os.path.normpath(a)) == os.path.normcase(os.path.normpath(b))
+
+
+def jsonl_cwd(source: Path) -> str:
+    for i, entry in enumerate(jsonl(source)):
+        if i >= CWD_SCAN_LINES:
+            break
+        cwd = entry.get("cwd") or (entry.get("payload") or {}).get("cwd")
+        if cwd:
+            return cwd
+    return ""
+
+
+def find_latest(cwd: str, now: float) -> tuple[Path, str | None] | None:
+    """Most recently active session for cwd, skipping any still inside the cache window.
+
+    The window also skips the session running this script: it wrote its
+    transcript seconds ago.
+    """
+    cutoff = now - WARM_SECONDS
+    candidates: list[tuple[float, Path, str | None]] = []
+    for root, pattern in store_patterns("*"):
+        for path in root.glob(pattern):
+            mtime = path.stat().st_mtime
+            if mtime < cutoff:
+                candidates.append((mtime, path, None))
+    db = opencode_db()
+    if db.is_file():
+        conn = sqlite3.connect(f"file:{db.resolve().as_posix()}?mode=ro", uri=True)
+        try:
+            rows = conn.execute("SELECT id, directory, time_updated FROM session").fetchall()
+        finally:
+            conn.close()
+        candidates += [(updated / 1000, db, sid) for sid, directory, updated in rows
+                       if updated / 1000 < cutoff and same_dir(directory, cwd)]
+    for _, path, session_id in sorted(candidates, key=lambda c: c[0], reverse=True):
+        if session_id or same_dir(jsonl_cwd(path), cwd):
+            return path, session_id
     return None
 
 
@@ -228,14 +281,24 @@ def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    parser.add_argument("session", help="session id, transcript .jsonl, or opencode.db")
+    parser.add_argument("session", nargs="?", help="session id, transcript .jsonl, or opencode.db")
     parser.add_argument("--session", dest="session_id", help="OpenCode session id when passing a .db path")
+    parser.add_argument("--latest", action="store_true",
+                        help="newest session from any harness whose working directory is --cwd, idle 5+ minutes")
+    parser.add_argument("--cwd", default=os.getcwd(), help="directory for --latest (default: current)")
     parser.add_argument("--out", type=Path, help="extract path (default: system temp dir)")
     args = parser.parse_args()
+    if bool(args.session) == args.latest:
+        parser.error("pass exactly one of: a session, --latest")
 
-    found = find_transcript(args.session)
+    if args.latest:
+        found = find_latest(args.cwd, time.time())
+        missing = f"no session idle 5+ minutes found for {args.cwd}"
+    else:
+        found = find_transcript(args.session)
+        missing = f"no transcript found for {args.session}"
     if found is None:
-        print(f"no transcript found for {args.session}", file=sys.stderr)
+        print(missing, file=sys.stderr)
         return 2
     source, session_id = found
     session_id = args.session_id or session_id
@@ -252,6 +315,7 @@ def main() -> int:
     out.write_text(body + "\n", encoding="utf-8")
     users = sum(1 for role, _ in turns if role == "user")
     print(f"extract: {out}")
+    print(f"source: {source}" + (f" (session {session_id})" if session_id else ""))
     print(f"format: {fmt}")
     print(f"cwd: {cwd}")
     print(f"turns: {len(turns)} ({users} user), chars: {len(body)}, source bytes: {source.stat().st_size}")

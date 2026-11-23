@@ -2,11 +2,14 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import os
 import sqlite3
 import subprocess
 import sys
 import tempfile
+import time
 import unittest
+from unittest import mock
 from pathlib import Path
 
 
@@ -112,16 +115,18 @@ def qwen_entries() -> list[dict]:
     ]
 
 
-def opencode_db(directory: str) -> Path:
+def opencode_db(directory: str, updated_ms: int = 0) -> Path:
     path = Path(directory) / "opencode.db"
+    path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(path)
     conn.executescript(
-        "CREATE TABLE session (id text PRIMARY KEY, directory text);"
+        "CREATE TABLE session (id text PRIMARY KEY, directory text, time_updated integer);"
         "CREATE TABLE message (id text PRIMARY KEY, session_id text, time_created integer, data text);"
         "CREATE TABLE part (id text PRIMARY KEY, message_id text, session_id text, time_created integer, data text);"
         "CREATE TABLE account (id text PRIMARY KEY, access_token text);"
     )
-    conn.execute("INSERT INTO session VALUES ('ses_a', '/repo'), ('ses_other', '/elsewhere')")
+    conn.execute("INSERT INTO session VALUES ('ses_a', '/repo', ?), ('ses_other', '/elsewhere', ?)",
+                 (updated_ms, updated_ms + 60_000))
     conn.execute("INSERT INTO account VALUES ('acc', 'TOKEN')")
     messages = [("m1", "ses_a", 1, "user"), ("m2", "ses_a", 2, "assistant"), ("m3", "ses_a", 3, "user"),
                 ("m9", "ses_other", 0, "user")]
@@ -189,6 +194,35 @@ class HandoffExtractTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             with self.assertRaises(EXTRACTOR.FormatError):
                 EXTRACTOR.extract(opencode_db(tmp), "ses_missing")
+
+    def test_latest_picks_newest_idle_session_for_cwd_across_harnesses(self) -> None:
+        now = time.time()
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+
+            def session(rel: str, entries: list[dict], age: float) -> Path:
+                path = root / rel
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("\n".join(json.dumps(e) for e in entries) + "\n", encoding="utf-8")
+                os.utime(path, (now - age, now - age))
+                return path
+
+            session(".claude/projects/r/old.jsonl", claude_entries(), 3600)
+            session(".claude/projects/r/current.jsonl", claude_entries(), 10)  # the running session
+            elsewhere = [dict(e, cwd="/elsewhere") for e in qwen_entries()]
+            session(".qwen/projects/e/chats/q.jsonl", elsewhere, 400)  # newest idle, wrong cwd
+            pi_path = session(".pi/agent/sessions/--repo--/2026-01-01T00-00-00-000Z_p.jsonl", pi_entries(), 600)
+            db = opencode_db(str(root / "share" / "opencode"), int((now - 1200) * 1000))
+            env = {"XDG_DATA_HOME": str(root / "share"), "CODEX_HOME": str(root / ".codex")}
+            with mock.patch.object(EXTRACTOR, "home", lambda: root), mock.patch.dict(os.environ, env):
+                self.assertEqual(EXTRACTOR.find_latest("/repo", now), (pi_path, None))
+                os.utime(pi_path, (now - 7200, now - 7200))
+                self.assertEqual(EXTRACTOR.find_latest("/repo/", now), (db, "ses_a"))
+                with sqlite3.connect(db) as conn:  # a warm OpenCode session is skipped too
+                    conn.execute("UPDATE session SET time_updated = ?", (int((now - 10) * 1000),))
+                conn.close()
+                self.assertEqual(EXTRACTOR.find_latest("/repo", now)[0].name, "old.jsonl")
+                self.assertIsNone(EXTRACTOR.find_latest("/nowhere", now))
 
 
 if __name__ == "__main__":
